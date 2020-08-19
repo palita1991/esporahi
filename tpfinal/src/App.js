@@ -1,16 +1,17 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import NavLeft from "./component/NavLeft";
 
 function App() {
   return (
     <div className="App">
       {/*Menú top*/}
-      <div className="container">
+      <div className="container main_content">
         <div className="row">
           <Router>
-            <div className="col-lg-3 col-12 d-lg-block d-none">
-              {/*Menú lateral*/}
+            <div className="col-lg-3 col-12 d-lg-block d-none ">
+              <NavLeft />
             </div>
             <div className="col-lg-9 col-12 principal">
               <Switch>
