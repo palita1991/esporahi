@@ -3,20 +3,21 @@ import { BrowserRouter as Link } from "react-router-dom";
 
 export default function Lista() {
   return (
-    <div class="list-group ">
+    <div class="btn-group-vertical d-flex justify-content-center  ">
+      {/*Aca comienza el for*/}
       <Link to="/categoria/:$id" className="link">
         <button
           type="button"
-          className="list-group-item list-group-item-action"
+          className="btn btn-outline-dark my-1 w-75 mx-auto btn-sm "
         >
           General
         </button>
       </Link>
-
+      {/*Aca termina el for*/}
       <Link to="/categoria/:$id" className="link">
         <button
           type="button"
-          className="list-group-item list-group-item-action"
+          className="btn btn-outline-dark my-1 w-75 mx-auto btn-sm"
         >
           WTF
         </button>
@@ -24,7 +25,7 @@ export default function Lista() {
       <Link to="/categoria/:$id" className="link">
         <button
           type="button"
-          className="list-group-item list-group-item-action "
+          className="btn btn-outline-dark my-1 w-75 mx-auto btn-sm"
         >
           Deportes
         </button>
@@ -33,7 +34,7 @@ export default function Lista() {
       <Link to="/categoria/:$id" className="link">
         <button
           type="button"
-          className="list-group-item list-group-item-action "
+          className="btn btn-outline-dark my-1 w-75 mx-auto btn-sm "
         >
           Politica
         </button>
@@ -42,9 +43,18 @@ export default function Lista() {
       <Link to="/categoria/:$id" className="link">
         <button
           type="button"
-          className="list-group-item list-group-item-action "
+          className="btn btn-outline-dark my-1 w-75 mx-auto btn-sm"
         >
           Comidas
+        </button>
+      </Link>
+
+      <Link to="/categoria/:$id" className="link">
+        <button
+          type="button"
+          className="btn btn-outline-dark my-1 w-75 mx-auto btn-sm"
+        >
+          Random
         </button>
       </Link>
     </div>
