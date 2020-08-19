@@ -5,3 +5,11 @@
 .principal {
   height: 100vh !important;
 }
+
+nav {
+  background-color: whitesmoke;
+}
+
+.main_content {
+  margin-top: 70px;
+}
