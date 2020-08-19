@@ -5,7 +5,7 @@ import NavLeft from "./NavLeft";
 
 export default function NavTop() {
   return (
-    <nav className="navbar fixed-top navbar-expand-lg navbar-ligth bg-ligth border border-bottom  ">
+    <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light border border-bottom  ">
       <a className="navbar-brand" href="#">
         <img src={logo} width="140" alt="" />
       </a>
