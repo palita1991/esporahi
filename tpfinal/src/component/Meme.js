@@ -57,45 +57,6 @@ export default function Meme() {
         </div>
       </div>
       {/* Fin Card que contiene el meme*/}
-      {/*Card que contiene el textarea del comentario*/}
-      <div className="card text-left my-1 shadow">
-        <div className="card-body py-0 px-2">
-          <div className="form-group">
-            <label htmlFor="exampleFormControlTextarea1">
-              Escribir comentarios
-            </label>
-            <textarea
-              className="form-control"
-              id="exampleFormControlTextarea1"
-              rows="2"
-            ></textarea>
-          </div>
-        </div>
-        <div className="card-footer text-muted d-flex justify-content-end px-0 py-2">
-          <button className="btn btn-info btn-sm font-weight-bold text-uppercase mr-2">
-            comment
-          </button>
-        </div>
-      </div>
-      {/*Fin Card que contiene el textarea del comentario*/}
-      {/*Listado de comentarios*/}
-      <h4 className="text-left my-3">Comentarios</h4>
-      {/*Comienzo del for de comentarios*/}
-      <div className="list-group">
-        <div className="list-group-item flex-column align-items-start my-1">
-          <div className="d-flex w-100 justify-content-between">
-            <h6 className="mb-1">Nombre usuario</h6>
-            <small>
-              <FontAwesomeIcon icon={faThumbsUp} size="lg" color="dark" /> 5
-            </small>
-          </div>
-          <p className="text-left">
-            Donec id elit non mi porta gravida at eget metus. Maecenas sed diam
-            eget risus varius blandit.
-          </p>
-        </div>
-      </div>
-      {/*Fin del for de comentarios*/}
     </div>
   );
 }
