@@ -1,5 +1,9 @@
-.App {
-  text-align: center;
+.navLeft {
+  height: calc(100vh - 70px) !important;
+}
+
+.principal {
+  height: calc(100vh - 70px) !important;
 }
 
 nav {
@@ -8,4 +12,10 @@ nav {
 
 .main_content {
   margin-top: 70px;
+}
+
+@media (max-width: 991.98px) {
+  #navbarToggler button {
+    width: 50% !important;
+  }
 }
