@@ -6,39 +6,49 @@ import MemeList from "./component/MemeList";
 import NavLeft from "./component/NavLeft";
 import NavTop from "./component/NavTop";
 
-function App() {
-  return (
-    <div className="App">
-      {/*Menú top*/}
-      <div className="container main_content">
-        <NavTop />
-        <div className="row">
-          <Router>
-            <div className="col-lg-3 col-12 d-lg-block d-none ">
-              <NavLeft />
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+  render() {
+    return (
+      <div className="App">
+        {/*Menú top*/}
+        <Router>
+          <NavTop />
+          <div className="container main_content">
+            <div className="row">
+              <div className="col-lg-3 col-12 d-lg-block d-none">
+                <NavLeft />
+              </div>
+              <div className="col-lg-9 col-12 principal overflow-auto">
+                <Switch>
+                  <Route path="/create">{/*Listado categoría por id*/}</Route>
+                  <Route path="/meme/:id" component={MemeList}>
+                    <Meme />
+                  </Route>
+                  <Route path="/category/:id">
+                    {/*Listado categoría por id*/}
+                  </Route>
+                  <Route path="/profile">
+                    {/*Meme por id con todos sus detalles*/}
+                  </Route>
+                  <Route path="/register">
+                    {/*Meme por id con todos sus detalles*/}
+                  </Route>
+                  <Route path="/">
+                    <MemeList />
+                    {/*Página principal*/}
+                  </Route>
+                </Switch>
+              </div>
             </div>
-            <div className="col-lg-9 col-12 principal overflow-auto">
-              <Switch>
-                <Route path="/meme/:id" component={MemeList}>
-                  <Meme />
-                </Route>
-                <Route path="/category/:id">
-                  {/*Listado categoría por id*/}
-                </Route>
-                <Route path="/register">
-                  {/*Meme por id con todos sus detalles*/}
-                </Route>
-                <Route path="/">
-                  <MemeList />
-                  {/*Página principal*/}
-                </Route>
-              </Switch>
-            </div>
-          </Router>
-        </div>
+          </div>
+        </Router>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default App;
