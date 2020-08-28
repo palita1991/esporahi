@@ -9,8 +9,27 @@ import NavTop from "./component/NavTop";
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { memes: 0 };
   }
+
+  componentWillMount() {
+    fetch("http://localhost:8080/memes")
+      .then((response) => {
+        return response.json();
+      })
+      .then((memes) => {
+        this.setState({ memes });
+      });
+  }
+
+  mostrar = () => {
+    if (this.state.memes.length > 0) {
+      return <MemeList memes={this.state.memes} />;
+    } else {
+      return <p className="text-center">Cargando memes...</p>;
+    }
+  };
+
   render() {
     return (
       <div className="App">
@@ -38,7 +57,7 @@ class App extends React.Component {
                     {/*Meme por id con todos sus detalles*/}
                   </Route>
                   <Route path="/">
-                    <MemeList />
+                    {this.mostrar()}
                     {/*Página principal*/}
                   </Route>
                 </Switch>
