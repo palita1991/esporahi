@@ -1,8 +1,6 @@
 import express from 'express';
 import { helpers } from '../helpers';
 import { model } from '../esquemas/esquemas';
-const multer = require('multer')
-const upload = multer({ dest: 'uploads/' })
 
 const router = express.Router();
 
@@ -21,8 +19,18 @@ router.get('/:id', async function (req, res) {
 
 
 /* Inserta un meme a la base de datos */
-router.post('/', upload.single('foto'), async function (req, res) {
+router.post('/', async function (req, res) {
+
     console.log(req.file);
+
+    const { categoria, titulo, usuario } = req.body;
+    const { foto } = req.file.path;
+    new model.modelMeme({
+        categoria,
+        titulo,
+        foto,
+        usuario
+    });
     const resultInsert = await helpers.postCollection(model.modelMeme, req.body);
     res.json(resultInsert);
 });
