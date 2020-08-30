@@ -19,18 +19,22 @@ app.use((req, res, next) => {
     res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
     next();
 });
+// app.use(multer({
+//     dest: path.join(__dirname, 'public/uploads'),
+
+// }).single('foto'));
+
 // middleware , esto ejecuta antes para dejar la ruta lista para guardar las fotos 
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads')
-    },
+    destination: path.join(__dirname, '../public/uploads'),
     filename: (req, file, cb, filename) => {
+        console.log("linea 30");
         cb(null, uuid.v4() + path.extname(file.originalname));
     }
 })
 //recordar que el id del frontend para cargar el archivo tiene que tener el mismo nombre en este caso foto
 app.use(multer({ storage }).single('foto'));
-
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/memes', memeRoutes);
 app.use('/usuario', usuarioRoutes);
