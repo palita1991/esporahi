@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import memeRoutes from './controllers/meme';
 import usuarioRoutes from './controllers/usuario';
 import categoriaRoutes from './controllers/categoria';
-import uuid from 'uuid';
+const uuid = require('uuid');
 import path from 'path';
 import multer from 'multer';
 
