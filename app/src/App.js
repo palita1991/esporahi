@@ -17,18 +17,18 @@ class App extends React.Component {
         {/*Menú top*/}
         <Router>
           <NavTop />
-          <div className="container main_content">
-            <div className="row">
-              <div className="col-lg-3 col-12 d-lg-block d-none">
+          <div className="container main">
+            <div className="row rounded-lg main_content">
+              <div className="col-lg-3 col-12 d-lg-block d-none navleft rounded-lg">
                 <NavLeft />
               </div>
-              <div className="col-lg-9 col-12 principal overflow-auto">
+              <div className="col-lg-9 col-12 list_content overflow-auto rounded-lg">
                 <Switch>
                   <Route path="/create">{/*Listado categoría por id*/}</Route>
                   <Route path="/meme/:id" component={MemeList}>
                     <Meme />
                   </Route>
-                  <Route path="/category/:id">
+                  <Route path="/category/:id" component={MemeList}>
                     {/*Listado categoría por id*/}
                   </Route>
                   <Route path="/profile">

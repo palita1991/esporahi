@@ -1,17 +1,76 @@
-.navLeft {
+/*MENU*/
+.navleft {
   height: calc(100vh - 70px) !important;
+  background: #1f5dd965;
 }
 
-.principal {
-  height: calc(100vh - 70px) !important;
-}
-
-nav {
-  background-color: whitesmoke;
+/*MAIN*/
+.main {
+  margin-top: 70px;
 }
 
 .main_content {
-  margin-top: 70px;
+  border: 1px solid #1f5dd9;
+}
+
+.list_content {
+  height: calc(100vh - 70px) !important;
+}
+
+/*CATEGORY*/
+.category_button {
+  background: #ffffff;
+}
+
+.category_button:hover {
+  background: #1f5dd9;
+  color: #ffffff;
+}
+
+/*MEME*/
+.title_meme {
+  background: #1f5dd965;
+}
+
+.footer_meme {
+  background: #1f5dd965;
+}
+
+.button_positive {
+  border: 2px solid #ffffff;
+}
+
+.button_negative {
+  border: 2px solid #ffffff;
+}
+
+.card_comment_footer {
+  background: transparent;
+  border: none;
+}
+
+.card_comment_footer button {
+  background: #1f5dd990;
+  border: 1px solid #1f5dd9;
+}
+
+.card_comment_footer button:hover {
+  background: #1f5dd9;
+}
+
+.comment_user {
+  background: #1f5dd965;
+}
+
+
+/*MODAL LOGIN*/
+
+.modal_body{
+  background: #1f5dd965;
+}
+
+.icon_modal{
+  color: #1f5dd9;
 }
 
 @media (max-width: 991.98px) {
