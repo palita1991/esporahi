@@ -1,82 +1,77 @@
 import React from "react";
+import Swal from "sweetalert2";
 import { Modal } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faSignInAlt} from "@fortawesome/free-solid-svg-icons";
+import { faSignInAlt } from "@fortawesome/free-solid-svg-icons";
 
-const emailRegex = RegExp(
-  /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
-);
-
-const formValid = ({ formErrors, ...rest }) => {
-  let valid = true;
-
-  // validate form errors being empty
-  Object.values(formErrors).forEach((val) => {
-    val.length > 0 && (valid = false);
-  });
-
-  // validate the form was filled out
-  Object.values(rest).forEach((val) => {
-    val === null && (valid = false);
-  });
-
-  return valid;
-};
-
-class Register extends React.Component {
+export default class Login extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      email: null,
-      password: null,
-      formErrors: {
-        email: "",
-        password: "",
-      },
+      password: "",
+      email: "",
       showHide: false,
     };
+    this.handleChange = this.handleChange.bind(this);
   }
+
   handleModalShowHide() {
     this.setState({ showHide: !this.state.showHide });
   }
 
-  handleSubmit = (e) => {
-    e.preventDefault();
+  handleValidation() {
+    let email = this.state.email;
+    let password = this.state.password;
+    let errors = {};
+    let formIsValid = true;
 
-    if (formValid(this.state)) {
+    // Corroborar con BD
+    if (!email) {
+      formIsValid = false;
+    }
+
+    // Corroborar con BD
+    if (!password) {
+      formIsValid = false;
+    }
+
+    this.setState({ errors: errors });
+    return formIsValid;
+  }
+
+  contactSubmit(e) {
+    e.preventDefault();
+    if (this.handleValidation()) {
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Bienvenido",
+        showConfirmButton: false,
+        timer: 1500,
+      });
       this.handleModalShowHide();
       this.props.setVistaActual("stateLogin");
     } else {
-      
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Email o password incorrectos",
+        showConfirmButton: true,
+        timer: 3500,
+      });
     }
-  };
+  }
 
-  handleChange = (e) => {
-    e.preventDefault();
-    const { name, value } = e.target;
-    let formErrors = { ...this.state.formErrors };
-
-    switch (name) {
-      case "email":
-        formErrors.email = emailRegex.test(value)
-          ? ""
-          : "Email no valido";
-        break;
-      case "password":
-        formErrors.password =
-          value.length < 6 ? "Requerido 6 caracteres" : "";
-        break;
-      default:
-        break;
+  handleChange(event) {
+    if (event.target.name === "email") {
+      this.setState({ email: event.target.value });
+    } else {
+      this.setState({ password: event.target.value });
     }
-
-    this.setState({ formErrors, [name]: value }, () => console.log(this.state));
-  };
+  }
 
   render() {
-    const { formErrors } = this.state;
-
     return (
       <div>
         <li>
@@ -96,62 +91,58 @@ class Register extends React.Component {
               className="col-12"
               onClick={() => this.handleModalShowHide()}
             >
-            <div className="container-fluid d-flex justify-content-center">
-                        <FontAwesomeIcon
-                        className="icon_modal"
-                        icon={faSignInAlt}
-                        size="3x"
-                        />
-                    </div>
+              <div className="container-fluid d-flex justify-content-center">
+                <FontAwesomeIcon
+                  className="icon_modal"
+                  icon={faSignInAlt}
+                  size="3x"
+                />
+              </div>
             </Modal.Header>
             <Modal.Body className="modal_body">
-              <form onSubmit={this.handleSubmit} noValidate>
+              <form onSubmit={this.contactSubmit.bind(this)}>
                 <div className="container">
-                    <div className="row">
-                        <div className="col-12">
-                            <div className="form-group">
-                                <label htmlFor="email">Email</label>
-                                <input
-                                    className="form-control"
-                                    placeholder="Email"
-                                    type="email"
-                                    name="email"
-                                    noValidate
-                                    onChange={this.handleChange}
-                                />
-                                {formErrors.email.length > 0 && (
-                                    <small className="errorMessage text-danger font-weight-bold">{formErrors.email}</small>
-                                )}
-                            </div>
-                        </div>
-                        <div className="col-12">
-                            <div className="form-group">
-                                <label htmlFor="password">Password</label>
-                                <input
-                                    className="form-control"
-                                    placeholder="Password"
-                                    type="password"
-                                    name="password"
-                                    noValidate
-                                    onChange={this.handleChange}
-                                />
-                                {formErrors.password.length > 0 && (
-                                    <small className="errorMessage text-danger font-weight-bold">{formErrors.password}</small>
-                                )}
-                            </div>
-                        </div>
-                        <div className="col-12 d-flex justify-content-center">
-                          <button
-                      className="btn btn-secondary float-right mr-1"
-                      type="button"
-                      onClick={() => this.handleModalShowHide()}
-                    >
-                      Cerrar
-                      <span aria-hidden="true"></span>
-                    </button>
-                            <button type="submit" className="btn btn-primary" >Login</button>
-                        </div>
+                  <div className="row">
+                    <div className="col-12">
+                      <div className="form-group">
+                        <label htmlFor="email">Email</label>
+                        <input
+                          className="form-control"
+                          placeholder="Email"
+                          type="email"
+                          name="email"
+                          onChange={this.handleChange}
+                          value={this.state.email}
+                        />
+                      </div>
                     </div>
+                    <div className="col-12">
+                      <div className="form-group">
+                        <label htmlFor="password">Password</label>
+                        <input
+                          className="form-control"
+                          placeholder="Password"
+                          type="password"
+                          name="password"
+                          onChange={this.handleChange}
+                          value={this.state.password}
+                        />
+                      </div>
+                    </div>
+                    <div className="col-12 d-flex justify-content-center">
+                      <button
+                        className="btn btn-secondary float-right mr-1"
+                        type="button"
+                        onClick={() => this.handleModalShowHide()}
+                      >
+                        Cerrar
+                        <span aria-hidden="true"></span>
+                      </button>
+                      <button type="submit" className="btn btn-primary">
+                        Login
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </form>
             </Modal.Body>
@@ -161,4 +152,3 @@ class Register extends React.Component {
     );
   }
 }
-export default Register;

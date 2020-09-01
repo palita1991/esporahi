@@ -4,51 +4,22 @@ import logo from "../img/logo_esporahi.png";
 import NavLeft from "./NavLeft";
 import Login from "./Login";
 
-export default class NavTop extends React.Component{
+export default class NavTop extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      vistaActual: "logout",
+      vistaActual: "stateLogout",
     };
   }
-  
-   setVistaActual = (vista) => {
-    const newState = { vistaActual: vista };
 
+  setVistaActual = (vista) => {
+    const newState = { vistaActual: vista };
     this.setState(newState);
   };
 
-  cambiarVista(){
-    const { vistaActual } = this.state;
-    switch (vistaActual) {
-      case "stateLogin":
-      document.getElementById("login").classList.add("d-none");
-      document.getElementById("signUp").classList.add("d-none");
-      document.getElementById("createMeme").classList.add("d-block");
-      document.getElementById("nameUser").classList.add("d-block");
-      document.getElementById("logout").classList.add("d-block");
-        break;
-      case "stateLogout":
-      document.getElementById("login").classList.add("d-block");
-      document.getElementById("signUp").classList.add("d-block");
-      document.getElementById("createMeme").classList.remove("d-block");
-      document.getElementById("createMeme").classList.add("d-none");
-      document.getElementById("nameUser").classList.remove("d-block");
-      document.getElementById("nameUser").classList.add("d-none");
-      document.getElementById("logout").classList.remove("d-block");
-      document.getElementById("logout").classList.add("d-none");
-        break;
-      default:
-        break;
-    }
-  }
-
   render() {
-
-  this.cambiarVista();
-  
-  return (
-      <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light border border-bottom navtop rounded-pill">
+    return (
+      <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light border border-bottom navtop rounded">
         <Link to="/" className="link">
           <div className="navbar-brand">
             <img src={logo} width="140" alt="logo" />
@@ -69,40 +40,47 @@ export default class NavTop extends React.Component{
 
         <div className="collapse navbar-collapse" id="navbarToggler">
           <ul className="navbar-nav ml-auto mt-2 mt-lg-0 text-center">
-            
-            <li className="nav-item active mx-2 my-1 d-none" id="createMeme">
-              <Link to="/create" className="link">
-                <button className="btn btn-outline-secondary py-2 btn-sm">
-                  +meme
-                </button>
-              </Link>
-            </li>
-            <li className="nav-item active mx-2 my-1 d-none" id="nameUser">
-              <Link to="/profile" className="link">
-                <button className="btn btn-outline-secondary py-2 btn-sm">
-                  profile
-                </button>
-              </Link>
-            </li>
-
-            <li className="nav-item active mx-2 my-1" id="login">
-              <Login setVistaActual={this.setVistaActual}/>
-            </li>
-
-            <li className="nav-item active mx-2 my-1" id="signUp">
-              <button className="btn btn-outline-secondary py-2 btn-sm">
-                Sign up
-              </button>
-            </li>
-
-            <li className="nav-item active mx-2 my-1 d-none" id="logout">
-              <Link to="/" className="link">
-                <button className="btn btn-outline-secondary py-2 btn-sm" onClick={() => {this.setVistaActual("stateLogout");}}>
-                  Log out
-                </button>
-              </Link>
-            </li>
-
+            {this.state.vistaActual === "stateLogin" ? (
+              <>
+                <li className="nav-item active mx-2 my-1" id="createMeme">
+                  <Link to="/create" className="link">
+                    <button className="btn btn-outline-secondary py-2 btn-sm">
+                      +meme
+                    </button>
+                  </Link>
+                </li>
+                <li className="nav-item active mx-2 my-1" id="nameUser">
+                  <Link to="/profile" className="link">
+                    <button className="btn btn-outline-secondary py-2 btn-sm">
+                      profile
+                    </button>
+                  </Link>
+                </li>
+                <li className="nav-item active mx-2 my-1" id="logout">
+                  <Link to="/" className="link">
+                    <button
+                      className="btn btn-outline-secondary py-2 btn-sm"
+                      onClick={() => {
+                        this.setVistaActual("stateLogout");
+                      }}
+                    >
+                      Log out
+                    </button>
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <>
+                <li className="nav-item active mx-2 my-1" id="login">
+                  <Login setVistaActual={this.setVistaActual} />
+                </li>
+                <li className="nav-item active mx-2 my-1" id="signUp">
+                  <button className="btn btn-outline-secondary py-2 btn-sm">
+                    Sign up
+                  </button>
+                </li>
+              </>
+            )}
             <Link to="/categoria/:id" className="link">
               <div className=" d-lg-none d-xs-block " id="navbarToggler">
                 <li className="nav-item dropdown">
