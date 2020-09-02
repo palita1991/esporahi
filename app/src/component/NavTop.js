@@ -2,18 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import logo from "../img/logo_esporahi.png";
 import NavLeft from "./NavLeft";
-import Modal from "react-bootstrap/Modal";
+import { Modal } from "react-bootstrap";
+import Register from "./Register";
 
 export default function NavTop() {
-  const [isOpen, setIsOpen] = React.useState(false);
-
-  const showModal = () => {
-    setIsOpen(true);
-  };
-
-  const hideModal = () => {
-    setIsOpen(false);
-  };
+  const [loginIsOpen, setloginIsOpen] = React.useState(false);
 
   return (
     <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light border border-bottom navtop">
@@ -37,14 +30,16 @@ export default function NavTop() {
 
       <div className="collapse navbar-collapse" id="navbarToggler">
         <ul className="navbar-nav ml-auto mt-2 mt-lg-0 text-center">
-          <li className="nav-item active mx-2 my-1 d-none">
+          <li className="nav-item active mx-2 my-1 ">
             <Link to="/create" className="link">
-              <button className="btn btn-outline-secondary py-2 btn-sm">
+              <button
+                className="btn btn-outline-secondary py-2 btn-sm d-none"
+                id="crearMeme"
+              >
                 +meme
               </button>
             </Link>
           </li>
-
           <li className="nav-item active mx-2 my-1 d-none">
             <Link to="/profile" className="link">
               <button className="btn btn-outline-secondary py-2 btn-sm">
@@ -52,15 +47,20 @@ export default function NavTop() {
               </button>
             </Link>
           </li>
-
           <li className="nav-item active mx-2 my-1">
             <button
               className="btn btn-outline-secondary py-2 btn-sm"
-              onClick={showModal}
+              onClick={() => setloginIsOpen(!loginIsOpen)}
+              id="loginID"
             >
               Log in
             </button>
-            <Modal show={isOpen} onHide={hideModal} centered size="lg">
+            <Modal
+              show={loginIsOpen}
+              onHide={() => setloginIsOpen(!loginIsOpen)}
+              centered
+              size="lg"
+            >
               <Modal.Header closeButton>
                 <Modal.Title>Login</Modal.Title>
               </Modal.Header>
@@ -69,20 +69,8 @@ export default function NavTop() {
             </Modal>
           </li>
 
-          <li className="nav-item active mx-2 my-1">
-            <button
-              className="btn btn-outline-secondary py-2 btn-sm"
-              onClick={showModal}
-            >
-              Sign up
-            </button>
-            <Modal show={isOpen} onHide={hideModal} centered size="lg">
-              <Modal.Header closeButton>
-                <Modal.Title>Register</Modal.Title>
-              </Modal.Header>
-              <Modal.Body>informacion</Modal.Body>
-              <Modal.Footer>boton</Modal.Footer>
-            </Modal>
+          <li>
+            <Register />
           </li>
 
           <li className="nav-item active mx-2 my-1 d-none">
@@ -92,7 +80,6 @@ export default function NavTop() {
               </button>
             </Link>
           </li>
-
           <Link to="/categoria/:id" className="link">
             <div className=" d-lg-none d-xs-block " id="navbarToggler">
               <li className="nav-item dropdown">
