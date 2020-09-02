@@ -43,13 +43,6 @@ export default class Login extends React.Component {
   contactSubmit(e) {
     e.preventDefault();
     if (this.handleValidation()) {
-      /*       Swal.fire({
-        position: "center",
-        icon: "success",
-        title: "Bienvenido",
-        showConfirmButton: false,
-        timer: 1500,
-      }); */
       Swal.fire({
         title: "¡Bienvenidos!",
         imageUrl: logo,
