@@ -9,7 +9,7 @@ import NavTop from "./component/NavTop";
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { memes: 0 };
+    this.state = { memes: 0, category: 0 };
   }
 
   componentWillMount() {
@@ -20,9 +20,22 @@ class App extends React.Component {
       .then((memes) => {
         this.setState({ memes });
       });
+    fetch("http://localhost:8080/categoria")
+      .then((response) => {
+        return response.json();
+      })
+      .then((category) => {
+        this.setState({ category });
+      });
   }
 
-  mostrar = () => {
+  showCategoriesList = () => {
+    if (this.state.category.length > 0) {
+      return <NavLeft categories={this.state.category} />;
+    }
+  };
+
+  showMemeList = () => {
     if (this.state.memes.length > 0) {
       return <MemeList memes={this.state.memes} />;
     } else {
@@ -36,10 +49,10 @@ class App extends React.Component {
         {/*Menú top*/}
         <Router>
           <NavTop />
-          <div className="container main">
-            <div className="row rounded-lg main_content">
-              <div className="col-lg-2 col-12 d-lg-block d-none navleft rounded-lg position-fixed">
-                <NavLeft />
+          <div className="container main_content">
+            <div className="row">
+              <div className="col-lg-3 col-12 d-lg-block d-none">
+                {this.showCategoriesList()}
               </div>
               <div className="col-lg-10 col-12 list_content rounded-lg position-relative">
                 <Switch>
@@ -57,7 +70,7 @@ class App extends React.Component {
                     {/*Meme por id con todos sus detalles*/}
                   </Route>
                   <Route path="/">
-                    {this.mostrar()}
+                    {this.showMemeList()}
                     {/*Página principal*/}
                   </Route>
                 </Switch>
