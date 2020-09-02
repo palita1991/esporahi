@@ -3,6 +3,13 @@ import { Link } from "react-router-dom";
 import logo from "../img/logo_esporahi.png";
 import NavLeft from "./NavLeft";
 import Login from "./Login";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPlus,
+  faSignOutAlt,
+  faUserAlt,
+  faUserPlus,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default class NavTop extends React.Component {
   constructor(props) {
@@ -19,7 +26,7 @@ export default class NavTop extends React.Component {
 
   render() {
     return (
-      <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light border border-bottom navtop rounded">
+      <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light border border-bottom navtop rounded shadow ">
         <Link to="/" className="link">
           <div className="navbar-brand">
             <img src={logo} width="140" alt="logo" />
@@ -44,27 +51,41 @@ export default class NavTop extends React.Component {
               <>
                 <li className="nav-item active mx-2 my-1" id="createMeme">
                   <Link to="/create" className="link">
-                    <button className="btn btn-outline-secondary py-2 btn-sm">
-                      +meme
+                    <button className="btn btn-outline-primary py-2 btn-sm text-uppercase font-weight-bold rounded-pill">
+                      <FontAwesomeIcon
+                        className="mr-2"
+                        icon={faPlus}
+                        size="lg"
+                      />
+                      meme
                     </button>
                   </Link>
                 </li>
                 <li className="nav-item active mx-2 my-1" id="nameUser">
                   <Link to="/profile" className="link">
-                    <button className="btn btn-outline-secondary py-2 btn-sm">
-                      profile
+                    <button className="btn btn-outline-secondary py-2 btn-sm disabled text-uppercase font-weight-bold rounded-pill">
+                      <FontAwesomeIcon
+                        className="mr-2"
+                        icon={faUserAlt}
+                        size="lg"
+                      />
+                      Felipe
                     </button>
                   </Link>
                 </li>
                 <li className="nav-item active mx-2 my-1" id="logout">
                   <Link to="/" className="link">
                     <button
-                      className="btn btn-outline-secondary py-2 btn-sm"
+                      className="btn btn-outline-danger py-2 btn-sm text-uppercase font-weight-bold rounded"
                       onClick={() => {
                         this.setVistaActual("stateLogout");
                       }}
                     >
-                      Log out
+                      <FontAwesomeIcon
+                        className=""
+                        icon={faSignOutAlt}
+                        size="lg"
+                      />
                     </button>
                   </Link>
                 </li>
@@ -75,7 +96,12 @@ export default class NavTop extends React.Component {
                   <Login setVistaActual={this.setVistaActual} />
                 </li>
                 <li className="nav-item active mx-2 my-1" id="signUp">
-                  <button className="btn btn-outline-secondary py-2 btn-sm">
+                  <button className="btn btn-outline-secondary py-2 btn-sm text-uppercase font-weight-bold rounded-pill">
+                    <FontAwesomeIcon
+                      className="mr-2"
+                      icon={faUserPlus}
+                      size="lg"
+                    />
                     Sign up
                   </button>
                 </li>
@@ -85,7 +111,7 @@ export default class NavTop extends React.Component {
               <div className=" d-lg-none d-xs-block " id="navbarToggler">
                 <li className="nav-item dropdown">
                   <button
-                    className="btn btn-outline-secondary dropdown-toggle py-2 btn-sm"
+                    className="btn btn-outline-secondary dropdown-toggle py-2 btn-sm text-uppercase font-weight-bold rounded-pill"
                     type="button"
                     id="navbarDropdownMenuLink"
                     data-toggle="dropdown"

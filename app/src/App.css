@@ -1,10 +1,23 @@
-/*MENU*/
+body {
+  background-image: url("img/logo_repeat.png");
+  background-repeat: repeat;
+}
+
+/*****
+MENU
+*****/
 .navleft {
   height: calc(100vh - 70px) !important;
   background: #1f5dd965;
 }
 
-/*MAIN*/
+.navtop {
+  background: #ffffff;
+}
+
+/*****
+MAIN
+*****/
 .main {
   margin-top: 70px;
 }
@@ -17,7 +30,9 @@
   height: calc(100vh - 70px) !important;
 }
 
-/*CATEGORY*/
+/*****
+CATEGORY
+*****/
 .category_button {
   background: #ffffff;
 }
@@ -27,7 +42,9 @@
   color: #ffffff;
 }
 
-/*MEME*/
+/*****
+MEME
+*****/
 .title_meme {
   background: #1f5dd965;
 }
@@ -59,17 +76,23 @@
 }
 
 .comment_user {
+  background: #1f5dd9;
+  color: white;
+}
+
+.comment_user p {
+  font-size: small;
+}
+
+/*****
+MODAL LOGIN
+*****/
+
+.modal_body {
   background: #1f5dd965;
 }
 
-
-/*MODAL LOGIN*/
-
-.modal_body{
-  background: #1f5dd965;
-}
-
-.icon_modal{
+.icon_modal {
   color: #1f5dd9;
 }
 

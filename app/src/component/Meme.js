@@ -100,16 +100,43 @@ export default function Meme() {
               <FontAwesomeIcon icon={faUser} size="lg" color="dark" />
             </small>
           </div>
-          <p className="text-left">
+          <p className="text-left py-2 m-0">
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry. Lorem Ipsum has been the industry's standard dummy text
             ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book. It has survived not
-            only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged. It was popularised in the 1960s
-            with the release of Letraset sheets containing Lorem Ipsum passages,
-            and more recently with desktop publishing software like Aldus
-            PageMaker including versions of Lorem Ipsum.
+            and scrambled it to make a type specimen book.
+          </p>
+        </div>
+      </div>
+      <div className="list-group">
+        <div className="list-group-item flex-column align-items-start my-1 comment_user rounded-lg">
+          <div className="d-flex w-100 justify-content-between">
+            <h6 className="mb-1">Nombre usuario</h6>
+            <small>
+              <FontAwesomeIcon icon={faUser} size="lg" color="dark" />
+            </small>
+          </div>
+          <p className="text-left py-2 m-0">
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text
+            ever since the 1500s, when an unknown printer took a galley of type
+            and scrambled it to make a type specimen book.
+          </p>
+        </div>
+      </div>
+      <div className="list-group">
+        <div className="list-group-item flex-column align-items-start my-1 comment_user rounded-lg">
+          <div className="d-flex w-100 justify-content-between">
+            <h6 className="mb-1">Nombre usuario</h6>
+            <small>
+              <FontAwesomeIcon icon={faUser} size="lg" color="dark" />
+            </small>
+          </div>
+          <p className="text-left py-2 m-0">
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text
+            ever since the 1500s, when an unknown printer took a galley of type
+            and scrambled it to make a type specimen book.
           </p>
         </div>
       </div>
