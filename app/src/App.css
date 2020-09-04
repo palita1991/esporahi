@@ -173,3 +173,7 @@ MODAL LOGIN
 .icon_modal {
   color: #1f5dd9;
 }
+
+.img-meme {
+  max-height: 600px;
+}
