@@ -1,13 +1,27 @@
 body {
   background-image: url("img/logo_repeat.png");
   background-repeat: repeat;
+  cursor: url("img/cursor_thanos.png") 0 0, pointer !important;
+}
+
+body:active {
+  cursor: url("img/chaquido_thanos.png") 0 0, pointer !important;
+}
+
+.btn {
+  cursor: url("img/cursor_thanos.png") 0 0, pointer !important;
+}
+
+#button_logout {
+  cursor: url("img/fuckyou.png") 15 -75, pointer !important;
 }
 
 /*****
 MENU
 *****/
+
 .navleft {
-  height: calc(100vh - 70px) !important;
+  height: calc(100vh - 72px) !important;
   background: #1f5dd965;
 }
 
@@ -22,12 +36,12 @@ MAIN
   margin-top: 70px;
 }
 
-.main_content {
+/* .main_content {
   border: 1px solid #1f5dd9;
-}
+} */
 
 .list_content {
-  height: calc(100vh - 70px) !important;
+  height: calc(100vh - 72px) !important;
 }
 
 /*****
@@ -35,11 +49,25 @@ CATEGORY
 *****/
 .category_button {
   background: #ffffff;
+  cursor: url("img/cursor_thanos.png") 0 0, pointer !important;
 }
 
 .category_button:hover {
   background: #1f5dd9;
   color: #ffffff;
+  /*  cursor: url("img/chaquido_thanos.png") 0 0, pointer !important; */
+}
+
+.category_button {
+  cursor: url("img/cursor_thanos.png") 0 0, pointer !important;
+}
+
+.category_button:active {
+  cursor: url("img/chaquido_thanos.png") 0 0, pointer !important;
+}
+
+.link {
+  cursor: url("img/cursor_thanos.png") 0 0, pointer !important;
 }
 
 /*****

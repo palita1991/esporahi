@@ -3,6 +3,8 @@ import fechaActual from "../services/fechaActual";
 import { Modal } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import Swal from "sweetalert2";
+import logo from "../img/logo_esporahi2.png";
 
 const emailRegex = RegExp(
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
@@ -24,7 +26,7 @@ const formValid = ({ formErrors, ...rest }) => {
   return valid;
 };
 
-class Register extends React.Component {
+export default class Register extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -51,20 +53,24 @@ class Register extends React.Component {
     e.preventDefault();
 
     if (formValid(this.state)) {
-      console.log(`
-        --SUBMITTING--
-        First Name: ${this.state.firstName}
-        Last Name: ${this.state.lastName}
-        Email: ${this.state.email}
-        Password: ${this.state.password}
-        Date of birth: ${this.state.dateOfBirth}
-      `);
+      Swal.fire({
+        title: "¡Bienvenido!",
+        imageUrl: logo,
+        imageWidth: 300,
+        imageHeight: 120,
+        imageAlt: "Custom image",
+        timer: 1500,
+      });
       this.handleModalShowHide();
-      const boton = document.getElementById("loginID");
-      boton.classList.add("d-none");
-      document.getElementById("crearMeme").classList.add("d-block");
+      this.props.setVistaActual("stateLogin");
     } else {
-      console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Completar campos requeridos",
+        showConfirmButton: true,
+        timer: 3500,
+      });
     }
   };
 
@@ -102,11 +108,13 @@ class Register extends React.Component {
     return (
       <div>
         <button
-          className="btn btn-outline-secondary py-2 btn-sm"
+          className="btn btn-outline-secondary py-2 btn-sm text-uppercase font-weight-bold rounded-pill"
           onClick={() => this.handleModalShowHide()}
         >
+          <FontAwesomeIcon className="mr-2" icon={faUserPlus} size="lg" />
           Sign up
         </button>
+
         <Modal
           show={this.state.showHide}
           onHide={() => this.handleModalShowHide()}
@@ -125,13 +133,13 @@ class Register extends React.Component {
               />
             </div>
           </Modal.Header>
-          <Modal.Body>
+          <Modal.Body className="modal_body">
             <form onSubmit={this.handleSubmit} noValidate>
               <div className="container">
                 <div className="row">
                   <div className="col-6 firstName">
                     <div className="form-group">
-                      <label htmlFor="firstName">Nombre</label>
+                      <label htmlFor="firstName">Nombre*</label>
                       <input
                         className="form-control"
                         placeholder="Ingresa tu nombre"
@@ -149,7 +157,7 @@ class Register extends React.Component {
                   </div>
                   <div className="col-6 lastName">
                     <div className="form-group">
-                      <label htmlFor="lastName">Apellido</label>
+                      <label htmlFor="lastName">Apellido*</label>
                       <input
                         className="form-control"
                         placeholder="Ingresa tu apellido"
@@ -167,7 +175,7 @@ class Register extends React.Component {
                   </div>
                   <div className="col-6 email">
                     <div className="form-group">
-                      <label htmlFor="email">Correo Electronico</label>
+                      <label htmlFor="email">Correo Electronico*</label>
                       <input
                         className="form-control"
                         placeholder="Ingresa tu email"
@@ -185,7 +193,7 @@ class Register extends React.Component {
                   </div>
                   <div className="col-6 password">
                     <div className="form-group">
-                      <label htmlFor="password">Password</label>
+                      <label htmlFor="password">Password*</label>
                       <input
                         className="form-control"
                         placeholder="Ingresa tu contraseña"
@@ -204,7 +212,7 @@ class Register extends React.Component {
 
                   <div className="col-6 dateOfBirth">
                     <div className="form-group">
-                      <label htmlFor="dateOfBirth">Fecha de nacimiento</label>
+                      <label htmlFor="dateOfBirth">Fecha de nacimiento*</label>
                       <input
                         type="date"
                         className="form-control form-control"
@@ -244,4 +252,3 @@ class Register extends React.Component {
     );
   }
 }
-export default Register;

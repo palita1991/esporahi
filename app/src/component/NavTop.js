@@ -3,13 +3,10 @@ import { Link } from "react-router-dom";
 import logo from "../img/logo_esporahi.png";
 import NavLeft from "./NavLeft";
 import Login from "./Login";
+import Register from "./Register";
+import CreateMeme from "./CreateMeme";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faPlus,
-  faSignOutAlt,
-  faUserAlt,
-  faUserPlus,
-} from "@fortawesome/free-solid-svg-icons";
+import { faSignOutAlt, faUserAlt } from "@fortawesome/free-solid-svg-icons";
 
 export default class NavTop extends React.Component {
   constructor(props) {
@@ -50,16 +47,7 @@ export default class NavTop extends React.Component {
             {this.state.vistaActual === "stateLogin" ? (
               <>
                 <li className="nav-item active mx-2 my-1" id="createMeme">
-                  <Link to="/create" className="link">
-                    <button className="btn btn-outline-primary py-2 btn-sm text-uppercase font-weight-bold rounded-pill">
-                      <FontAwesomeIcon
-                        className="mr-2"
-                        icon={faPlus}
-                        size="lg"
-                      />
-                      meme
-                    </button>
-                  </Link>
+                  <CreateMeme setVistaActual={this.setVistaActual} />
                 </li>
                 <li className="nav-item active mx-2 my-1" id="nameUser">
                   <Link to="/profile" className="link">
@@ -80,6 +68,7 @@ export default class NavTop extends React.Component {
                       onClick={() => {
                         this.setVistaActual("stateLogout");
                       }}
+                      id="button_logout"
                     >
                       <FontAwesomeIcon
                         className=""
@@ -96,14 +85,7 @@ export default class NavTop extends React.Component {
                   <Login setVistaActual={this.setVistaActual} />
                 </li>
                 <li className="nav-item active mx-2 my-1" id="signUp">
-                  <button className="btn btn-outline-secondary py-2 btn-sm text-uppercase font-weight-bold rounded-pill">
-                    <FontAwesomeIcon
-                      className="mr-2"
-                      icon={faUserPlus}
-                      size="lg"
-                    />
-                    Sign up
-                  </button>
+                  <Register setVistaActual={this.setVistaActual} />
                 </li>
               </>
             )}
