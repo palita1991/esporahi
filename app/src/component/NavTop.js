@@ -15,20 +15,29 @@ export default class NavTop extends React.Component {
       vistaActual: "stateLogout",
     };
   }
+export default function NavTop(props) {
+  const [isOpen, setIsOpen] = React.useState(false);
 
   setVistaActual = (vista) => {
     const newState = { vistaActual: vista };
     this.setState(newState);
   };
 
-  render() {
-    return (
-      <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light border border-bottom navtop rounded shadow">
-        <Link to="/" className="link">
-          <div className="navbar-brand">
-            <img src={logo} width="140" alt="logo" />
-          </div>
-        </Link>
+  const hideModal = () => {
+    setIsOpen(false);
+  };
+
+  return (
+    <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light border border-bottom navtop">
+      <Link to="/" className="link"
+      onClick={() => {
+        props.changeView("","");
+      }}
+      >
+        <div className="navbar-brand">
+          <img src={logo} width="140" alt="logo" />
+        </div>
+      </Link>
 
         <button
           className="navbar-toggler navbar-dark bg-dark"

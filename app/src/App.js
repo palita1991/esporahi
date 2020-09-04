@@ -12,7 +12,8 @@ class App extends React.Component {
     this.state = { memes: 0, category: 0 };
   }
 
-  componentWillMount() {
+  /* Funcion que hace el fetch con los memes */
+  fetchMemes() {
     fetch("http://localhost:8080/memes")
       .then((response) => {
         return response.json();
@@ -20,6 +21,10 @@ class App extends React.Component {
       .then((memes) => {
         this.setState({ memes });
       });
+  }
+
+  /* Funcion que hace el fetch para traer las categorias */
+  fetchCategories() {
     fetch("http://localhost:8080/categoria")
       .then((response) => {
         return response.json();
@@ -29,12 +34,42 @@ class App extends React.Component {
       });
   }
 
-  showCategoriesList = () => {
-    if (this.state.category.length > 0) {
-      return <NavLeft categories={this.state.category} />;
+  /* Componente que se ejecuta antes del render */
+  componentWillMount() {
+    this.fetchMemes();
+    this.fetchCategories();
+  }
+
+  /* Funcion encargada de cambiar la vista, en info vendria el id de lo que se quiera y route apunta a
+    que ruta se pretende apuntar
+  */
+  changeView = (info, route) => {
+    if (route === "category") {
+      fetch(`http://localhost:8080/memes/category/${info}`)
+        .then((response) => {
+          return response.json();
+        })
+        .then((category) => {
+          this.setState({ memes: category });
+        });
+    }else{
+      this.fetchMemes();
     }
   };
 
+  /* Funcion abocada a que si el estado con su categoria aun no tiene nada, no muestra nada */
+  showCategoriesList = () => {
+    if (this.state.category.length > 0) {
+      return (
+        <NavLeft
+          categories={this.state.category}
+          changeView={this.changeView}
+        />
+      );
+    }
+  };
+
+  /* Funcion identica a la anterior, solamente que con los memes */
   showMemeList = () => {
     if (this.state.memes.length > 0) {
       return <MemeList memes={this.state.memes} />;
@@ -48,7 +83,7 @@ class App extends React.Component {
       <div className="App">
         {/*Menú top*/}
         <Router>
-          <NavTop />
+          <NavTop changeView={this.changeView} />
           <div className="container main_content">
             <div className="row">
               <div className="col-lg-3 col-12 d-lg-block d-none">
