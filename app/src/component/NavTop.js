@@ -23,7 +23,7 @@ export default class NavTop extends React.Component {
 
   render() {
     return (
-      <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light border border-bottom navtop rounded shadow ">
+      <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light border border-bottom navtop rounded shadow">
         <Link to="/" className="link">
           <div className="navbar-brand">
             <img src={logo} width="140" alt="logo" />
