@@ -13,9 +13,9 @@ export default function Meme() {
     <div className="container my-2 h-auto">
       {/*Card que contiene el meme*/}
       <div className="card shadow rounded-lg">
-        <h5 className="card-title bg-light text-dark text-center mb-0 py-1">
+        <h3 className="card-title bg-light text-dark text-center mb-0 py-1 title_meme">
           Titulo
-        </h5>
+        </h3>
         <img
           src={
             "https://i1.wp.com/www.materiagris.es/wp-content/uploads/2018/10/memes-comunicacion.jpg?resize=700%2C321&ssl=1"
@@ -54,7 +54,7 @@ export default function Meme() {
               </div>
             </div>
             <div className="col-lg-6 col-8 d-flex justify-content-end align-items-center mt-lg-0">
-              <div className="border border-white rounded p-lg-2 p-1">
+              <div className="rounded p-lg-2 p-1 comment_meme">
                 <small className="mr-1 text-dark font-weight-bold">
                   Comentarios
                 </small>
@@ -94,9 +94,9 @@ export default function Meme() {
       {/*Comienzo del for de comentarios*/}
       <div className="list-group">
         <div className="list-group-item flex-column align-items-start my-1 comment_user rounded-lg">
-          <div className="d-flex w-100 justify-content-between">
-            <h6 className="mb-1">Nombre usuario</h6>
-            <small>
+          <div className="d-flex w-100 justify-content-between border border-top-0">
+            <h6 className="mb-1 ml-1">Nombre usuario</h6>
+            <small className="mr-1">
               <FontAwesomeIcon icon={faUser} size="lg" color="dark" />
             </small>
           </div>
@@ -110,9 +110,9 @@ export default function Meme() {
       </div>
       <div className="list-group">
         <div className="list-group-item flex-column align-items-start my-1 comment_user rounded-lg">
-          <div className="d-flex w-100 justify-content-between">
-            <h6 className="mb-1">Nombre usuario</h6>
-            <small>
+          <div className="d-flex w-100 justify-content-between border border-top-0">
+            <h6 className="mb-1 ml-1">Nombre usuario</h6>
+            <small className="mr-1">
               <FontAwesomeIcon icon={faUser} size="lg" color="dark" />
             </small>
           </div>
@@ -126,9 +126,41 @@ export default function Meme() {
       </div>
       <div className="list-group">
         <div className="list-group-item flex-column align-items-start my-1 comment_user rounded-lg">
-          <div className="d-flex w-100 justify-content-between">
-            <h6 className="mb-1">Nombre usuario</h6>
-            <small>
+          <div className="d-flex w-100 justify-content-between border border-top-0">
+            <h6 className="mb-1 ml-1">Nombre usuario</h6>
+            <small className="mr-1">
+              <FontAwesomeIcon icon={faUser} size="lg" color="dark" />
+            </small>
+          </div>
+          <p className="text-left py-2 m-0">
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text
+            ever since the 1500s, when an unknown printer took a galley of type
+            and scrambled it to make a type specimen book.
+          </p>
+        </div>
+      </div>
+      <div className="list-group">
+        <div className="list-group-item flex-column align-items-start my-1 comment_user rounded-lg">
+          <div className="d-flex w-100 justify-content-between border border-top-0">
+            <h6 className="mb-1 ml-1">Nombre usuario</h6>
+            <small className="mr-1">
+              <FontAwesomeIcon icon={faUser} size="lg" color="dark" />
+            </small>
+          </div>
+          <p className="text-left py-2 m-0">
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text
+            ever since the 1500s, when an unknown printer took a galley of type
+            and scrambled it to make a type specimen book.
+          </p>
+        </div>
+      </div>
+      <div className="list-group">
+        <div className="list-group-item flex-column align-items-start my-1 comment_user rounded-lg">
+          <div className="d-flex w-100 justify-content-between border border-top-0">
+            <h6 className="mb-1 ml-1">Nombre usuario</h6>
+            <small className="mr-1">
               <FontAwesomeIcon icon={faUser} size="lg" color="dark" />
             </small>
           </div>

@@ -137,7 +137,7 @@ export default class Register extends React.Component {
             <form onSubmit={this.handleSubmit} noValidate>
               <div className="container">
                 <div className="row">
-                  <div className="col-6 firstName">
+                  <div className="col-lg-6 col-12 firstName">
                     <div className="form-group">
                       <label htmlFor="firstName">Nombre*</label>
                       <input
@@ -155,7 +155,7 @@ export default class Register extends React.Component {
                       )}
                     </div>
                   </div>
-                  <div className="col-6 lastName">
+                  <div className="col-lg-6 col-12 lastName">
                     <div className="form-group">
                       <label htmlFor="lastName">Apellido*</label>
                       <input
@@ -173,7 +173,7 @@ export default class Register extends React.Component {
                       )}
                     </div>
                   </div>
-                  <div className="col-6 email">
+                  <div className="col-lg-6 col-12 email">
                     <div className="form-group">
                       <label htmlFor="email">Correo Electronico*</label>
                       <input
@@ -191,7 +191,7 @@ export default class Register extends React.Component {
                       )}
                     </div>
                   </div>
-                  <div className="col-6 password">
+                  <div className="col-lg-6 col-12 password">
                     <div className="form-group">
                       <label htmlFor="password">Password*</label>
                       <input
@@ -210,7 +210,7 @@ export default class Register extends React.Component {
                     </div>
                   </div>
 
-                  <div className="col-6 dateOfBirth">
+                  <div className="col-lg-6 col-12 dateOfBirth">
                     <div className="form-group">
                       <label htmlFor="dateOfBirth">Fecha de nacimiento*</label>
                       <input
@@ -240,7 +240,7 @@ export default class Register extends React.Component {
                       className="btn btn-primary float-right"
                       type="submit"
                     >
-                      Registrarse
+                      Sign up
                     </button>
                   </div>
                 </div>

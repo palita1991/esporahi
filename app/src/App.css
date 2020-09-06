@@ -17,12 +17,22 @@ body:active {
 }
 
 /*****
+FUENTES
+*****/
+
+@font-face {
+  font-family: "Bangers";
+  src: url("Bangers.ttf");
+}
+
+/*****
 MENU
 *****/
 
 .navleft {
-  height: calc(100vh - 72px) !important;
+  height: calc(100vh - 102px) !important;
   background: #1f5dd965;
+  left:5% !important;
 }
 
 .navtop {
@@ -33,15 +43,13 @@ MENU
 MAIN
 *****/
 .main {
-  margin-top: 70px;
+  margin-top: 80px;
 }
 
-/* .main_content {
-  border: 1px solid #1f5dd9;
-} */
-
 .list_content {
-  height: calc(100vh - 72px) !important;
+  height: calc(100vh - 102px) !important;
+  top:0 !important;
+  left:20% !important;
 }
 
 /*****
@@ -50,12 +58,18 @@ CATEGORY
 .category_button {
   background: #ffffff;
   cursor: url("img/cursor_thanos.png") 0 0, pointer !important;
+  font-family: "Bangers";
+  font-size: 15px;
+  letter-spacing: 1px;
 }
 
 .category_button:hover {
   background: #1f5dd9;
   color: #ffffff;
-  /*  cursor: url("img/chaquido_thanos.png") 0 0, pointer !important; */
+}
+
+#title_category {
+  font-family: "Bangers";
 }
 
 .category_button {
@@ -81,12 +95,38 @@ MEME
   background: #1f5dd965;
 }
 
+.comment_meme {
+  border: 2px solid #ffffff;
+}
+
 .button_positive {
   border: 2px solid #ffffff;
+  transition: all 0.5s ease-out;
+}
+
+.button_positive:hover {
+  border: 2px solid #1f5dd9;
+  background: #1fd97c80;
+  transition: all 0.5s ease-out;
+}
+
+.button_positive:hover small {
+  color: #1f5dd9 !important;
 }
 
 .button_negative {
   border: 2px solid #ffffff;
+  transition: all 0.5s ease-out;
+}
+
+.button_negative:hover {
+  border: 2px solid #1f5dd9;
+  background: #d91f1f80;
+  transition: all 0.5s ease-out;
+}
+
+.button_negative:hover small {
+  color: #1f5dd9 !important;
 }
 
 .card_comment_footer {
@@ -112,6 +152,18 @@ MEME
   font-size: small;
 }
 
+.title_meme {
+  font-family: "Bangers";
+}
+
+.icon_modal {
+  color: #1f5dd9;
+}
+
+.img-meme {
+  max-height: 600px;
+}
+
 /*****
 MODAL LOGIN
 *****/
@@ -124,12 +176,27 @@ MODAL LOGIN
   color: #1f5dd9;
 }
 
+
+.navbar button{
+  font-family: "Bangers";
+  font-size: 15px;
+  letter-spacing: 1px;
+}
+
+label{
+  font-family: "Bangers";
+  font-size: 15px;
+  letter-spacing: 1px;
+}
+
 @media (max-width: 991.98px) {
   #navbarToggler button {
     width: 50% !important;
   }
+
+  .list_content{
+    left:0 !important; 
+  }
 }
 
-.icon_modal {
-  color: #1f5dd9;
-}
+
