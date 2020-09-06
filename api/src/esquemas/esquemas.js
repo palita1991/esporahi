@@ -1,35 +1,38 @@
 const mongoose = require('mongoose');
 
 const schema = new mongoose.Schema({
-  categoria: String,
-  titulo: String,
-  foto: String,
-  usuario: String,
-  array_comentarios: [
+  category: String,
+  title: String,
+  image: String,
+  user_id: String,
+  comments: [
     {
-      comentario: {
-        descripcion: String,
-        cant_mg: Number,
-        cant_n_mg: Number,
-        id_usuario: Number,
+      comment: {
+        description: String,
+        user_id: Number,
       },
     },
   ],
-  nt_mg: Number,
-  cant_n_mg: Number,
+  upvotes: {
+    amount: Number,
+    user_id: [],
+  },
+  downvotes: {
+    amount: Number,
+    user_id: [],
+  },
 });
 
 const schemaUser = new mongoose.Schema({
   email: String,
   password: String,
-  nombre: String,
-  apellido: String,
-  dni: Number,
-  fecha_nacimiento: String,
+  name: String,
+  lastname: String,
+  dob: String,
 });
 
 const schemaCategory = new mongoose.Schema({
-  nombre: String,
+  name: String,
 });
 
 const modelUser = mongoose.model('usuario', schemaUser, 'usuario');

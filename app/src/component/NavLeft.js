@@ -13,7 +13,7 @@ export default function NavLeft(props) {
         {categories.map((category) => {
           return (
             <Link
-              to={`/categoria/${category._id}`}
+              to={`/categoria/${category.name}`}
               className="link w-100"
               key={category._id}
               onClick={() => {

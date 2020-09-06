@@ -29,10 +29,12 @@ export default function NavTop(props) {
 
   return (
     <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light border border-bottom navtop">
-      <Link to="/" className="link"
-      onClick={() => {
-        props.changeView("","");
-      }}
+      <Link
+        to="/"
+        className="link"
+        onClick={() => {
+          props.changeView("", "");
+        }}
       >
         <div className="navbar-brand">
           <img src={logo} width="140" alt="logo" />
