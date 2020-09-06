@@ -52,7 +52,7 @@ class App extends React.Component {
         .then((category) => {
           this.setState({ memes: category });
         });
-    }else{
+    } else {
       this.fetchMemes();
     }
   };
@@ -84,9 +84,9 @@ class App extends React.Component {
         {/*Menú top*/}
         <Router>
           <NavTop changeView={this.changeView} />
-          <div className="container main_content">
-            <div className="row">
-              <div className="col-lg-3 col-12 d-lg-block d-none">
+          <div className="container main">
+            <div className="row rounded-lg main_content">
+              <div className="col-lg-2 col-12 d-lg-block d-none navleft rounded-lg position-fixed">
                 {this.showCategoriesList()}
               </div>
               <div className="col-lg-10 col-12 list_content rounded-lg position-relative">

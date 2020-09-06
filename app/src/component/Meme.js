@@ -6,11 +6,9 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 /* import { useParams } from "react-router-dom"; */
-import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
-import { useParams } from "react-router-dom";
 
 export default function Meme() {
-  let { id } = useParams();
+  /*  let { id } = useParams(); */
   return (
     <div className="container my-2 h-auto">
       {/*Card que contiene el meme*/}
