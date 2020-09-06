@@ -19,10 +19,10 @@ class App extends React.Component {
           <NavTop />
           <div className="container main">
             <div className="row rounded-lg main_content">
-              <div className="col-lg-3 col-12 d-lg-block d-none navleft rounded-lg">
+              <div className="col-lg-2 col-12 d-lg-block d-none navleft rounded-lg position-fixed">
                 <NavLeft />
               </div>
-              <div className="col-lg-9 col-12 list_content overflow-auto rounded-lg">
+              <div className="col-lg-10 col-12 list_content rounded-lg position-relative">
                 <Switch>
                   <Route path="/create">{/*Listado categoría por id*/}</Route>
                   <Route path="/meme/:id" component={MemeList}>
