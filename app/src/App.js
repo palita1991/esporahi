@@ -5,12 +5,22 @@ import Meme from "./component/Meme";
 import MemeList from "./component/MemeList";
 import NavLeft from "./component/NavLeft";
 import NavTop from "./component/NavTop";
-
+import AddComment from "./component/AddComment";
+import ListComment from "./component/ListComment";
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      comments: [],
+    };
   }
+
+  add = (newComment) => {
+    const { comments } = this.state;
+
+    this.setState({ comments: [...comments, newComment] });
+  };
+
   render() {
     return (
       <div className="App">
@@ -27,6 +37,11 @@ class App extends React.Component {
                   <Route path="/create">{/*Listado categoría por id */}</Route>
                   <Route path="/meme/:id" component={MemeList}>
                     <Meme />
+                    <AddComment add={this.add} />
+                    <ListComment
+                      comments={this.state.comments}
+                      longitud={this.state.comments.length}
+                    />
                   </Route>
                   <Route path="/category/:id" component={MemeList}>
                     {/*Listado categoría por id*/}
