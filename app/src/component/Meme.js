@@ -5,21 +5,21 @@ import {
   faThumbsDown,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-/* import { useParams } from "react-router-dom"; */
+import { useParams } from "react-router-dom";
 
-export default function Meme() {
-  /*  let { id } = useParams(); */
+export default function Meme(props) {
+   let { id } = useParams();
+  const {meme} = props;
   return (
     <div className="container my-2 h-auto">
       {/*Card que contiene el meme*/}
-      <div className="card shadow rounded-lg">
+      {meme.map( (meme) => (      
+      <div className="card shadow rounded-lg" key={id}>
         <h3 className="card-title bg-light text-dark text-center mb-0 py-1 title_meme">
-          Titulo
+          {meme.title}
         </h3>
         <img
-          src={
-            "https://i1.wp.com/www.materiagris.es/wp-content/uploads/2018/10/memes-comunicacion.jpg?resize=700%2C321&ssl=1"
-          }
+          src={meme.image}
           className="img-fluid border border-left-0 border-right-0 border-dark w-100"
           alt="imagen-meme"
         />
@@ -30,7 +30,7 @@ export default function Meme() {
                 <button className="btn btn-sm rounded-pill p-lg-2 p-1 mr-1 button_positive">
                   <div className="bd-highlight">
                     <small className="text-white font-weight-bold mr-2">
-                      5
+                    {meme.upvotes.user_id.length}
                     </small>
                     <FontAwesomeIcon
                       icon={faThumbsUp}
@@ -42,7 +42,7 @@ export default function Meme() {
                 <button className="btn btn-sm rounded-pill p-lg-2 p-1 mr-1 button_negative">
                   <div className="bd-highlight">
                     <small className="text-white font-weight-bold mr-2">
-                      5
+                    {meme.downvotes.user_id.length}
                     </small>
                     <FontAwesomeIcon
                       icon={faThumbsDown}
@@ -58,12 +58,13 @@ export default function Meme() {
                 <small className="mr-1 text-dark font-weight-bold">
                   Comentarios
                 </small>
-                <span className="badge badge-dark">5</span>
+                <span className="badge badge-dark">{meme.comments.length}</span>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </div>))}
+
       {/* Fin Card que contiene el meme*/}
       {/*Card que contiene el textarea del comentario*/}
       <div className="card text-left my-1 shadow">

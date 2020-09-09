@@ -1,10 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-/* changeView = (category) => {
-  console.log(category);
-}; */
-
 export default function NavLeft(props) {
   const { categories } = props;
   if (props.categories !== undefined)

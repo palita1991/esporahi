@@ -1,3 +1,4 @@
+//require("dotenv").config();
 import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -5,12 +6,33 @@ import Meme from "./component/Meme";
 import MemeList from "./component/MemeList";
 import NavLeft from "./component/NavLeft";
 import NavTop from "./component/NavTop";
+import Login from "./component/Login";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { memes: 0, category: 0 };
+    this.state = { 
+      memes: 0, 
+      category: 0 , 
+      categorySelected: "General",
+      logged_in: true,
+      user_id: 1,
+      vistaActual: "stateLogout"
+    };
   }
+
+  setVistaActual = (vista) => {
+    const newState = { vistaActual: vista };
+    this.setState(newState);
+  };
+
+  fetchMoreData = () => {
+   /*  setTimeout(() => {
+      this.setState({
+        //items: this.state.items.concat(),
+      });
+    }, 1500); */
+  };
 
   /* Funcion que hace el fetch con los memes */
   fetchMemes() {
@@ -49,11 +71,20 @@ class App extends React.Component {
         .then((response) => {
           return response.json();
         })
-        .then((category) => {
-          this.setState({ memes: category });
+        .then((memesCategory) => {
+          this.setState({ memes: memesCategory, categorySelected: info });
         });
-    } else {
+    }else if(route === "meme"){
+      fetch(`http://localhost:8080/memes/${info}`)
+        .then( (response) =>{
+          return response.json();
+        })
+        .then( (meme) => {
+          this.setState({memes: meme})
+        })
+    }else {
       this.fetchMemes();
+      this.setState({categorySelected: "General"})
     }
   };
 
@@ -69,14 +100,44 @@ class App extends React.Component {
     }
   };
 
+  verifyVoteAndVote = (objectVotes) =>{
+    if(this.state.logged_in){
+      let esta = objectVotes.filter((vote)=> vote === this.state.user_id);
+      if(esta.length === 1){
+        console.log('Ya ha votado aqui');
+      }else{
+        console.log('puede votar');
+      }
+    }else{
+      console.log('entra en else');
+      return (<Login setVistaActual={this.setVistaActual} />);
+    }
+  }
+
   /* Funcion identica a la anterior, solamente que con los memes */
   showMemeList = () => {
     if (this.state.memes.length > 0) {
-      return <MemeList memes={this.state.memes} />;
+      return (
+        <MemeList 
+        memes={this.state.memes} 
+        fetchMoreData={this.fetchMoreData} 
+        categorySelected={this.state.categorySelected}
+        verifyVoteAndVote={this.verifyVoteAndVote}
+        changeView={this.changeView}
+        />
+      );
     } else {
       return <p className="text-center">Cargando memes...</p>;
     }
   };
+
+/*   showMeme = ()=>{
+    if(this.state.memes.length === 1){
+      return (
+        <Meme meme={this.state.memes}/>
+      );
+    }
+  } */
 
   render() {
     return (
@@ -92,11 +153,11 @@ class App extends React.Component {
               <div className="col-lg-10 col-12 list_content rounded-lg position-relative">
                 <Switch>
                   <Route path="/create">{/*Listado categoría por id*/}</Route>
-                  <Route path="/meme/:id" component={MemeList}>
-                    <Meme />
+                  <Route path="/meme/:id" component={Meme}>
+                  <Meme meme={this.state.memes}/>
                   </Route>
                   <Route path="/category/:id" component={MemeList}>
-                    {/*Listado categoría por id*/}
+                    {/* {this.showMemeList()} */}
                   </Route>
                   <Route path="/profile">
                     {/*Meme por id con todos sus detalles*/}

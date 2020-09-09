@@ -13,18 +13,19 @@ export default class NavTop extends React.Component {
     super(props);
     this.state = {
       vistaActual: "stateLogout",
+      changeView: () => {props.changeView("", "general");}
     };
   }
 
-  setVistaActual = (vista) => {
+/*   setVistaActual = (vista) => {
     const newState = { vistaActual: vista };
     this.setState(newState);
-  };
+  }; */
 
   render() {
     return (
       <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light border border-bottom navtop rounded shadow">
-        <Link to="/" className="link">
+        <Link to="/" className="link" onClick={this.props.changeView}>
           <div className="navbar-brand">
             <img src={logo} width="140" alt="logo" />
           </div>
