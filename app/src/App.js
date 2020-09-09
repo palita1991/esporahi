@@ -1,6 +1,6 @@
 import React from "react";
-import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import "./App.css";
 import Meme from "./component/Meme";
 import MemeList from "./component/MemeList";
 import NavLeft from "./component/NavLeft";
@@ -24,7 +24,7 @@ class App extends React.Component {
               </div>
               <div className="col-lg-10 col-12 list_content rounded-lg position-relative">
                 <Switch>
-                  <Route path="/create">{/*Listado categoría por id*/}</Route>
+                  <Route path="/create">{/*Listado categoría por id */}</Route>
                   <Route path="/meme/:id" component={MemeList}>
                     <Meme />
                   </Route>

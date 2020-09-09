@@ -35,7 +35,7 @@ export default class MemeList extends React.Component {
           loader={<h4>Loading...</h4>}
         >
           {this.state.items.map((i, index) => (
-            <div className="card shadow rounded-lg my-3">
+            <div className="card shadow rounded-lg my-3" key={index}>
               <h5 className="card-title bg-light text-dark text-center mb-0 py-1">
                 Titulo
               </h5>

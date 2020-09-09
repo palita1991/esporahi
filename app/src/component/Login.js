@@ -4,7 +4,7 @@ import { Modal } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignInAlt } from "@fortawesome/free-solid-svg-icons";
 import logo from "../img/logo_esporahi2.png";
-
+import Input from "./Input";
 export default class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -41,7 +41,7 @@ export default class Login extends React.Component {
     return formIsValid;
   }
 
-  contactSubmit(e) {
+  loginSubmit(e) {
     e.preventDefault();
     if (this.handleValidation()) {
       Swal.fire({
@@ -102,34 +102,32 @@ export default class Login extends React.Component {
             </div>
           </Modal.Header>
           <Modal.Body className="modal_body">
-            <form onSubmit={this.contactSubmit.bind(this)}>
+            <form onSubmit={this.loginSubmit.bind(this)}>
               <div className="container">
                 <div className="row">
                   <div className="col-12">
-                    <div className="form-group">
-                      <label htmlFor="email">Email</label>
-                      <input
-                        className="form-control"
-                        placeholder="Email"
-                        type="email"
-                        name="email"
-                        onChange={this.handleChange}
-                        value={this.state.email}
-                      />
-                    </div>
+                    <Input
+                      label="Email"
+                      htmlFor="email"
+                      placeholder="Email"
+                      type="email"
+                      name="email"
+                      onChange={this.handleChange}
+                      value={this.state.email}
+                      origin="login"
+                    />
                   </div>
                   <div className="col-12">
-                    <div className="form-group">
-                      <label htmlFor="password">Password</label>
-                      <input
-                        className="form-control"
-                        placeholder="Password"
-                        type="password"
-                        name="password"
-                        onChange={this.handleChange}
-                        value={this.state.password}
-                      />
-                    </div>
+                    <Input
+                      label="Password"
+                      htmlFor="password"
+                      placeholder="Password"
+                      type="password"
+                      name="password"
+                      onChange={this.handleChange}
+                      value={this.state.password}
+                      origin="login"
+                    />
                   </div>
                   <div className="col-12 d-flex justify-content-center">
                     <button

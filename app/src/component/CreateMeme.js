@@ -1,28 +1,85 @@
 import React from "react";
+import Swal from "sweetalert2";
 import { Modal } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faAngleDoubleUp } from "@fortawesome/free-solid-svg-icons";
-
-const CATEGORIAS = [
-  "General",
-  "Politica",
-  "Random",
-  "Deportes",
-  "Caricaturas",
-  "Peliculas",
-];
-
+import Input from "./Input";
 export default class CreateMeme extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      title: "",
+      category: "",
+      image: "",
       showHide: false,
     };
+    this.handleChange = this.handleChange.bind(this);
   }
 
   handleModalShowHide() {
     this.setState({ showHide: !this.state.showHide });
+  }
+
+  handleValidation() {
+    let title = this.state.title;
+    let category = this.state.category;
+    /*     let image = this.state.image; */
+
+    let errors = {};
+    let formIsValid = true;
+
+    console.log(title);
+    // Corroborar con BD
+    if (!title) {
+      console.log("entro");
+      formIsValid = false;
+    }
+
+    // Corroborar con BD
+    if (!category) {
+      formIsValid = false;
+    }
+
+    // Corroborar con BD
+    /*     if (!image) {
+      formIsValid = false;
+    } */
+
+    this.setState({ errors: errors });
+    return formIsValid;
+  }
+
+  createSubmit(e) {
+    e.preventDefault();
+    if (this.handleValidation()) {
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Meme creado correctamente",
+        showConfirmButton: true,
+        timer: 3500,
+      });
+      this.handleModalShowHide();
+      this.props.setVistaActual("stateLogin");
+    } else {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Completar los campos requeridos",
+        showConfirmButton: true,
+        timer: 3500,
+      });
+    }
+  }
+
+  handleChange(event) {
+    console.log(event.target.value);
+    if (event.target.name === "title") {
+      this.setState({ title: event.target.value });
+    } else {
+      this.setState({ category: event.target.value });
+    }
   }
 
   render() {
@@ -55,45 +112,45 @@ export default class CreateMeme extends React.Component {
             </div>
           </Modal.Header>
           <Modal.Body className="modal_body">
-            <form>
+            <form onSubmit={this.createSubmit.bind(this)}>
               <div className="container">
                 <div className="row">
                   <div className="col-6">
                     <div className="form-group">
-                      <label htmlFor="firstName">Titulo</label>
-                      <input
-                        className="form-control"
-                        placeholder="Ingresa titulo del Meme "
+                      <Input
+                        label="Título"
+                        htmlFor="title"
+                        placeholder="Ingrese título del Meme"
                         type="text"
                         name="title"
-                        required
-                        // onChange={this.handleChange}
+                        onChange={this.handleChange}
+                        value={this.state.title}
+                        origin="create"
                       />
                     </div>
                   </div>
                   <div className="col-6">
                     <div class="form-group">
-                      <label htmlFor="category_meme">Categoria</label>
-                      <select class="form-control" id="category_meme">
-                        {CATEGORIAS.map((cat) => (
-                          <option>{cat}</option>
-                        ))}
-                      </select>
+                      <Input
+                        label="Categoria"
+                        htmlFor="category_meme"
+                        id="category_meme"
+                        name="category"
+                        onChange={this.handleChange}
+                      />
                     </div>
                   </div>
                   <div className="col-12 d-flex justify-content-center">
                     <div class="input-group">
                       <div class="custom-file">
-                        <input
+                        <Input
+                          classLabel="custom-file-label"
+                          label="Seleccionar archivo"
+                          htmlFor="image"
                           type="file"
-                          class="custom-file-input"
-                          id="inputGroupFile04"
-                          aria-describedby="inputGroupFileAddon04"
-                          required
+                          name="title"
+                          origin="create"
                         />
-                        <label class="custom-file-label" for="inputGroupFile04">
-                          Elegir archivo
-                        </label>
                       </div>
                       <div class="input-group-append"></div>
                     </div>
