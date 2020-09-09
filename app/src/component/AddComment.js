@@ -9,6 +9,7 @@ export default class AddComment extends React.Component {
       longitud: this.props.longitud,
     };
   }
+
   onChangeComment(e) {
     this.setState({ comment: e.target.value });
   }
@@ -19,8 +20,7 @@ export default class AddComment extends React.Component {
       user: this.state.user,
       comment: this.state.comment,
     };
-    console.log(newComment.id);
-    this.props.add(newComment);
+    this.props.addComment(newComment);
   }
 
   render() {

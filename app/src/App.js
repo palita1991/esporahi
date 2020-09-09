@@ -12,13 +12,28 @@ class App extends React.Component {
     super(props);
     this.state = {
       comments: [],
+      votosPositivos: {
+        users: [],
+        countPositivos: 0,
+      },
+      votosNegativos: {
+        users: [],
+        countNegativos: 0,
+      },
     };
   }
 
-  add = (newComment) => {
+  addComment = (newComment) => {
     const { comments } = this.state;
-
     this.setState({ comments: [...comments, newComment] });
+  };
+
+  addVotos = (votos, tipo) => {
+    if (tipo === "positivo") {
+      this.setState({ users: votos.users, votosPositivos: votos.count });
+    } else {
+      this.setState({ users: votos.users, votosNegativos: votos.count });
+    }
   };
 
   render() {
@@ -36,8 +51,16 @@ class App extends React.Component {
                 <Switch>
                   <Route path="/create">{/*Listado categoría por id */}</Route>
                   <Route path="/meme/:id" component={MemeList}>
-                    <Meme />
-                    <AddComment add={this.add} />
+                    <Meme
+                      votosPositivos={this.state.votosPositivos}
+                      votosNegativos={this.state.votosNegativos}
+                      addVotos={this.addVotos}
+                      cantComentarios={this.state.comments.length}
+                    />
+                    <AddComment
+                      addComment={this.addComment}
+                      cantComentarios={this.state.comments.length}
+                    />
                     <ListComment
                       comments={this.state.comments}
                       longitud={this.state.comments.length}
