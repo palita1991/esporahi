@@ -1,23 +1,25 @@
 import express from 'express';
 import { helpers } from '../helpers';
-import { model } from '../esquemas/esquemas';
+import { modelMeme } from '../esquemas/schemaMeme';
 const cloudinary = require('cloudinary');
 const router = express.Router();
+require('dotenv').config();
+
 cloudinary.config({
-  cloud_name: 'mvillalba',
-  api_key: '136337424659192',
-  api_secret: 'T7AkrlPPU1N3w-PFROdGlJ-Ub9g',
+  cloud_name: process.env.CLOUD_USER,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET,
 });
-/* Obtiene todos los model.modelMeme invocando al metodo del helpers */
+/* Obtiene todos los modelMeme invocando al metodo del helpers */
 router.get('/', async function (req, res) {
-  const result = await helpers.getCollection(model.modelMeme);
+  const result = await helpers.getCollection(modelMeme);
   res.json(result);
 });
 
 /* Obtiene el meme con el id enviado por GET */
 router.get('/:id', async function (req, res) {
   const id = req.params.id;
-  const result = await helpers.getCollectionId(model.modelMeme, id);
+  const result = await helpers.getCollectionId(modelMeme, id);
   res.json(result);
 });
 
@@ -27,7 +29,7 @@ router.post('/', async function (req, res) {
 
   console.log(result);
   req.body.foto = result.url;
-  const resultInsert = await helpers.postCollection(model.modelMeme, req.body);
+  const resultInsert = await helpers.postCollection(modelMeme, req.body);
   res.json(resultInsert);
 });
 
@@ -36,14 +38,14 @@ router.put('/:id', async function (req, res) {
   const resultUpdate = await helpers.putCollection(
     req.params.id,
     req.body,
-    model.modelMeme
+    modelMeme
   );
   res.json(resultUpdate);
 });
 
 router.get('/category/:name', async function (req, res) {
   const name = req.params.name;
-  const result = await helpers.getCollectionByName(model.modelMeme, name);
+  const result = await helpers.getCollectionByName(modelMeme, name);
   res.json(result);
 });
 

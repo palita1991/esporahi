@@ -9,7 +9,7 @@ import multer from 'multer';
 export const app = express();
 
 app.use(bodyParser.json());
-// esto hay que revisarlo .
+//cors
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header(
@@ -20,10 +20,6 @@ app.use((req, res, next) => {
   res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
   next();
 });
-// app.use(multer({
-//     dest: path.join(__dirname, 'public/uploads'),
-
-// }).single('foto'));
 
 // middleware , esto ejecuta antes para dejar la ruta lista para guardar las fotos
 const storage = multer.diskStorage({

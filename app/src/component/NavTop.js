@@ -13,14 +13,14 @@ export default class NavTop extends React.Component {
     super(props);
     this.state = {
       vistaActual: "stateLogout",
-      changeView: () => {props.changeView("", "general");}
+      changeView: () => { props.changeView("", "general"); }
     };
   }
 
-/*   setVistaActual = (vista) => {
+  setVistaActual = (vista) => {
     const newState = { vistaActual: vista };
     this.setState(newState);
-  }; */
+  };
 
   render() {
     return (
@@ -81,15 +81,15 @@ export default class NavTop extends React.Component {
                 </li>
               </>
             ) : (
-              <>
-                <li className="nav-item active mx-2 my-1" id="login">
-                  <Login setVistaActual={this.setVistaActual} />
-                </li>
-                <li className="nav-item active mx-2 my-1" id="signUp">
-                  <Register setVistaActual={this.setVistaActual} />
-                </li>
-              </>
-            )}
+                <>
+                  <li className="nav-item active mx-2 my-1" id="login">
+                    <Login setVistaActual={this.setVistaActual} />
+                  </li>
+                  <li className="nav-item active mx-2 my-1" id="signUp">
+                    <Register setVistaActual={this.setVistaActual} />
+                  </li>
+                </>
+              )}
             <Link to="/categoria/:id" className="link">
               <div className=" d-lg-none d-xs-block " id="navbarToggler">
                 <li className="nav-item dropdown">
