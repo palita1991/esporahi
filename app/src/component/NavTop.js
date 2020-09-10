@@ -1,19 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSignOutAlt, faUserAlt } from "@fortawesome/free-solid-svg-icons";
 import logo from "../img/logo_esporahi.png";
 import NavLeft from "./NavLeft";
 import Login from "./Login";
 import Register from "./Register";
 import CreateMeme from "./CreateMeme";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSignOutAlt, faUserAlt } from "@fortawesome/free-solid-svg-icons";
 
 export default class NavTop extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       vistaActual: "stateLogout",
-      changeView: () => { props.changeView("", "general"); }
+      changeView: () => {
+        props.changeView("", "general");
+      },
     };
   }
 
@@ -81,15 +83,15 @@ export default class NavTop extends React.Component {
                 </li>
               </>
             ) : (
-                <>
-                  <li className="nav-item active mx-2 my-1" id="login">
-                    <Login setVistaActual={this.setVistaActual} />
-                  </li>
-                  <li className="nav-item active mx-2 my-1" id="signUp">
-                    <Register setVistaActual={this.setVistaActual} />
-                  </li>
-                </>
-              )}
+              <>
+                <li className="nav-item active mx-2 my-1" id="login">
+                  <Login setVistaActual={this.setVistaActual} />
+                </li>
+                <li className="nav-item active mx-2 my-1" id="signUp">
+                  <Register setVistaActual={this.setVistaActual} />
+                </li>
+              </>
+            )}
             <Link to="/categoria/:id" className="link">
               <div className=" d-lg-none d-xs-block " id="navbarToggler">
                 <li className="nav-item dropdown">

@@ -1,25 +1,53 @@
 //require("dotenv").config();
-import React from "react";
-import "./App.css";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Meme from "./component/Meme";
-import MemeList from "./component/MemeList";
-import NavLeft from "./component/NavLeft";
-import NavTop from "./component/NavTop";
-import Login from "./component/Login";
+import React from 'react';
+import './App.css';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Meme from './component/Meme';
+import MemeList from './component/MemeList';
+import NavLeft from './component/NavLeft';
+import NavTop from './component/NavTop';
+import Login from './component/Login';
+import AddComment from './component/AddComment';
+import ListComment from './component/ListComment';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { 
-      memes: 0, 
-      category: 0 , 
-      categorySelected: "General",
+    this.state = {
+      memes: 0,
+      category: 0,
+      categorySelected: 'General',
       logged_in: true,
       user_id: 1,
-      vistaActual: "stateLogout"
+      vistaActual: 'stateLogout',
+      comments: [], //nuevo
+      votosPositivos: {
+        //nuevo
+        users: [],
+        countPositivos: 0,
+      },
+      votosNegativos: {
+        //nuevo
+        users: [],
+        countNegativos: 0,
+      },
     };
   }
+
+  //nuevo
+  addComment = (newComment) => {
+    const { comments } = this.state;
+    this.setState({ comments: [...comments, newComment] });
+  };
+
+  //nuevo
+  addVotos = (votos, tipo) => {
+    if (tipo === 'positivo') {
+      this.setState({ users: votos.users, votosPositivos: votos.count });
+    } else {
+      this.setState({ users: votos.users, votosNegativos: votos.count });
+    }
+  };
 
   setVistaActual = (vista) => {
     const newState = { vistaActual: vista };
@@ -27,7 +55,7 @@ class App extends React.Component {
   };
 
   fetchMoreData = () => {
-   /*  setTimeout(() => {
+    /*  setTimeout(() => {
       this.setState({
         //items: this.state.items.concat(),
       });
@@ -36,7 +64,7 @@ class App extends React.Component {
 
   /* Funcion que hace el fetch con los memes */
   fetchMemes() {
-    fetch("http://localhost:8080/memes")
+    fetch('http://localhost:8080/memes')
       .then((response) => {
         return response.json();
       })
@@ -47,7 +75,7 @@ class App extends React.Component {
 
   /* Funcion que hace el fetch para traer las categorias */
   fetchCategories() {
-    fetch("http://localhost:8080/categoria")
+    fetch('http://localhost:8080/categoria')
       .then((response) => {
         return response.json();
       })
@@ -66,7 +94,7 @@ class App extends React.Component {
     que ruta se pretende apuntar
   */
   changeView = (info, route) => {
-    if (route === "category") {
+    if (route === 'category') {
       fetch(`http://localhost:8080/memes/category/${info}`)
         .then((response) => {
           return response.json();
@@ -74,17 +102,17 @@ class App extends React.Component {
         .then((memesCategory) => {
           this.setState({ memes: memesCategory, categorySelected: info });
         });
-    }else if(route === "meme"){
+    } else if (route === 'meme') {
       fetch(`http://localhost:8080/memes/${info}`)
-        .then( (response) =>{
+        .then((response) => {
           return response.json();
         })
-        .then( (meme) => {
-          this.setState({memes: meme})
-        })
-    }else {
+        .then((meme) => {
+          this.setState({ memes: meme });
+        });
+    } else {
       this.fetchMemes();
-      this.setState({categorySelected: "General"})
+      this.setState({ categorySelected: 'General' });
     }
   };
 
@@ -100,30 +128,30 @@ class App extends React.Component {
     }
   };
 
-  verifyVoteAndVote = (objectVotes) =>{
-    if(this.state.logged_in){
-      let esta = objectVotes.filter((vote)=> vote === this.state.user_id);
-      if(esta.length === 1){
+  verifyVoteAndVote = (objectVotes) => {
+    if (this.state.logged_in) {
+      let esta = objectVotes.filter((vote) => vote === this.state.user_id);
+      if (esta.length === 1) {
         console.log('Ya ha votado aqui');
-      }else{
+      } else {
         console.log('puede votar');
       }
-    }else{
+    } else {
       console.log('entra en else');
-      return (<Login setVistaActual={this.setVistaActual} />);
+      return <Login setVistaActual={this.setVistaActual} />;
     }
-  }
+  };
 
   /* Funcion identica a la anterior, solamente que con los memes */
   showMemeList = () => {
     if (this.state.memes.length > 0) {
       return (
-        <MemeList 
-        memes={this.state.memes} 
-        fetchMoreData={this.fetchMoreData} 
-        categorySelected={this.state.categorySelected}
-        verifyVoteAndVote={this.verifyVoteAndVote}
-        changeView={this.changeView}
+        <MemeList
+          memes={this.state.memes}
+          fetchMoreData={this.fetchMoreData}
+          categorySelected={this.state.categorySelected}
+          verifyVoteAndVote={this.verifyVoteAndVote}
+          changeView={this.changeView}
         />
       );
     } else {
@@ -131,7 +159,7 @@ class App extends React.Component {
     }
   };
 
-/*   showMeme = ()=>{
+  /*   showMeme = ()=>{
     if(this.state.memes.length === 1){
       return (
         <Meme meme={this.state.memes}/>
@@ -154,7 +182,21 @@ class App extends React.Component {
                 <Switch>
                   <Route path="/create">{/*Listado categoría por id*/}</Route>
                   <Route path="/meme/:id" component={Meme}>
-                  <Meme meme={this.state.memes}/>
+                    <Meme meme={this.state.memes} />
+                    {/*                     <Meme
+                      votosPositivos={this.state.votosPositivos}
+                      votosNegativos={this.state.votosNegativos}
+                      addVotos={this.addVotos}
+                      cantComentarios={this.state.comments.length}
+                    />
+                    <AddComment
+                      addComment={this.addComment}
+                      cantComentarios={this.state.comments.length}
+                    />
+                    <ListComment
+                      comments={this.state.comments}
+                      longitud={this.state.comments.length}
+                    /> */}
                   </Route>
                   <Route path="/category/:id" component={MemeList}>
                     {/* {this.showMemeList()} */}

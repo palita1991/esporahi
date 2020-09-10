@@ -5,7 +5,7 @@ export default function NavLeft(props) {
   const { categories } = props;
   if (props.categories !== undefined)
     return (
-      <div className="btn-group-vertical d-flex justify-content-center">
+      <div className="btn-group-vertical d-flex justify-content-center my-3">
         {categories.map((category) => {
           return (
             <Link
@@ -18,7 +18,7 @@ export default function NavLeft(props) {
             >
               <button
                 type="button"
-                className="btn btn-outline-dark my-1 w-100 py-2 btn-sm"
+                className="btn my-1 w-100 py-2 btn-sm rounded-pill category_button"
               >
                 {category.name}
               </button>

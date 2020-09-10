@@ -1,17 +1,17 @@
-import React from "react";
-import Swal from "sweetalert2";
-import { Modal } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSignInAlt } from "@fortawesome/free-solid-svg-icons";
-import logo from "../img/logo_esporahi2.png";
-
+import React from 'react';
+import Swal from 'sweetalert2';
+import { Modal } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
+import logo from '../img/logo_esporahi2.png';
+import Input from './Input';
 export default class Login extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      password: "",
-      email: "",
+      password: '',
+      email: '',
       showHide: false,
     };
     this.handleChange = this.handleChange.bind(this);
@@ -41,24 +41,24 @@ export default class Login extends React.Component {
     return formIsValid;
   }
 
-  contactSubmit(e) {
+  loginSubmit(e) {
     e.preventDefault();
     if (this.handleValidation()) {
       Swal.fire({
-        title: "¡Bienvenidos!",
+        title: '¡Bienvenidos!',
         imageUrl: logo,
         imageWidth: 300,
         imageHeight: 120,
-        imageAlt: "Custom image",
+        imageAlt: 'Custom image',
         timer: 1500,
       });
       this.handleModalShowHide();
-      this.props.setVistaActual("stateLogin");
+      this.props.setVistaActual('stateLogin');
     } else {
       Swal.fire({
-        position: "center",
-        icon: "error",
-        title: "Email o password incorrectos",
+        position: 'center',
+        icon: 'error',
+        title: 'Email o password incorrectos',
         showConfirmButton: true,
         timer: 3500,
       });
@@ -66,7 +66,7 @@ export default class Login extends React.Component {
   }
 
   handleChange(event) {
-    if (event.target.name === "email") {
+    if (event.target.name === 'email') {
       this.setState({ email: event.target.value });
     } else {
       this.setState({ password: event.target.value });
@@ -102,34 +102,32 @@ export default class Login extends React.Component {
             </div>
           </Modal.Header>
           <Modal.Body className="modal_body">
-            <form onSubmit={this.contactSubmit.bind(this)}>
+            <form onSubmit={this.loginSubmit.bind(this)}>
               <div className="container">
                 <div className="row">
                   <div className="col-12">
-                    <div className="form-group">
-                      <label htmlFor="email">Email</label>
-                      <input
-                        className="form-control"
-                        placeholder="Email"
-                        type="email"
-                        name="email"
-                        onChange={this.handleChange}
-                        value={this.state.email}
-                      />
-                    </div>
+                    <Input
+                      label="Email"
+                      htmlFor="email"
+                      placeholder="Email"
+                      type="email"
+                      name="email"
+                      onChange={this.handleChange}
+                      value={this.state.email}
+                      origin="login"
+                    />
                   </div>
                   <div className="col-12">
-                    <div className="form-group">
-                      <label htmlFor="password">Password</label>
-                      <input
-                        className="form-control"
-                        placeholder="Password"
-                        type="password"
-                        name="password"
-                        onChange={this.handleChange}
-                        value={this.state.password}
-                      />
-                    </div>
+                    <Input
+                      label="Password"
+                      htmlFor="password"
+                      placeholder="Password"
+                      type="password"
+                      name="password"
+                      onChange={this.handleChange}
+                      value={this.state.password}
+                      origin="login"
+                    />
                   </div>
                   <div className="col-12 d-flex justify-content-center">
                     <button
