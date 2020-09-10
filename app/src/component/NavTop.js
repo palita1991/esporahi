@@ -1,18 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSignOutAlt, faUserAlt } from "@fortawesome/free-solid-svg-icons";
 import logo from "../img/logo_esporahi.png";
 import NavLeft from "./NavLeft";
 import Login from "./Login";
 import Register from "./Register";
 import CreateMeme from "./CreateMeme";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSignOutAlt, faUserAlt } from "@fortawesome/free-solid-svg-icons";
 
 export default class NavTop extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       vistaActual: "stateLogout",
+      changeView: () => {
+        props.changeView("", "general");
+      },
     };
   }
 
@@ -24,7 +27,7 @@ export default class NavTop extends React.Component {
   render() {
     return (
       <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light border border-bottom navtop rounded shadow">
-        <Link to="/" className="link">
+        <Link to="/" className="link" onClick={this.props.changeView}>
           <div className="navbar-brand">
             <img src={logo} width="140" alt="logo" />
           </div>

@@ -1,10 +1,10 @@
 import React from "react";
-import fechaActual from "../services/fechaActual";
-import { Modal } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import { Modal } from "react-bootstrap";
 import Swal from "sweetalert2";
 import logo from "../img/logo_esporahi2.png";
+import Input from "./Input";
 
 const emailRegex = RegExp(
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
@@ -49,7 +49,7 @@ export default class Register extends React.Component {
     this.setState({ showHide: !this.state.showHide });
   }
 
-  handleSubmit = (e) => {
+  handleSubmit= (e) =>{
     e.preventDefault();
 
     if (formValid(this.state)) {
@@ -74,7 +74,7 @@ export default class Register extends React.Component {
     }
   };
 
-  handleChange = (e) => {
+  handleChange = (e) =>{
     e.preventDefault();
     const { name, value } = e.target;
     let formErrors = { ...this.state.formErrors };
@@ -90,7 +90,7 @@ export default class Register extends React.Component {
         break;
       case "email":
         formErrors.email = emailRegex.test(value) ? "" : "Formato invalido";
-        break;
+        break; 
       case "password":
         formErrors.password =
           value.length < 6 ? "Minimo 3 caracteres requeridos" : "";
@@ -100,7 +100,7 @@ export default class Register extends React.Component {
         break;
     }
 
-    this.setState({ formErrors, [name]: value }, () => console.log(this.state));
+    this.setState({ formErrors, [name]: value });
   };
 
   render() {
@@ -139,32 +139,32 @@ export default class Register extends React.Component {
                 <div className="row">
                   <div className="col-lg-6 col-12 firstName">
                     <div className="form-group">
-                      <label htmlFor="firstName">Nombre*</label>
-                      <input
-                        className="form-control"
+                        <Input
+                        label="Nombre*"
+                        htmlFor="firstName"
                         placeholder="Ingresa tu nombre"
                         type="text"
                         name="firstName"
-                        noValidate
                         onChange={this.handleChange}
-                      />
-                      {formErrors.firstName.length > 0 && (
-                        <small className="errorMessage text-danger font-weight-bold">
-                          {formErrors.firstName}
-                        </small>
-                      )}
+                        origin="register"
+                        />
+                        {formErrors.firstName.length > 0 && (
+                          <small className="errorMessage text-danger font-weight-bold">
+                            {formErrors.firstName}
+                          </small>
+                        )}
                     </div>
                   </div>
                   <div className="col-lg-6 col-12 lastName">
                     <div className="form-group">
-                      <label htmlFor="lastName">Apellido*</label>
-                      <input
-                        className="form-control"
-                        placeholder="Ingresa tu apellido"
-                        type="text"
-                        name="lastName"
-                        noValidate
-                        onChange={this.handleChange}
+                      <Input
+                      label="Apellido*"
+                      htmlFor="lastName"
+                      placeholder="Ingresa tu apellido"
+                      type="text"
+                      name="lastName"
+                      onChange={this.handleChange}
+                      origin="register"
                       />
                       {formErrors.lastName.length > 0 && (
                         <small className="errorMessage text-danger font-weight-bold">
@@ -175,14 +175,14 @@ export default class Register extends React.Component {
                   </div>
                   <div className="col-lg-6 col-12 email">
                     <div className="form-group">
-                      <label htmlFor="email">Correo Electronico*</label>
-                      <input
-                        className="form-control"
-                        placeholder="Ingresa tu email"
-                        type="email"
-                        name="email"
-                        noValidate
-                        onChange={this.handleChange}
+                      <Input
+                      label="Correo Electronico*"
+                      htmlFor="email"
+                      placeholder="Ingresa tu email"
+                      type="email"
+                      name="email"
+                      onChange={this.handleChange}
+                      origin="register"
                       />
                       {formErrors.email.length > 0 && (
                         <small className="errorMessage text-danger font-weight-bold">
@@ -193,37 +193,35 @@ export default class Register extends React.Component {
                   </div>
                   <div className="col-lg-6 col-12 password">
                     <div className="form-group">
-                      <label htmlFor="password">Password*</label>
-                      <input
-                        className="form-control"
-                        placeholder="Ingresa tu contraseña"
-                        type="password"
-                        name="password"
-                        noValidate
-                        onChange={this.handleChange}
+                      <Input
+                      label="Password*"
+                      htmlFor="password"
+                      placeholder="Ingresa tu contraseña"
+                      type="password"
+                      name="password"
+                      onChange={this.handleChange}
+                      origin="register"
                       />
                       {formErrors.password.length > 0 && (
                         <small className="errorMessage text-danger font-weight-bold">
                           {formErrors.password}
                         </small>
                       )}
-                    </div>
+                    </div>  
                   </div>
 
                   <div className="col-lg-6 col-12 dateOfBirth">
                     <div className="form-group">
-                      <label htmlFor="dateOfBirth">Fecha de nacimiento*</label>
-                      <input
-                        type="date"
-                        className="form-control form-control"
-                        id="dateOfBirth"
-                        name="dateOfBirth"
-                        max={fechaActual()}
-                        min={"1910-01-01"}
-                        noValidate
-                        onChange={this.handleChange}
+                    <Input
+                      label="Fecha de nacimiento*"
+                      htmlFor="dateOfBirth"
+                      type="date"
+                      name="dateOfBirth"
+                      min="1910-01-01"
+                      onChange={this.handleChange}
+                      origin="register"
                       />
-                    </div>
+                    </div>  
                   </div>
 
                   <div className="col-12 d-flex justify-content-end">
@@ -231,8 +229,7 @@ export default class Register extends React.Component {
                       className="btn btn-secondary float-right mr-1"
                       type="button"
                       onClick={() => this.handleModalShowHide()}
-                    >
-                      Cerrar
+                    >Cerrar
                       <span aria-hidden="true"></span>
                     </button>
 

@@ -67,7 +67,7 @@ export default class CreateMeme extends React.Component {
                         type="text"
                         name="title"
                         required
-                        // onChange={this.handleChange}
+                        onChange={this.handleChange}
                       />
                     </div>
                   </div>
