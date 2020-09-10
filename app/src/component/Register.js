@@ -229,8 +229,7 @@ export default class Register extends React.Component {
                       className="btn btn-secondary float-right mr-1"
                       type="button"
                       onClick={() => this.handleModalShowHide()}
-                    >
-                      Cerrar
+                    >Cerrar
                       <span aria-hidden="true"></span>
                     </button>
 
