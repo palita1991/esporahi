@@ -6,19 +6,33 @@ export default class Votospositivos extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      count: this.props.votos.countPositivos,
-      users: this.props.votos.users,
+       count: this.props.votos,
+      users: this.props.users,
     };
   }
 
-  increment() {
-    this.setState({ count: this.state.count + 1 });
+  verify() {
+
+    if(this.props.userLoggin === 1){
+      let esta = this.state.users.filter((vote) => vote === this.props.userLoggin);
+      if (esta.length === 1) {
+        console.log('Ya ha votado aqui');
+      } else {
+        this.setState({ count: this.state.count + 1 });
+        this.props.addVotos("positivo");
+      }
+    }else{
+      console.log('No esta logueado');
+    }
+
+    /*this.setState({ count: this.state.count + 1 });
 
     const votosPositivos = {
       count: this.state.count,
-      users: this.state.users,
-    };
-    this.props.addVotos(votosPositivos, "positivo");
+       users: this.state.users, 
+    };*/
+
+    /* this.props.addVotos(votosPositivos, "positivo"); */
   }
 
   render() {
@@ -26,7 +40,9 @@ export default class Votospositivos extends React.Component {
       <>
         <button
           className="btn btn-sm rounded-pill p-lg-2 p-1 mr-1 button_positive"
-          onClick={this.increment.bind(this)}
+          onClick={()=>{
+            this.verify();
+          }}
         >
           <div className="bd-highlight">
             <small className="text-white font-weight-bold mr-2">

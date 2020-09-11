@@ -41,41 +41,19 @@ export default function MemeList(props) {
                 <div className="col-lg-6 col-4 d-flex justify-content-start align-items-center">
                   <div className="d-flex flex-row bd-highlight">
                     <VotosPositivos
-                      votos={props.votosPositivos}
-                      addVotos={props.addVotos}
+                      votos={meme.upvotes.user_id.length}
+                      userLoggin={props.user}//Id del user si es que esta logueado, si no es 0
+                      addVotos={props.addVotos}//Funcionan para realizar la consulta en app
+                      users={meme.upvotes.user_id}//Arreglo de id de usuarios
+                      memeId={meme._id}
                     />
                     <VotosNegativos
-                      votos={props.votosNegativos}
-                      addVotos={props.addVotos}
+                      votos={meme.downvotes.user_id.length}//Cantidad de votos
+                      userLoggin={props.user}//Id del user si es que esta logueado, si no es 0
+                      addVotos={props.addVotos}//Funcionan para realizar la consulta en app
+                      users={meme.downvotes.user_id}//Arreglo de id de usuarios
+                      memeId={meme._id}
                     />
-                    {/* <button className="btn btn-sm rounded-pill p-lg-2 p-1 mr-1 button_positive" onClick={
-                      ()=>{props.verifyVoteAndVote(meme.upvotes.user_id);}
-                    }>
-                      <div className="bd-highlight">
-                        <small className="text-white font-weight-bold mr-2">
-                        {meme.upvotes.user_id.length}
-                        </small>
-                        <FontAwesomeIcon
-                          icon={faThumbsUp}
-                          size="lg"
-                          color="white"
-                        />
-                      </div>
-                    </button>
-                    <button className="btn btn-sm rounded-pill p-lg-2 p-1 mr-1 button_negative" onClick={
-                      ()=>{props.verifyVoteAndVote(meme.downvotes.user_id);}
-                    }>
-                      <div className="bd-highlight">
-                        <small className="text-white font-weight-bold mr-2">
-                          {meme.downvotes.user_id.length}
-                        </small>
-                        <FontAwesomeIcon
-                          icon={faThumbsDown}
-                          size="lg"
-                          color="#1f5dd9"
-                        />
-                      </div>
-                    </button> */}
                   </div>
                 </div>
                 <div className="col-lg-6 col-8 d-flex justify-content-end align-items-center mt-lg-0">

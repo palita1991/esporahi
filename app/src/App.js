@@ -41,11 +41,29 @@ class App extends React.Component {
   };
 
   //nuevo
-  addVotos = (votos, tipo) => {
+  addVotos = (arregloIdVotes,memeId, tipo) => {
     if (tipo === 'positivo') {
-      this.setState({ users: votos.users, votosPositivos: votos.count });
+      /* this.setState({ users: votos.users, votosPositivos: votos.count }); */
     } else {
-      this.setState({ users: votos.users, votosNegativos: votos.count });
+      arregloIdVotes.push(this.state.user_id);
+
+      let object = JSON.stringify({"downvotes":{ "user_id":arregloIdVotes }});
+
+      fetch(`http://localhost:8080/memes/${memeId}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-type': 'application/json'
+           },
+          body: object
+        })
+        .then( (response) => {
+          return response.json()
+        })
+        .then( (resp)=> {
+          console.log(resp);
+        })
+      /* this.setState({ users: votos.users, votosNegativos: votos.count }); */
     }
   };
 
@@ -128,20 +146,6 @@ class App extends React.Component {
     }
   };
 
-  verifyVoteAndVote = (objectVotes) => {
-    if (this.state.logged_in) {
-      let esta = objectVotes.filter((vote) => vote === this.state.user_id);
-      if (esta.length === 1) {
-        console.log('Ya ha votado aqui');
-      } else {
-        console.log('puede votar');
-      }
-    } else {
-      console.log('entra en else');
-      return <Login setVistaActual={this.setVistaActual} />;
-    }
-  };
-
   /* Funcion identica a la anterior, solamente que con los memes */
   showMemeList = () => {
     if (this.state.memes.length > 0) {
@@ -152,6 +156,8 @@ class App extends React.Component {
           categorySelected={this.state.categorySelected}
           verifyVoteAndVote={this.verifyVoteAndVote}
           changeView={this.changeView}
+          user={this.state.user_id}
+          addVotos={this.addVotos}
         />
       );
     } else {
