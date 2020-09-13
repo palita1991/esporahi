@@ -13,26 +13,19 @@ export default class Votospositivos extends React.Component {
 
   verify() {
 
-    if(this.props.userLoggin === 1){
+    if(this.props.userLoggin !== 0){
       let esta = this.state.users.filter((vote) => vote === this.props.userLoggin);
+      let arregloDownvotes = this.props.usersDownvotes.filter( (vote) => vote !== this.props.userLoggin);
       if (esta.length === 1) {
         console.log('Ya ha votado aqui');
       } else {
         this.setState({ count: this.state.count + 1 });
-        this.props.addVotos("positivo");
+        this.state.users.push(this.props.userLoggin);
+        this.props.addVotos(this.state.users, this.props.memeId, arregloDownvotes);
       }
     }else{
       console.log('No esta logueado');
     }
-
-    /*this.setState({ count: this.state.count + 1 });
-
-    const votosPositivos = {
-      count: this.state.count,
-       users: this.state.users, 
-    };*/
-
-    /* this.props.addVotos(votosPositivos, "positivo"); */
   }
 
   render() {

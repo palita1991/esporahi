@@ -13,26 +13,20 @@ export default class Votosnegativos extends React.Component {
 
   verify() {
 
-    if(this.props.userLoggin === 1){
+    if(this.props.userLoggin !== 0){
       let esta = this.state.users.filter((vote) => vote === this.props.userLoggin);
+      let arregloUpvotes = this.props.usersUpvotes.filter( (vote) => vote !== this.props.userLoggin);
       if (esta.length === 1) {
         console.log('Ya ha votado aqui');
       } else {
-        this.setState({ count: this.state.count + 1 });
-        this.props.addVotos(this.state.users, this.props.memeId,"negativo");
+        this.setState({ 
+          count: this.state.count + 1, 
+          users: this.state.users.push(this.props.userLoggin) });
+        this.props.addVotos(arregloUpvotes, this.props.memeId, this.state.users);
       }
     }else{
       console.log('No esta logueado');
     }
-
-    /* this.setState({ count: this.state.count + 1 });
-
-    
-    const votosNegativos = {
-      count: this.state.count, */
-      /* users: this.state.users, */
-    /* };
-    this.props.addVotos(votosNegativos, "negativo"); */
   }
 
   render() {

@@ -14,14 +14,16 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      memeSelected: '',
       memes: 0,
       category: 0,
       categorySelected: 'General',
       logged_in: true,
-      user_id: 1,
+      user_id: 3,
       vistaActual: 'stateLogout',
       comments: [], //nuevo
-      votosPositivos: {
+      votos:[]
+      /* votosPositivos: {
         //nuevo
         users: [],
         countPositivos: 0,
@@ -30,41 +32,57 @@ class App extends React.Component {
         //nuevo
         users: [],
         countNegativos: 0,
-      },
+      }, */
     };
   }
 
-  //nuevo
+  //Funcion que recibe el objeto commet para actualizar el arreglo comments del meme
   addComment = (newComment) => {
-    const { comments } = this.state;
-    this.setState({ comments: [...comments, newComment] });
+    let arrayComment = this.state.comments;
+    arrayComment.push({"comment":{
+      "description": newComment,
+      "user_id": this.state.user_id
+    }});
+
+    let objectComment = JSON.stringify({"comments": arrayComment});
+    fetch(`http://localhost:8080/memes/${this.state.memeSelected}`,
+    {
+      method: 'PUT',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: objectComment
+    })
+    .then( (response) => {
+      return response.json();
+    })
+    .then( (resp) =>{
+      console.log(resp);
+      this.setState({ comments: arrayComment });
+    })
   };
 
-  //nuevo
-  addVotos = (arregloIdVotes,memeId, tipo) => {
-    if (tipo === 'positivo') {
-      /* this.setState({ users: votos.users, votosPositivos: votos.count }); */
-    } else {
-      arregloIdVotes.push(this.state.user_id);
-
-      let object = JSON.stringify({"downvotes":{ "user_id":arregloIdVotes }});
-
-      fetch(`http://localhost:8080/memes/${memeId}`,
-        {
-          method: 'PUT',
-          headers: {
-            'Content-type': 'application/json'
-           },
-          body: object
-        })
-        .then( (response) => {
-          return response.json()
-        })
-        .then( (resp)=> {
-          console.log(resp);
-        })
-      /* this.setState({ users: votos.users, votosNegativos: votos.count }); */
-    }
+  //Funcion encargada de actualizar los votos del meme
+  addVotos = (arregloIdVotes,memeId, arregloIdVotesContrary) => {
+    let object = JSON.stringify({
+      "upvotes":{ "user_id": arregloIdVotes},
+      "downvotes":{ "user_id": arregloIdVotesContrary}
+    });
+    fetch(`http://localhost:8080/memes/${memeId}`,
+    {
+      method: 'PUT',
+      headers: {
+        'Content-type': 'application/json'
+       },
+      body: object
+    })
+    .then( (response) => {
+      return response.json()
+    })
+    .then( (resp) =>{
+      console.log(resp);
+      this.setState({votos: object});
+    })
   };
 
   setVistaActual = (vista) => {
@@ -118,7 +136,7 @@ class App extends React.Component {
           return response.json();
         })
         .then((memesCategory) => {
-          this.setState({ memes: memesCategory, categorySelected: info });
+          this.setState({ memes: memesCategory, categorySelected: info});
         });
     } else if (route === 'meme') {
       fetch(`http://localhost:8080/memes/${info}`)
@@ -126,7 +144,7 @@ class App extends React.Component {
           return response.json();
         })
         .then((meme) => {
-          this.setState({ memes: meme });
+          this.setState({ memes: meme , comments: meme[0].comments, memeSelected: meme[0]._id});
         });
     } else {
       this.fetchMemes();
@@ -165,14 +183,6 @@ class App extends React.Component {
     }
   };
 
-  /*   showMeme = ()=>{
-    if(this.state.memes.length === 1){
-      return (
-        <Meme meme={this.state.memes}/>
-      );
-    }
-  } */
-
   render() {
     return (
       <div className="App">
@@ -188,21 +198,19 @@ class App extends React.Component {
                 <Switch>
                   <Route path="/create">{/*Listado categoría por id*/}</Route>
                   <Route path="/meme/:id" component={Meme}>
-                    <Meme meme={this.state.memes} />
-                    {/*                     <Meme
-                      votosPositivos={this.state.votosPositivos}
-                      votosNegativos={this.state.votosNegativos}
+                    <Meme
+                      meme={this.state.memes} 
+                      user={this.state.user_id}
                       addVotos={this.addVotos}
-                      cantComentarios={this.state.comments.length}
+                      changeView={this.changeView}
                     />
                     <AddComment
                       addComment={this.addComment}
-                      cantComentarios={this.state.comments.length}
+                      comments={this.state.comments}
                     />
                     <ListComment
                       comments={this.state.comments}
-                      longitud={this.state.comments.length}
-                    /> */}
+                    />
                   </Route>
                   <Route path="/category/:id" component={MemeList}>
                     {/* {this.showMemeList()} */}

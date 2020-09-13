@@ -46,6 +46,7 @@ export default function MemeList(props) {
                       addVotos={props.addVotos}//Funcionan para realizar la consulta en app
                       users={meme.upvotes.user_id}//Arreglo de id de usuarios
                       memeId={meme._id}
+                      usersDownvotes={meme.downvotes.user_id}//Arreglo de id votos negativos
                     />
                     <VotosNegativos
                       votos={meme.downvotes.user_id.length}//Cantidad de votos
@@ -53,11 +54,12 @@ export default function MemeList(props) {
                       addVotos={props.addVotos}//Funcionan para realizar la consulta en app
                       users={meme.downvotes.user_id}//Arreglo de id de usuarios
                       memeId={meme._id}
+                      usersUpvotes={meme.upvotes.user_id}
                     />
                   </div>
                 </div>
                 <div className="col-lg-6 col-8 d-flex justify-content-end align-items-center mt-lg-0">
-                  <CountComment cantComentarios={props.cantComentarios} />
+                  <CountComment cantComments={meme.comments} />
                   {/* <div className="rounded p-lg-2 p-1 comment_meme">
                     <small className="mr-1 text-dark font-weight-bold">
                       Comentarios
