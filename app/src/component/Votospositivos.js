@@ -1,6 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
+import Swal from 'sweetalert2';
 
 export default class Votospositivos extends React.Component {
   constructor(props) {
@@ -17,7 +18,13 @@ export default class Votospositivos extends React.Component {
       let esta = this.state.users.filter((vote) => vote === this.props.userLoggin);
       let arregloDownvotes = this.props.usersDownvotes.filter( (vote) => vote !== this.props.userLoggin);
       if (esta.length === 1) {
-        console.log('Ya ha votado aqui');
+        Swal.fire({
+          position: 'center',
+          icon: 'Information',
+          title: 'Usted ya ha votado aqui',
+          showConfirmButton: true,
+          timer: 2500,
+        });
       } else {
         this.setState({ count: this.state.count + 1 });
         this.state.users.push(this.props.userLoggin);
