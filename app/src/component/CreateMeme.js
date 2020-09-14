@@ -36,38 +36,36 @@ export default class CreateMeme extends React.Component {
       formIsValid = false;
     }
 
-
     this.setState({ errors: errors });
     return formIsValid;
   }
 
   handleChange = (e) => {
-    const { name, value } = e.target
-    this.setState({ [name]: value })
-  }
-  handleFileChange = e => {
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
+  };
+  handleFileChange = (e) => {
     this.setState({
       image: e.target.files[0],
-    })
-  }
+    });
+  };
 
   handleSubmit = async (e) => {
     e.preventDefault();
 
     if (this.handleValidation()) {
-
       const formData = new FormData();
-      formData.append('image', this.state.image);
-      formData.append('title', this.state.title);
-      formData.append('category', this.state.category);
+      formData.append("image", this.state.image);
+      formData.append("title", this.state.title);
+      formData.append("category", this.state.category);
 
       await fetch("http://localhost:8080/memes", {
-        method: 'POST', // or 'PUT'
+        method: "POST", // or 'PUT'
         body: formData, // data can be `string` or {object}!
+      })
+        .then((res) => res.json())
 
-      }).then(res => res.json())
-
-        .catch(error => {
+        .catch((error) => {
           Swal.fire({
             position: "center",
             icon: "error",
@@ -76,9 +74,8 @@ export default class CreateMeme extends React.Component {
             timer: 3500,
           });
         })
-
-        .then(response => {
-          console.log('llegue');
+        .then((response) => {
+          console.log("llegue");
           Swal.fire({
             position: "center",
             icon: "success",
@@ -87,9 +84,8 @@ export default class CreateMeme extends React.Component {
             timer: 2500,
           });
           this.handleModalShowHide();
-          this.props.setVistaActual2("stateLogin");
+          this.props.changeView();
         });
-
     } else {
       Swal.fire({
         position: "center",
@@ -99,10 +95,7 @@ export default class CreateMeme extends React.Component {
         timer: 3500,
       });
     }
-  }
-
-
-
+  };
 
   render() {
     return (

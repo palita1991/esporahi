@@ -50,20 +50,15 @@ export default function MemeList(props) {
                 </div>
                 <div className="col-lg-6 col-8 d-flex justify-content-end align-items-center mt-lg-0">
                   <CountComment cantComments={meme.comments} />
-                  {/* <div className="rounded p-lg-2 p-1 comment_meme">
-                    <small className="mr-1 text-dark font-weight-bold">
-                      Comentarios
-                    </small>
-                    <span className="badge badge-dark">
-                      {meme.comments.length}
-                    </span>
-                  </div> */}
                 </div>
+              </div>
+              <div className="col-lg-6 col-8 d-flex justify-content-end align-items-center mt-lg-0">
+                <CountComment cantComentarios={props.cantComentarios} />
               </div>
             </div>
           </div>
-        ))}
-      </InfiniteScroll>
+        </div>
+      ))}
     </div>
   );
 }
