@@ -1,8 +1,7 @@
 import React from "react";
 //import { useParams } from "react-router-dom";
-import VotosPositivos from "./Votospositivos";
-import VotosNegativos from "./Votosnegativos";
 import CountComment from "./Countcomment";
+import Votes from "./Votes";
 
 export default function Meme(props) {
   /* let { id } = useParams(); */
@@ -24,21 +23,12 @@ export default function Meme(props) {
             <div className="row">
               <div className="col-lg-6 col-4 d-flex justify-content-start align-items-center">
                 <div className="d-flex flex-row bd-highlight">
-                  <VotosPositivos
-                    votos={meme.upvotes.user_id.length}
-                    userLoggin={props.user}//Id del user si es que esta logueado, si no es 0
-                    addVotos={props.addVotos}//Funcionan para realizar la consulta en app
-                    users={meme.upvotes.user_id}//Arreglo de id de usuarios
-                    memeId={meme._id}
-                    usersDownvotes={meme.downvotes.user_id}//Arreglo de id votos negativos
-                  />
-                  <VotosNegativos
-                    votos={meme.downvotes.user_id.length}//Cantidad de votos
-                    userLoggin={props.user}//Id del user si es que esta logueado, si no es 0
-                    addVotos={props.addVotos}//Funcionan para realizar la consulta en app
-                    users={meme.downvotes.user_id}//Arreglo de id de usuarios
-                    memeId={meme._id}
-                    usersUpvotes={meme.upvotes.user_id}
+                  <Votes
+                  usersUpvotes={meme.upvotes.user_id}//Arreglo de id de votos positivos
+                  usersDownvotes={meme.downvotes.user_id}//Arreglo de id votos negativos
+                  userLoggin={props.user}//Id del user si es que esta logueado, si no es 0
+                  addVotos={props.addVotos}//Funcionan para realizar la consulta en app
+                  memeId={meme._id}
                   />
                 </div>
               </div>

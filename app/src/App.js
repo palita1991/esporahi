@@ -6,7 +6,6 @@ import Meme from './component/Meme';
 import MemeList from './component/MemeList';
 import NavLeft from './component/NavLeft';
 import NavTop from './component/NavTop';
-import Login from './component/Login';
 import AddComment from './component/AddComment';
 import ListComment from './component/ListComment';
 
@@ -63,7 +62,7 @@ class App extends React.Component {
   };
 
   //Funcion encargada de actualizar los votos del meme
-  addVotos = (arregloIdVotes,memeId, arregloIdVotesContrary) => {
+  addVotos = (arregloIdVotes, memeId ,arregloIdVotesContrary) => {
     let object = JSON.stringify({
       "upvotes":{ "user_id": arregloIdVotes},
       "downvotes":{ "user_id": arregloIdVotesContrary}
@@ -81,7 +80,10 @@ class App extends React.Component {
     })
     .then( (resp) =>{
       console.log(resp);
-      this.setState({votos: object});
+      this.setState({votos: { 
+        upvotes:{user_id:arregloIdVotes},
+        downvotes:{user_id:arregloIdVotesContrary}
+      }});
     })
   };
 
@@ -199,9 +201,9 @@ class App extends React.Component {
                   <Route path="/create">{/*Listado categoría por id*/}</Route>
                   <Route path="/meme/:id" component={Meme}>
                     <Meme
-                      meme={this.state.memes} 
-                      user={this.state.user_id}
-                      addVotos={this.addVotos}
+                      meme={this.state.memes} //Meme seleccionado
+                      user={this.state.user_id} //Id del usuario loggeado
+                      addVotos={this.addVotos} //Funcion addvotos
                       changeView={this.changeView}
                     />
                     <AddComment
