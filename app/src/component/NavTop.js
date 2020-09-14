@@ -25,8 +25,11 @@ export default class NavTop extends React.Component {
     this.setState(newState);
     this.props.setVistaActual(vista,name, id);
   };
-
+  setVistaActual2 = () => {
+    this.props.setVistaActual("stateLogin");
+  };
   render() {
+
     return (
       <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light border border-bottom navtop rounded shadow">
         <Link to="/" className="link" onClick={this.props.changeView}>
@@ -52,7 +55,7 @@ export default class NavTop extends React.Component {
             {this.state.vistaActual === 'stateLogin' ? (
               <>
                 <li className="nav-item active mx-2 my-1" id="createMeme">
-                  <CreateMeme setVistaActual={this.setVistaActual} />
+                  <CreateMeme setVistaActual2={this.setVistaActual2} />
                 </li>
                 <li className="nav-item active mx-2 my-1" id="nameUser">
                   <Link to="/profile" className="link">
@@ -85,15 +88,15 @@ export default class NavTop extends React.Component {
                 </li>
               </>
             ) : (
-              <>
-                <li className="nav-item active mx-2 my-1" id="login">
-                  <Login setVistaActual={this.setVistaActual} />
-                </li>
-                <li className="nav-item active mx-2 my-1" id="signUp">
-                  <Register setVistaActual={this.setVistaActual} />
-                </li>
-              </>
-            )}
+                <>
+                  <li className="nav-item active mx-2 my-1" id="login">
+                    <Login setVistaActual={this.setVistaActual} />
+                  </li>
+                  <li className="nav-item active mx-2 my-1" id="signUp">
+                    <Register setVistaActual={this.setVistaActual} />
+                  </li>
+                </>
+              )}
             <Link to="/categoria/:id" className="link">
               <div className=" d-lg-none d-xs-block " id="navbarToggler">
                 <li className="nav-item dropdown">

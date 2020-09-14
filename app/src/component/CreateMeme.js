@@ -1,29 +1,108 @@
 import React from "react";
+import Swal from "sweetalert2";
 import { Modal } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faAngleDoubleUp } from "@fortawesome/free-solid-svg-icons";
-
-const CATEGORIAS = [
-  "General",
-  "Politica",
-  "Random",
-  "Deportes",
-  "Caricaturas",
-  "Peliculas",
-];
-
+import Input from "./Input";
 export default class CreateMeme extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      title: "",
+      category: "",
+      image: "",
       showHide: false,
     };
+    this.handleChange = this.handleChange.bind(this);
   }
 
   handleModalShowHide() {
     this.setState({ showHide: !this.state.showHide });
   }
+
+  handleValidation() {
+    let title = this.state.title;
+    let category = this.state.category;
+
+    let errors = {};
+    let formIsValid = true;
+
+    if (!title) {
+      formIsValid = false;
+    }
+
+    if (!category) {
+      formIsValid = false;
+    }
+
+
+    this.setState({ errors: errors });
+    return formIsValid;
+  }
+
+  handleChange = (e) => {
+    const { name, value } = e.target
+    this.setState({ [name]: value })
+  }
+  handleFileChange = e => {
+    this.setState({
+      image: e.target.files[0],
+    })
+  }
+
+  handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (this.handleValidation()) {
+
+      const formData = new FormData();
+      formData.append('image', this.state.image);
+      formData.append('title', this.state.title);
+      formData.append('category', this.state.category);
+
+      await fetch("http://localhost:8080/memes", {
+        method: 'POST', // or 'PUT'
+        body: formData, // data can be `string` or {object}!
+
+      }).then(res => res.json())
+
+        .catch(error => {
+          Swal.fire({
+            position: "center",
+            icon: "error",
+            title: "Formato incorrecto de la imagen",
+            showConfirmButton: false,
+            timer: 3500,
+          });
+        })
+
+        .then(response => {
+          console.log('llegue');
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Meme creado correctamente",
+            showConfirmButton: false,
+            timer: 2500,
+          });
+          this.handleModalShowHide();
+          this.props.setVistaActual2("stateLogin");
+        });
+
+    } else {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Completar los campos requeridos",
+        showConfirmButton: false,
+        timer: 3500,
+      });
+    }
+  }
+
+
+
 
   render() {
     return (
@@ -55,47 +134,48 @@ export default class CreateMeme extends React.Component {
             </div>
           </Modal.Header>
           <Modal.Body className="modal_body">
-            <form>
+            <form onSubmit={this.handleSubmit}>
               <div className="container">
                 <div className="row">
                   <div className="col-6">
                     <div className="form-group">
-                      <label htmlFor="firstName">Titulo</label>
-                      <input
-                        className="form-control"
-                        placeholder="Ingresa titulo del Meme "
+                      <Input
+                        label="Título"
+                        htmlFor="title"
+                        placeholder="Ingrese título del Meme"
                         type="text"
                         name="title"
-                        required
                         onChange={this.handleChange}
+                        value={this.state.title}
+                        origin="create"
                       />
                     </div>
                   </div>
                   <div className="col-6">
-                    <div class="form-group">
-                      <label htmlFor="category_meme">Categoria</label>
-                      <select class="form-control" id="category_meme">
-                        {CATEGORIAS.map((cat) => (
-                          <option>{cat}</option>
-                        ))}
-                      </select>
+                    <div className="form-group">
+                      <Input
+                        label="Categoria"
+                        htmlFor="category_meme"
+                        id="category_meme"
+                        name="category"
+                        onChange={this.handleChange}
+                      />
                     </div>
                   </div>
                   <div className="col-12 d-flex justify-content-center">
-                    <div class="input-group">
-                      <div class="custom-file">
-                        <input
+                    <div className="input-group">
+                      <div className="custom-file">
+                        <Input
+                          classLabel="custom-file-label"
+                          label="Seleccionar archivo"
+                          htmlFor="image"
                           type="file"
-                          class="custom-file-input"
-                          id="inputGroupFile04"
-                          aria-describedby="inputGroupFileAddon04"
-                          required
+                          name="image"
+                          onChange={this.handleFileChange}
+                          origin="create"
                         />
-                        <label class="custom-file-label" for="inputGroupFile04">
-                          Elegir archivo
-                        </label>
                       </div>
-                      <div class="input-group-append"></div>
+                      <div className="input-group-append"></div>
                     </div>
                   </div>
                   <div className="col-12 d-flex justify-content-center mt-2">

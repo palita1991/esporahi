@@ -198,7 +198,7 @@ class App extends React.Component {
       <div className="App">
         {/*Menú top*/}
         <Router>
-          <NavTop changeView={this.changeView} setVistaActual={this.setVistaActual}/>
+          <NavTop changeView={this.changeView} setVistaActual={this.setVistaActual} />
           <div className="container main">
             <div className="row rounded-lg main_content">
               <div className="col-lg-2 col-12 d-lg-block d-none navleft rounded-lg position-fixed">
