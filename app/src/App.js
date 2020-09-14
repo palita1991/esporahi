@@ -6,7 +6,6 @@ import Meme from './component/Meme';
 import MemeList from './component/MemeList';
 import NavLeft from './component/NavLeft';
 import NavTop from './component/NavTop';
-import Login from './component/Login';
 import AddComment from './component/AddComment';
 import ListComment from './component/ListComment';
 
@@ -14,14 +13,16 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      memeSelected: '',
       memes: 0,
       category: 0,
       categorySelected: 'General',
       logged_in: true,
-      user_id: 1,
+      user_id: 3,
       vistaActual: 'stateLogout',
       comments: [], //nuevo
-      votosPositivos: {
+      votos:[]
+      /* votosPositivos: {
         //nuevo
         users: [],
         countPositivos: 0,
@@ -30,23 +31,60 @@ class App extends React.Component {
         //nuevo
         users: [],
         countNegativos: 0,
-      },
+      }, */
     };
   }
 
-  //nuevo
+  //Funcion que recibe el objeto commet para actualizar el arreglo comments del meme
   addComment = (newComment) => {
-    const { comments } = this.state;
-    this.setState({ comments: [...comments, newComment] });
+    let arrayComment = this.state.comments;
+    arrayComment.push({"comment":{
+      "description": newComment,
+      "user_id": this.state.user_id
+    }});
+
+    let objectComment = JSON.stringify({"comments": arrayComment});
+    fetch(`http://localhost:8080/memes/${this.state.memeSelected}`,
+    {
+      method: 'PUT',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: objectComment
+    })
+    .then( (response) => {
+      return response.json();
+    })
+    .then( (resp) =>{
+      console.log(resp);
+      this.setState({ comments: arrayComment });
+    })
   };
 
-  //nuevo
-  addVotos = (votos, tipo) => {
-    if (tipo === 'positivo') {
-      this.setState({ users: votos.users, votosPositivos: votos.count });
-    } else {
-      this.setState({ users: votos.users, votosNegativos: votos.count });
-    }
+  //Funcion encargada de actualizar los votos del meme
+  addVotos = (arregloIdVotes, memeId ,arregloIdVotesContrary) => {
+    let object = JSON.stringify({
+      "upvotes":{ "user_id": arregloIdVotes},
+      "downvotes":{ "user_id": arregloIdVotesContrary}
+    });
+    fetch(`http://localhost:8080/memes/${memeId}`,
+    {
+      method: 'PUT',
+      headers: {
+        'Content-type': 'application/json'
+       },
+      body: object
+    })
+    .then( (response) => {
+      return response.json()
+    })
+    .then( (resp) =>{
+      console.log(resp);
+      this.setState({votos: { 
+        upvotes:{user_id:arregloIdVotes},
+        downvotes:{user_id:arregloIdVotesContrary}
+      }});
+    })
   };
 
   setVistaActual = (vista) => {
@@ -100,7 +138,7 @@ class App extends React.Component {
           return response.json();
         })
         .then((memesCategory) => {
-          this.setState({ memes: memesCategory, categorySelected: info });
+          this.setState({ memes: memesCategory, categorySelected: info});
         });
     } else if (route === 'meme') {
       fetch(`http://localhost:8080/memes/${info}`)
@@ -108,7 +146,7 @@ class App extends React.Component {
           return response.json();
         })
         .then((meme) => {
-          this.setState({ memes: meme });
+          this.setState({ memes: meme , comments: meme[0].comments, memeSelected: meme[0]._id});
         });
     } else {
       this.fetchMemes();
@@ -128,20 +166,6 @@ class App extends React.Component {
     }
   };
 
-  verifyVoteAndVote = (objectVotes) => {
-    if (this.state.logged_in) {
-      let esta = objectVotes.filter((vote) => vote === this.state.user_id);
-      if (esta.length === 1) {
-        console.log('Ya ha votado aqui');
-      } else {
-        console.log('puede votar');
-      }
-    } else {
-      console.log('entra en else');
-      return <Login setVistaActual={this.setVistaActual} />;
-    }
-  };
-
   /* Funcion identica a la anterior, solamente que con los memes */
   showMemeList = () => {
     if (this.state.memes.length > 0) {
@@ -152,20 +176,14 @@ class App extends React.Component {
           categorySelected={this.state.categorySelected}
           verifyVoteAndVote={this.verifyVoteAndVote}
           changeView={this.changeView}
+          user={this.state.user_id}
+          addVotos={this.addVotos}
         />
       );
     } else {
       return <p className="text-center">Cargando memes...</p>;
     }
   };
-
-  /*   showMeme = ()=>{
-    if(this.state.memes.length === 1){
-      return (
-        <Meme meme={this.state.memes}/>
-      );
-    }
-  } */
 
   render() {
     return (
@@ -182,21 +200,19 @@ class App extends React.Component {
                 <Switch>
                   <Route path="/create">{/*Listado categoría por id*/}</Route>
                   <Route path="/meme/:id" component={Meme}>
-                    <Meme meme={this.state.memes} />
-                    {/*                     <Meme
-                      votosPositivos={this.state.votosPositivos}
-                      votosNegativos={this.state.votosNegativos}
-                      addVotos={this.addVotos}
-                      cantComentarios={this.state.comments.length}
+                    <Meme
+                      meme={this.state.memes} //Meme seleccionado
+                      user={this.state.user_id} //Id del usuario loggeado
+                      addVotos={this.addVotos} //Funcion addvotos
+                      changeView={this.changeView}
                     />
                     <AddComment
                       addComment={this.addComment}
-                      cantComentarios={this.state.comments.length}
+                      comments={this.state.comments}
                     />
                     <ListComment
                       comments={this.state.comments}
-                      longitud={this.state.comments.length}
-                    /> */}
+                    />
                   </Route>
                   <Route path="/category/:id" component={MemeList}>
                     {/* {this.showMemeList()} */}

@@ -4,9 +4,8 @@ export default class AddComment extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: 'mariano',
       comment: '',
-      longitud: this.props.longitud,
+      longitud: this.props.comments.length,
     };
   }
 
@@ -15,12 +14,7 @@ export default class AddComment extends React.Component {
   }
 
   agregar() {
-    const newComment = {
-      id: this.state.longitud + 1,
-      user: this.state.user,
-      comment: this.state.comment,
-    };
-    this.props.addComment(newComment);
+    this.props.addComment(this.state.comment);
   }
 
   render() {

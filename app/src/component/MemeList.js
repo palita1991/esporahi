@@ -1,9 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
-import VotosPositivos from "./Votospositivos";
-import VotosNegativos from "./Votosnegativos";
 import CountComment from "./Countcomment";
+import Votes from "./Votes";
 
 export default function MemeList(props) {
   const { memes, categorySelected } = props;
@@ -18,8 +17,8 @@ export default function MemeList(props) {
         hasMore={true}
         loader={<h4>Loading...</h4>}
       >
-        {memes.map((meme) => (
-          <div className="card shadow rounded-lg" key={meme._id}>
+        {memes.map((meme, index) => (
+          <div className="card shadow rounded-lg" key={index}>
             <h5 className="img-fluid border border-left-0 border-right-0 border-dark w-100 title_meme">
               {meme.title}
             </h5>
@@ -40,46 +39,17 @@ export default function MemeList(props) {
               <div className="row">
                 <div className="col-lg-6 col-4 d-flex justify-content-start align-items-center">
                   <div className="d-flex flex-row bd-highlight">
-                    <VotosPositivos
-                      votos={props.votosPositivos}
-                      addVotos={props.addVotos}
-                    />
-                    <VotosNegativos
-                      votos={props.votosNegativos}
-                      addVotos={props.addVotos}
-                    />
-                    {/* <button className="btn btn-sm rounded-pill p-lg-2 p-1 mr-1 button_positive" onClick={
-                      ()=>{props.verifyVoteAndVote(meme.upvotes.user_id);}
-                    }>
-                      <div className="bd-highlight">
-                        <small className="text-white font-weight-bold mr-2">
-                        {meme.upvotes.user_id.length}
-                        </small>
-                        <FontAwesomeIcon
-                          icon={faThumbsUp}
-                          size="lg"
-                          color="white"
-                        />
-                      </div>
-                    </button>
-                    <button className="btn btn-sm rounded-pill p-lg-2 p-1 mr-1 button_negative" onClick={
-                      ()=>{props.verifyVoteAndVote(meme.downvotes.user_id);}
-                    }>
-                      <div className="bd-highlight">
-                        <small className="text-white font-weight-bold mr-2">
-                          {meme.downvotes.user_id.length}
-                        </small>
-                        <FontAwesomeIcon
-                          icon={faThumbsDown}
-                          size="lg"
-                          color="#1f5dd9"
-                        />
-                      </div>
-                    </button> */}
+                  <Votes
+                  usersUpvotes={meme.upvotes.user_id}//Arreglo de id de votos positivos
+                  usersDownvotes={meme.downvotes.user_id}//Arreglo de id votos negativos
+                  userLoggin={props.user}//Id del user si es que esta logueado, si no es 0
+                  addVotos={props.addVotos}//Funcionan para realizar la consulta en app
+                  memeId={meme._id}
+                  />
                   </div>
                 </div>
                 <div className="col-lg-6 col-8 d-flex justify-content-end align-items-center mt-lg-0">
-                  <CountComment cantComentarios={props.cantComentarios} />
+                  <CountComment cantComments={meme.comments} />
                   {/* <div className="rounded p-lg-2 p-1 comment_meme">
                     <small className="mr-1 text-dark font-weight-bold">
                       Comentarios
