@@ -8,6 +8,7 @@ import NavLeft from './component/NavLeft';
 import NavTop from './component/NavTop';
 import AddComment from './component/AddComment';
 import ListComment from './component/ListComment';
+import UserProfile from './component/UserProfile';
 
 class App extends React.Component {
   constructor(props) {
@@ -21,7 +22,7 @@ class App extends React.Component {
       user_id: 3,
       vistaActual: 'stateLogout',
       comments: [], //nuevo
-      votos:[]
+      votos: [],
       /* votosPositivos: {
         //nuevo
         users: [],
@@ -38,53 +39,55 @@ class App extends React.Component {
   //Funcion que recibe el objeto commet para actualizar el arreglo comments del meme
   addComment = (newComment) => {
     let arrayComment = this.state.comments;
-    arrayComment.push({"comment":{
-      "description": newComment,
-      "user_id": this.state.user_id
-    }});
+    arrayComment.push({
+      comment: {
+        description: newComment,
+        user_id: this.state.user_id,
+      },
+    });
 
-    let objectComment = JSON.stringify({"comments": arrayComment});
-    fetch(`http://localhost:8080/memes/${this.state.memeSelected}`,
-    {
+    let objectComment = JSON.stringify({ comments: arrayComment });
+    fetch(`http://localhost:8080/memes/${this.state.memeSelected}`, {
       method: 'PUT',
       headers: {
-        'Content-type': 'application/json'
+        'Content-type': 'application/json',
       },
-      body: objectComment
+      body: objectComment,
     })
-    .then( (response) => {
-      return response.json();
-    })
-    .then( (resp) =>{
-      console.log(resp);
-      this.setState({ comments: arrayComment });
-    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((resp) => {
+        console.log(resp);
+        this.setState({ comments: arrayComment });
+      });
   };
 
   //Funcion encargada de actualizar los votos del meme
-  addVotos = (arregloIdVotes, memeId ,arregloIdVotesContrary) => {
+  addVotos = (arregloIdVotes, memeId, arregloIdVotesContrary) => {
     let object = JSON.stringify({
-      "upvotes":{ "user_id": arregloIdVotes},
-      "downvotes":{ "user_id": arregloIdVotesContrary}
+      upvotes: { user_id: arregloIdVotes },
+      downvotes: { user_id: arregloIdVotesContrary },
     });
-    fetch(`http://localhost:8080/memes/${memeId}`,
-    {
+    fetch(`http://localhost:8080/memes/${memeId}`, {
       method: 'PUT',
       headers: {
-        'Content-type': 'application/json'
-       },
-      body: object
+        'Content-type': 'application/json',
+      },
+      body: object,
     })
-    .then( (response) => {
-      return response.json()
-    })
-    .then( (resp) =>{
-      console.log(resp);
-      this.setState({votos: { 
-        upvotes:{user_id:arregloIdVotes},
-        downvotes:{user_id:arregloIdVotesContrary}
-      }});
-    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((resp) => {
+        console.log(resp);
+        this.setState({
+          votos: {
+            upvotes: { user_id: arregloIdVotes },
+            downvotes: { user_id: arregloIdVotesContrary },
+          },
+        });
+      });
   };
 
   setVistaActual = (vista) => {
@@ -138,7 +141,7 @@ class App extends React.Component {
           return response.json();
         })
         .then((memesCategory) => {
-          this.setState({ memes: memesCategory, categorySelected: info});
+          this.setState({ memes: memesCategory, categorySelected: info });
         });
     } else if (route === 'meme') {
       fetch(`http://localhost:8080/memes/${info}`)
@@ -146,7 +149,11 @@ class App extends React.Component {
           return response.json();
         })
         .then((meme) => {
-          this.setState({ memes: meme , comments: meme[0].comments, memeSelected: meme[0]._id});
+          this.setState({
+            memes: meme,
+            comments: meme[0].comments,
+            memeSelected: meme[0]._id,
+          });
         });
     } else {
       this.fetchMemes();
@@ -210,15 +217,13 @@ class App extends React.Component {
                       addComment={this.addComment}
                       comments={this.state.comments}
                     />
-                    <ListComment
-                      comments={this.state.comments}
-                    />
+                    <ListComment comments={this.state.comments} />
                   </Route>
                   <Route path="/category/:id" component={MemeList}>
                     {/* {this.showMemeList()} */}
                   </Route>
                   <Route path="/profile">
-                    {/*Meme por id con todos sus detalles*/}
+                    <UserProfile />
                   </Route>
                   <Route path="/register">
                     {/*Meme por id con todos sus detalles*/}
