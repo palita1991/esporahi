@@ -8,4 +8,4 @@ const schemaUser = new Schema({
     dob: String,
 });
 
-export const modelUser = model('usuarios', schemaUser, 'usuarios');
+export const modelUser = model('user', schemaUser, 'user');

@@ -108,7 +108,7 @@ export default class Register extends React.Component {
         break;
       case "password":
         formErrors.password =
-          value.length < 6 ? "Minimo 3 caracteres requeridos" : "";
+          value.length < 6 ? "Minimo 6 caracteres requeridos" : "";
         break;
 
       default:
@@ -244,7 +244,7 @@ export default class Register extends React.Component {
                       className="btn btn-secondary float-right mr-1"
                       type="button"
                       onClick={() => this.handleModalShowHide()}
-                    >Cerrar
+                    >Close
                       <span aria-hidden="true"></span>
                     </button>
 
