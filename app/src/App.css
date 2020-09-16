@@ -1,19 +1,19 @@
 body {
-  background-image: url("img/logo_repeat.png");
+  background-image: url('img/logo_repeat.png');
   background-repeat: repeat;
-  cursor: url("img/cursor_thanos.png") 0 0, pointer !important;
+  cursor: url('img/cursor_thanos.png') 0 0, pointer !important;
 }
 
 body:active {
-  cursor: url("img/chaquido_thanos.png") 0 0, pointer !important;
+  cursor: url('img/chaquido_thanos.png') 0 0, pointer !important;
 }
 
 .btn {
-  cursor: url("img/cursor_thanos.png") 0 0, pointer !important;
+  cursor: url('img/cursor_thanos.png') 0 0, pointer !important;
 }
 
 #button_logout {
-  cursor: url("img/fuckyou.png") 15 -75, pointer !important;
+  cursor: url('img/fuckyou.png') 15 -75, pointer !important;
 }
 
 /*****
@@ -21,13 +21,13 @@ FUENTES
 *****/
 
 @font-face {
-  font-family: "Bangers";
-  src: url("Bangers.ttf");
+  font-family: 'Bangers';
+  src: url('Bangers.ttf');
 }
 
 @font-face {
-  font-family: "Comic";
-  src: url("comic.ttf");
+  font-family: 'Comic';
+  src: url('comic.ttf');
 }
 
 /*****
@@ -62,8 +62,8 @@ CATEGORY
 *****/
 .category_button {
   background: #ffffff;
-  cursor: url("img/cursor_thanos.png") 0 0, pointer !important;
-  font-family: "Bangers";
+  cursor: url('img/cursor_thanos.png') 0 0, pointer !important;
+  font-family: 'Bangers';
   font-size: 15px;
   letter-spacing: 1px;
 }
@@ -74,19 +74,19 @@ CATEGORY
 }
 
 #title_category {
-  font-family: "Bangers";
+  font-family: 'Bangers';
 }
 
 .category_button {
-  cursor: url("img/cursor_thanos.png") 0 0, pointer !important;
+  cursor: url('img/cursor_thanos.png') 0 0, pointer !important;
 }
 
 .category_button:active {
-  cursor: url("img/chaquido_thanos.png") 0 0, pointer !important;
+  cursor: url('img/chaquido_thanos.png') 0 0, pointer !important;
 }
 
 .link {
-  cursor: url("img/cursor_thanos.png") 0 0, pointer !important;
+  cursor: url('img/cursor_thanos.png') 0 0, pointer !important;
 }
 
 /*****
@@ -101,7 +101,7 @@ MEME
 }
 
 #comments {
-  font-family: "Comic";
+  font-family: 'Comic';
 }
 .comment_meme {
   border: 2px solid #ffffff;
@@ -160,7 +160,7 @@ MEME
 }
 
 .title_meme {
-  font-family: "Bangers";
+  font-family: 'Bangers';
 }
 
 .icon_modal {
@@ -185,15 +185,33 @@ MODAL LOGIN
 }
 
 .navbar button {
-  font-family: "Bangers";
+  font-family: 'Bangers';
   font-size: 15px;
   letter-spacing: 1px;
 }
 
 label {
-  font-family: "Bangers";
+  font-family: 'Bangers';
   font-size: 15px;
   letter-spacing: 1px;
+}
+
+/******
+USER PROFILE  
+*******/
+.profilePhoto {
+  width: 138px;
+  height: 138px;
+  border-radius: 50%;
+}
+
+.card {
+  background: #1f5dd965;
+  font-family: 'Bangers';
+}
+
+.item-perfil {
+  background: #1f5dd965;
 }
 
 @media (max-width: 991.98px) {

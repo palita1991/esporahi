@@ -1,23 +1,22 @@
-//require("dotenv").config();
-import React from "react";
-import "./App.css";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Meme from "./component/Meme";
-import MemeList from "./component/MemeList";
-import NavLeft from "./component/NavLeft";
-import NavTop from "./component/NavTop";
-
+import React from 'react';
+import './App.css';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Meme from './component/Meme';
+import MemeList from './component/MemeList';
+import NavLeft from './component/NavLeft';
+import NavTop from './component/NavTop';
+import UserProfile from './component/UserProfile';
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      memeSelected: "",
+      memeSelected: '',
       memes: 0,
       category: 0,
-      categorySelected: "General",
+      categorySelected: 'General',
       logged_in: true,
       user_id: 5,
-      vistaActual: "stateLogout",
+      vistaActual: 'stateLogout',
       comments: [], //nuevo
       votos: [],
     };
@@ -30,9 +29,9 @@ class App extends React.Component {
       downvotes: { user_id: arregloIdVotesContrary },
     });
     fetch(`http://localhost:8080/memes/${memeId}`, {
-      method: "PUT",
+      method: 'PUT',
       headers: {
-        "Content-type": "application/json",
+        'Content-type': 'application/json',
       },
       body: object,
     })
@@ -65,7 +64,7 @@ class App extends React.Component {
 
   /* Funcion que hace el fetch con los memes */
   fetchMemes() {
-    fetch("http://localhost:8080/memes")
+    fetch('http://localhost:8080/memes')
       .then((response) => {
         return response.json();
       })
@@ -76,7 +75,7 @@ class App extends React.Component {
 
   /* Funcion que hace el fetch para traer las categorias */
   fetchCategories() {
-    fetch("http://localhost:8080/categoria")
+    fetch('http://localhost:8080/categoria')
       .then((response) => {
         return response.json();
       })
@@ -95,7 +94,7 @@ class App extends React.Component {
     que ruta se pretende apuntar
   */
   changeView = (info, route) => {
-    if (route === "category") {
+    if (route === 'category') {
       fetch(`http://localhost:8080/memes/category/${info}`)
         .then((response) => {
           return response.json();
@@ -103,7 +102,7 @@ class App extends React.Component {
         .then((memesCategory) => {
           this.setState({ memes: memesCategory, categorySelected: info });
         });
-    } else if (route === "meme") {
+    } else if (route === 'meme') {
       fetch(`http://localhost:8080/memes/${info}`)
         .then((response) => {
           return response.json();
@@ -117,7 +116,7 @@ class App extends React.Component {
         });
     } else {
       this.fetchMemes();
-      this.setState({ categorySelected: "General" });
+      this.setState({ categorySelected: 'General' });
     }
   };
 
@@ -177,7 +176,7 @@ class App extends React.Component {
                     <MemeList />
                   </Route>
                   <Route path="/profile">
-                    {/*Meme por id con todos sus detalles*/}
+                    <UserProfile />
                   </Route>
                   <Route path="/register">
                     {/*Meme por id con todos sus detalles*/}

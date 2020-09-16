@@ -1,20 +1,20 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSignOutAlt, faUserAlt } from "@fortawesome/free-solid-svg-icons";
-import logo from "../img/logo_esporahi.png";
-import NavLeft from "./NavLeft";
-import Login from "./Login";
-import Register from "./Register";
-import CreateMeme from "./CreateMeme";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSignOutAlt, faUserAlt } from '@fortawesome/free-solid-svg-icons';
+import logo from '../img/logo_esporahi.png';
+import NavLeft from './NavLeft';
+import Login from './Login';
+import Register from './Register';
+import CreateMeme from './CreateMeme';
 
 export default class NavTop extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      vistaActual: "stateLogout",
+      vistaActual: 'stateLogout',
       changeView: () => {
-        props.changeView("", "general");
+        props.changeView('', 'general');
       },
     };
   }
@@ -47,14 +47,14 @@ export default class NavTop extends React.Component {
 
         <div className="collapse navbar-collapse" id="navbarToggler">
           <ul className="navbar-nav ml-auto mt-2 mt-lg-0 text-center">
-            {this.state.vistaActual === "stateLogin" ? (
+            {this.state.vistaActual === 'stateLogin' ? (
               <>
                 <li className="nav-item active mx-2 my-1" id="createMeme">
                   <CreateMeme setVistaActual={this.setVistaActual} />
                 </li>
                 <li className="nav-item active mx-2 my-1" id="nameUser">
                   <Link to="/profile" className="link">
-                    <button className="btn btn-outline-secondary py-2 btn-sm disabled text-uppercase font-weight-bold rounded-pill">
+                    <button className="btn btn-outline-secondary py-2 btn-sm text-uppercase font-weight-bold rounded-pill">
                       <FontAwesomeIcon
                         className="mr-2"
                         icon={faUserAlt}
@@ -69,7 +69,7 @@ export default class NavTop extends React.Component {
                     <button
                       className="btn btn-outline-danger py-2 btn-sm text-uppercase font-weight-bold rounded"
                       onClick={() => {
-                        this.setVistaActual("stateLogout");
+                        this.setVistaActual('stateLogout');
                       }}
                       id="button_logout"
                     >
