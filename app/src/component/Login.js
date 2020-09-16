@@ -21,11 +21,24 @@ export default class Login extends React.Component {
     this.setState({ showHide: !this.state.showHide });
   }
 
+  handleChange(event) {
+    if (event.target.name === 'email') {
+      this.setState({ email: event.target.value });
+    } else {
+      this.setState({ password: event.target.value });
+    }
+  }
+
+
+
   handleValidation() {
     let email = this.state.email;
     let password = this.state.password;
     let errors = {};
     let formIsValid = true;
+
+
+
 
     // Corroborar con BD
     if (!email) {
@@ -41,9 +54,18 @@ export default class Login extends React.Component {
     return formIsValid;
   }
 
-  loginSubmit(e) {
+  async loginSubmit(e) {
     e.preventDefault();
-    if (this.handleValidation()) {
+
+    const exiteUsuario = await fetch(`http://localhost:8080/usuario`)
+      .then((response) => {
+        return response.json();
+      })
+      .then(usuarios => {
+        return usuarios.some(u => u.email === this.state.email && u.password === this.state.password);
+      });
+
+    if (this.handleValidation() && exiteUsuario) {
       Swal.fire({
         title: '¡Bienvenidos!',
         imageUrl: logo,
@@ -65,13 +87,6 @@ export default class Login extends React.Component {
     }
   }
 
-  handleChange(event) {
-    if (event.target.name === 'email') {
-      this.setState({ email: event.target.value });
-    } else {
-      this.setState({ password: event.target.value });
-    }
-  }
 
   render() {
     return (
