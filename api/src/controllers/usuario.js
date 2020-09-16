@@ -18,7 +18,14 @@ router.get('/:id', async function (req, res) {
 
 /* Inserta un model.usuario a la base de datos */
 router.post('/', async function (req, res) {
-    const resultInsert = await helpers.postCollection(modelUser, req.body);
+    const user = new modelUser;
+    user.name = req.body.firstName;
+    user.lastname = req.body.lastName;
+    user.email = req.body.email;
+    user.password = req.body.password;
+    user.dob = req.body.dateOfBirth;
+
+    const resultInsert = await helpers.postCollection(modelUser, user);
     res.json(resultInsert);
 });
 

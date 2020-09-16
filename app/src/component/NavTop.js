@@ -12,16 +12,18 @@ export default class NavTop extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      vistaActual: 'stateLogout',
+      vistaActual: "stateLogout",
+      name: "",
       changeView: () => {
         props.changeView('', 'general');
       },
     };
   }
 
-  setVistaActual = (vista) => {
-    const newState = { vistaActual: vista };
+  setVistaActual = (vista, name, id) => {
+    const newState = { vistaActual: vista , name};
     this.setState(newState);
+    this.props.setVistaActual(vista,name, id);
   };
 
   render() {
@@ -60,7 +62,7 @@ export default class NavTop extends React.Component {
                         icon={faUserAlt}
                         size="lg"
                       />
-                      Felipe
+                      {this.state.name}
                     </button>
                   </Link>
                 </li>

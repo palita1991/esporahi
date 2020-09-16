@@ -13,7 +13,7 @@ cloudinary.config({
 /* Obtiene todos los modelMeme invocando al metodo del helpers */
 router.get('/', async function (req, res) {
   const result = await helpers.getCollection(modelMeme);
-  res.json(result);
+  res.json(result.reverse());
 });
 
 /* Obtiene el meme con el id enviado por GET */
@@ -26,8 +26,6 @@ router.get('/:id', async function (req, res) {
 /* Inserta un meme a la base de datos */
 router.post('/', async function (req, res) {
   const result = await cloudinary.v2.uploader.upload(req.file.path);
-
-  console.log(result);
   req.body.foto = result.url;
   const resultInsert = await helpers.postCollection(modelMeme, req.body);
   res.json(resultInsert);

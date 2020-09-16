@@ -19,7 +19,8 @@ class App extends React.Component {
       category: 0,
       categorySelected: 'General',
       logged_in: true,
-      user_id: 3,
+      user_id: 0,
+      name: "",
       vistaActual: 'stateLogout',
       comments: [], //nuevo
       votos: [],
@@ -90,8 +91,8 @@ class App extends React.Component {
       });
   };
 
-  setVistaActual = (vista) => {
-    const newState = { vistaActual: vista };
+  setVistaActual = (vista, name, id) => {
+    const newState = { vistaActual: vista , user_id: id, name};
     this.setState(newState);
   };
 
@@ -197,7 +198,7 @@ class App extends React.Component {
       <div className="App">
         {/*Menú top*/}
         <Router>
-          <NavTop changeView={this.changeView} />
+          <NavTop changeView={this.changeView} setVistaActual={this.setVistaActual}/>
           <div className="container main">
             <div className="row rounded-lg main_content">
               <div className="col-lg-2 col-12 d-lg-block d-none navleft rounded-lg position-fixed">
