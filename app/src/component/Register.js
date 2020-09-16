@@ -1,6 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import { faUserPlus,faCheck,
+  faTimes, } from "@fortawesome/free-solid-svg-icons";
 import { Modal } from "react-bootstrap";
 import Swal from "sweetalert2";
 import logo from "../img/logo_esporahi2.png";
@@ -68,7 +69,7 @@ export default class Register extends React.Component {
         position: "center",
         icon: "error",
         title: "Completar campos requeridos",
-        showConfirmButton: true,
+        showConfirmButton: false,
         timer: 3500,
       });
     }
@@ -224,20 +225,18 @@ export default class Register extends React.Component {
                     </div>  
                   </div>
 
-                  <div className="col-12 d-flex justify-content-end">
+                  <div className="col-12 d-flex justify-content-center">
                     <button
-                      className="btn btn-secondary float-right mr-1"
+                      className="btn btn-secondary float-right mr-1 rounded-pill"
                       type="button"
                       onClick={() => this.handleModalShowHide()}
-                    >Cerrar
+                    ><FontAwesomeIcon icon={faTimes} size="lg" />
                       <span aria-hidden="true"></span>
                     </button>
-
                     <button
-                      className="btn btn-primary float-right"
+                      className="btn btn-primary float-right rounded-pill"
                       type="submit"
-                    >
-                      Sign up
+                    ><FontAwesomeIcon icon={faCheck} size="lg" />
                     </button>
                   </div>
                 </div>

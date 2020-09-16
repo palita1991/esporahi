@@ -1,90 +1,53 @@
 //require("dotenv").config();
-import React from 'react';
-import './App.css';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Meme from './component/Meme';
-import MemeList from './component/MemeList';
-import NavLeft from './component/NavLeft';
-import NavTop from './component/NavTop';
-import AddComment from './component/AddComment';
-import ListComment from './component/ListComment';
+import React from "react";
+import "./App.css";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Meme from "./component/Meme";
+import MemeList from "./component/MemeList";
+import NavLeft from "./component/NavLeft";
+import NavTop from "./component/NavTop";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      memeSelected: '',
+      memeSelected: "",
       memes: 0,
       category: 0,
-      categorySelected: 'General',
+      categorySelected: "General",
       logged_in: true,
-      user_id: 3,
-      vistaActual: 'stateLogout',
+      user_id: 5,
+      vistaActual: "stateLogout",
       comments: [], //nuevo
-      votos:[]
-      /* votosPositivos: {
-        //nuevo
-        users: [],
-        countPositivos: 0,
-      },
-      votosNegativos: {
-        //nuevo
-        users: [],
-        countNegativos: 0,
-      }, */
+      votos: [],
     };
   }
 
-  //Funcion que recibe el objeto commet para actualizar el arreglo comments del meme
-  addComment = (newComment) => {
-    let arrayComment = this.state.comments;
-    arrayComment.push({"comment":{
-      "description": newComment,
-      "user_id": this.state.user_id
-    }});
-
-    let objectComment = JSON.stringify({"comments": arrayComment});
-    fetch(`http://localhost:8080/memes/${this.state.memeSelected}`,
-    {
-      method: 'PUT',
-      headers: {
-        'Content-type': 'application/json'
-      },
-      body: objectComment
-    })
-    .then( (response) => {
-      return response.json();
-    })
-    .then( (resp) =>{
-      console.log(resp);
-      this.setState({ comments: arrayComment });
-    })
-  };
-
   //Funcion encargada de actualizar los votos del meme
-  addVotos = (arregloIdVotes, memeId ,arregloIdVotesContrary) => {
+  addVotos = (arregloIdVotes, memeId, arregloIdVotesContrary) => {
     let object = JSON.stringify({
-      "upvotes":{ "user_id": arregloIdVotes},
-      "downvotes":{ "user_id": arregloIdVotesContrary}
+      upvotes: { user_id: arregloIdVotes },
+      downvotes: { user_id: arregloIdVotesContrary },
     });
-    fetch(`http://localhost:8080/memes/${memeId}`,
-    {
-      method: 'PUT',
+    fetch(`http://localhost:8080/memes/${memeId}`, {
+      method: "PUT",
       headers: {
-        'Content-type': 'application/json'
-       },
-      body: object
+        "Content-type": "application/json",
+      },
+      body: object,
     })
-    .then( (response) => {
-      return response.json()
-    })
-    .then( (resp) =>{
-      console.log(resp);
-      this.setState({votos: { 
-        upvotes:{user_id:arregloIdVotes},
-        downvotes:{user_id:arregloIdVotesContrary}
-      }});
-    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((resp) => {
+        console.log(resp);
+        this.setState({
+          votos: {
+            upvotes: { user_id: arregloIdVotes },
+            downvotes: { user_id: arregloIdVotesContrary },
+          },
+        });
+      });
   };
 
   setVistaActual = (vista) => {
@@ -102,7 +65,7 @@ class App extends React.Component {
 
   /* Funcion que hace el fetch con los memes */
   fetchMemes() {
-    fetch('http://localhost:8080/memes')
+    fetch("http://localhost:8080/memes")
       .then((response) => {
         return response.json();
       })
@@ -113,7 +76,7 @@ class App extends React.Component {
 
   /* Funcion que hace el fetch para traer las categorias */
   fetchCategories() {
-    fetch('http://localhost:8080/categoria')
+    fetch("http://localhost:8080/categoria")
       .then((response) => {
         return response.json();
       })
@@ -132,25 +95,29 @@ class App extends React.Component {
     que ruta se pretende apuntar
   */
   changeView = (info, route) => {
-    if (route === 'category') {
+    if (route === "category") {
       fetch(`http://localhost:8080/memes/category/${info}`)
         .then((response) => {
           return response.json();
         })
         .then((memesCategory) => {
-          this.setState({ memes: memesCategory, categorySelected: info});
+          this.setState({ memes: memesCategory, categorySelected: info });
         });
-    } else if (route === 'meme') {
+    } else if (route === "meme") {
       fetch(`http://localhost:8080/memes/${info}`)
         .then((response) => {
           return response.json();
         })
         .then((meme) => {
-          this.setState({ memes: meme , comments: meme[0].comments, memeSelected: meme[0]._id});
+          this.setState({
+            memes: meme,
+            comments: meme[0].comments,
+            memeSelected: meme[0]._id,
+          });
         });
     } else {
       this.fetchMemes();
-      this.setState({ categorySelected: 'General' });
+      this.setState({ categorySelected: "General" });
     }
   };
 
@@ -201,21 +168,13 @@ class App extends React.Component {
                   <Route path="/create">{/*Listado categoría por id*/}</Route>
                   <Route path="/meme/:id" component={Meme}>
                     <Meme
-                      meme={this.state.memes} //Meme seleccionado
                       user={this.state.user_id} //Id del usuario loggeado
                       addVotos={this.addVotos} //Funcion addvotos
-                      changeView={this.changeView}
-                    />
-                    <AddComment
-                      addComment={this.addComment}
-                      comments={this.state.comments}
-                    />
-                    <ListComment
-                      comments={this.state.comments}
                     />
                   </Route>
                   <Route path="/category/:id" component={MemeList}>
                     {/* {this.showMemeList()} */}
+                    <MemeList />
                   </Route>
                   <Route path="/profile">
                     {/*Meme por id con todos sus detalles*/}

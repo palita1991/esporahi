@@ -1,11 +1,11 @@
-import React from 'react';
-
+import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faComment } from "@fortawesome/free-solid-svg-icons";
 export default class AddComment extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      comment: '',
-      longitud: this.props.comments.length,
+      comment: "",
     };
   }
 
@@ -39,10 +39,10 @@ export default class AddComment extends React.Component {
         </div>
         <div className="card-footer text-muted d-flex justify-content-end px-0 py-2 card_comment_footer">
           <button
-            className="btn btn-info btn-sm font-weight-bold text-uppercase mr-2"
+            className="btn btn-info btn-md font-weight-bold text-uppercase mr-2 rounded-pill"
             onClick={this.agregar.bind(this)}
           >
-            comment
+            <FontAwesomeIcon icon={faComment} size="lg" color="#ffffff" />
           </button>
         </div>
       </div>

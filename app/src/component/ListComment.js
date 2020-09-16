@@ -6,7 +6,7 @@ export default function ListComment(props) {
   return (
     <>
       {comments.map((comment) => (
-        <div className="list-group" key={comment._id}>
+        <div className="list-group" id="comments" key={comment._id}>
           <div className="list-group-item flex-column align-items-start my-1 comment_user rounded-lg">
             <div className="d-flex w-100 justify-content-between border border-top-0">
               <h6 className="mb-1 ml-1">{comment.comment.user_id}</h6>

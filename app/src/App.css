@@ -25,6 +25,11 @@ FUENTES
   src: url("Bangers.ttf");
 }
 
+@font-face {
+  font-family: "Comic";
+  src: url("comic.ttf");
+}
+
 /*****
 MENU
 *****/
@@ -32,7 +37,7 @@ MENU
 .navleft {
   height: calc(100vh - 102px) !important;
   background: #1f5dd965;
-  left:5% !important;
+  left: 5% !important;
 }
 
 .navtop {
@@ -48,8 +53,8 @@ MAIN
 
 .list_content {
   height: calc(100vh - 102px) !important;
-  top:0 !important;
-  left:20% !important;
+  top: 0 !important;
+  left: 20% !important;
 }
 
 /*****
@@ -95,6 +100,9 @@ MEME
   background: #1f5dd965;
 }
 
+#comments {
+  font-family: "Comic";
+}
 .comment_meme {
   border: 2px solid #ffffff;
 }
@@ -135,12 +143,11 @@ MEME
 }
 
 .card_comment_footer button {
-  background: #1f5dd990;
-  border: 1px solid #1f5dd9;
+  background: #1f5dd9;
 }
 
 .card_comment_footer button:hover {
-  background: #1f5dd9;
+  background: #1f5dd977;
 }
 
 .comment_user {
@@ -161,7 +168,8 @@ MEME
 }
 
 .img-meme {
-  max-height: 600px;
+  min-height: 500px !important;
+  height: 500px !important;
 }
 
 /*****
@@ -176,14 +184,13 @@ MODAL LOGIN
   color: #1f5dd9;
 }
 
-
-.navbar button{
+.navbar button {
   font-family: "Bangers";
   font-size: 15px;
   letter-spacing: 1px;
 }
 
-label{
+label {
   font-family: "Bangers";
   font-size: 15px;
   letter-spacing: 1px;
@@ -194,9 +201,7 @@ label{
     width: 50% !important;
   }
 
-  .list_content{
-    left:0 !important; 
+  .list_content {
+    left: 0 !important;
   }
 }
-
-
