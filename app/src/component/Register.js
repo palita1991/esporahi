@@ -7,7 +7,7 @@ import logo from "../img/logo_esporahi2.png";
 import Input from "./Input";
 
 const emailRegex = RegExp(
-  /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+  /^[_a-z0-9-]+(.[_a-z0-9-]+)@[a-z0-9-]+(.[a-z0-9-]+)(.[a-z]{2,4})$/
 );
 
 const formValid = ({ formErrors, ...rest }) => {
@@ -61,9 +61,7 @@ export default class Register extends React.Component {
     await fetch("http://localhost:8080/usuario", {
       method: 'POST', // or 'PUT'
       body: formData, // data can be `string` or {object}!
-
     }).then(res => res.json())
-
       .catch(error => {
         Swal.fire({
           position: "center",
@@ -73,7 +71,6 @@ export default class Register extends React.Component {
           timer: 3500,
         });
       })
-
       .then(response => {
         Swal.fire({
           position: "center",
@@ -83,10 +80,25 @@ export default class Register extends React.Component {
           timer: 3500,
         });
         this.handleModalShowHide();
-        //this.props.setVistaActual2("stateLogin");
+    if (formValid(this.state)) {
+      Swal.fire({
+        title: "¡Bienvenido!",
+        imageUrl: logo,
+        imageWidth: 300,
+        imageHeight: 120,
+        imageAlt: "Custom image",
+        timer: 1500,
       });
-
-
+      this.handleModalShowHide();
+      this.props.setVistaActual("stateLogin");
+    } else {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Completar campos requeridos",
+        showConfirmButton: false,
+        timer: 3500,
+      });
   }
 
   handleChange = (e) => {

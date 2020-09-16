@@ -26,6 +26,10 @@ export default class NavTop extends React.Component {
     this.props.setVistaActual(vista,name, id);
   };
 
+  changeView = () => {
+    this.props.changeView("", "general");
+  };
+
   render() {
     return (
       <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light border border-bottom navtop rounded shadow">
@@ -52,7 +56,7 @@ export default class NavTop extends React.Component {
             {this.state.vistaActual === 'stateLogin' ? (
               <>
                 <li className="nav-item active mx-2 my-1" id="createMeme">
-                  <CreateMeme setVistaActual={this.setVistaActual} />
+                  <CreateMeme changeView={this.changeView} />
                 </li>
                 <li className="nav-item active mx-2 my-1" id="nameUser">
                   <Link to="/profile" className="link">

@@ -77,18 +77,19 @@ export default class Login extends React.Component {
         imageUrl: logo,
         imageWidth: 300,
         imageHeight: 120,
-        imageAlt: "Custom image",
+        imageAlt: 'Custom image',
+        showConfirmButton: false,
         timer: 1500,
       });
       this.handleModalShowHide();
       this.props.setVistaActual("stateLogin", this.state.name, this.state.id);
     } else {
       Swal.fire({
-        position: "center",
-        icon: "error",
-        title: "Email o password incorrectos",
-        showConfirmButton: true,
-        timer: 3500,
+        position: 'center',
+        icon: 'error',
+        title: 'Email o password incorrectos',
+        showConfirmButton: false,
+        timer: 2500,
       });
     }
   }

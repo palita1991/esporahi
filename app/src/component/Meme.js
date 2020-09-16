@@ -16,7 +16,7 @@ export default function Meme(props) {
           </h3>
           <img
             src={meme.image}
-            className="img-fluid border border-left-0 border-right-0 border-dark w-100"
+            className="img-fluid border border-left-0 border-right-0 border-dark w-100 img-meme"
             alt="imagen-meme"
           />
           <div className="card-footer footer_meme">

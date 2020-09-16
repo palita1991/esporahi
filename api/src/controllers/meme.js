@@ -25,8 +25,9 @@ router.get('/:id', async function (req, res) {
 
 /* Inserta un meme a la base de datos */
 router.post('/', async function (req, res) {
+  console.log(req.file);
   const result = await cloudinary.v2.uploader.upload(req.file.path);
-  req.body.foto = result.url;
+  req.body.image = result.url;
   const resultInsert = await helpers.postCollection(modelMeme, req.body);
   res.json(resultInsert);
 });
