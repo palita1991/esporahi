@@ -60,6 +60,7 @@ export default function Input(props) {
             type={props.type}
             name={props.name}
             aria-describedby="image"
+            onChange={props.onChange}
             required
           />
         </>

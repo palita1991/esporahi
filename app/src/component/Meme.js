@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import ImageMeme from "./ImageMeme";
-import FooterMeme from "./FooterMeme";
-import AddComment from "./AddComment";
-import ListComment from "./ListComment";
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import ImageMeme from './ImageMeme';
+import FooterMeme from './FooterMeme';
+import AddComment from './AddComment';
+import ListComment from './ListComment';
 
 export default function Meme(props) {
   let { id } = useParams();
@@ -31,9 +31,9 @@ export default function Meme(props) {
 
     let objectComment = JSON.stringify({ comments: arrayComment });
     fetch(`http://localhost:8080/memes/${id}`, {
-      method: "PUT",
+      method: 'PUT',
       headers: {
-        "Content-type": "application/json",
+        'Content-type': 'application/json',
       },
       body: objectComment,
     })

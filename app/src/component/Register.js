@@ -62,9 +62,7 @@ export default class Register extends React.Component {
     await fetch("http://localhost:8080/usuario", {
       method: 'POST', // or 'PUT'
       body: formData, // data can be `string` or {object}!
-
     }).then(res => res.json())
-
       .catch(error => {
         Swal.fire({
           position: "center",
@@ -74,7 +72,6 @@ export default class Register extends React.Component {
           timer: 3500,
         });
       })
-
       .then(response => {
         Swal.fire({
           position: "center",
@@ -105,8 +102,6 @@ export default class Register extends React.Component {
         showConfirmButton: false,
         timer: 3500,
       });
-
-
   }
 
   handleChange = (e) => {

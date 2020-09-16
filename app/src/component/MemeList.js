@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import InfiniteScroll from "react-infinite-scroll-component";
-import ImageMeme from "./ImageMeme";
-import FooterMeme from "./FooterMeme";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import ImageMeme from './ImageMeme';
+import FooterMeme from './FooterMeme';
 
 export default function MemeList(props) {
   const { memes, categorySelected } = props;
@@ -20,7 +20,7 @@ export default function MemeList(props) {
             to={`/meme/${meme._id}`}
             className="link"
             onClick={() => {
-              props.changeView(`${meme._id}`, "meme");
+              props.changeView(`${meme._id}`, 'meme');
             }}
           >
             <ImageMeme src={meme.image} />
