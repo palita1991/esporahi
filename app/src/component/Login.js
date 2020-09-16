@@ -1,21 +1,23 @@
-import React from "react";
-import Swal from "sweetalert2";
-import { Modal } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React from 'react';
+import Swal from 'sweetalert2';
+import { Modal } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faSignInAlt,
   faCheck,
   faTimes,
-} from "@fortawesome/free-solid-svg-icons";
-import logo from "../img/logo_esporahi2.png";
-import Input from "./Input";
+} from '@fortawesome/free-solid-svg-icons';
+import logo from '../img/logo_esporahi2.png';
+import Input from './Input';
 export default class Login extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      password: "",
-      email: "",
+      password: '',
+      email: '',
+      name: '',
+      id: '',
       showHide: false,
     };
     this.handleChange = this.handleChange.bind(this);
@@ -23,6 +25,14 @@ export default class Login extends React.Component {
 
   handleModalShowHide() {
     this.setState({ showHide: !this.state.showHide });
+  }
+
+  handleChange(event) {
+    if (event.target.name === 'email') {
+      this.setState({ email: event.target.value });
+    } else {
+      this.setState({ password: event.target.value });
+    }
   }
 
   handleValidation() {
@@ -45,25 +55,41 @@ export default class Login extends React.Component {
     return formIsValid;
   }
 
-  loginSubmit(e) {
+  async loginSubmit(e) {
     e.preventDefault();
-    if (this.handleValidation()) {
+
+    const exiteUsuario = await fetch(`http://localhost:8080/usuario`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((usuarios) => {
+        return usuarios.some((u) => {
+          const existe =
+            u.email == this.state.email && u.password == this.state.password;
+          if (existe) {
+            this.setState({ name: u.name, id: u._id });
+          }
+          return existe;
+        });
+      });
+
+    if (this.handleValidation() && exiteUsuario) {
       Swal.fire({
-        title: "¡Bienvenidos!",
+        title: '¡Bienvenidos!',
         imageUrl: logo,
         imageWidth: 300,
         imageHeight: 120,
-        imageAlt: "Custom image",
+        imageAlt: 'Custom image',
         showConfirmButton: false,
         timer: 1500,
       });
       this.handleModalShowHide();
-      this.props.setVistaActual("stateLogin");
+      this.props.setVistaActual('stateLogin', this.state.name, this.state.id);
     } else {
       Swal.fire({
-        position: "center",
-        icon: "error",
-        title: "Email o password incorrectos",
+        position: 'center',
+        icon: 'error',
+        title: 'Email o password incorrectos',
         showConfirmButton: false,
         timer: 2500,
       });
@@ -71,7 +97,7 @@ export default class Login extends React.Component {
   }
 
   handleChange(event) {
-    if (event.target.name === "email") {
+    if (event.target.name === 'email') {
       this.setState({ email: event.target.value });
     } else {
       this.setState({ password: event.target.value });
