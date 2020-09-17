@@ -219,7 +219,7 @@ USER PROFILE
 }
 
 @media (max-width: 991.98px) {
-  #navbarToggler button {
+  #navbarDiv button {
     width: 50% !important;
   }
 
