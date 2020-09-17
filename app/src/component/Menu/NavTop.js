@@ -91,7 +91,7 @@ export default class NavTop extends React.Component {
                     <button
                       className="btn btn-outline-danger py-2 btn-sm text-uppercase font-weight-bold rounded"
                       onClick={() => {
-                        this.setVistaActual('stateLogout');
+                        this.setVistaActual('stateLogout', '', 0);
                       }}
                       id="button_logout"
                     >

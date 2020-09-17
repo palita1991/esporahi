@@ -163,11 +163,6 @@ class App extends React.Component {
       <div className="App">
         {/*Menú top*/}
         <Router>
-          {/* <NavTop
-            categories={this.state.category}
-            changeView={this.changeView}
-            setVistaActual={this.setVistaActual}
-          /> */}
           {this.showCategoriesList2()}
           <div className="container main">
             <div className="row rounded-lg main_content">
@@ -190,7 +185,7 @@ class App extends React.Component {
                     {/* {this.showMemeList()} */}
                   </Route>
                   <Route path="/profile">
-                    <UserProfile user_id={this.state.user_id}/>
+                    <UserProfile user_id={this.state.user_id} />
                   </Route>
                   <Route path="/register">
                     {/*Meme por id con todos sus detalles*/}

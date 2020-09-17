@@ -1,27 +1,32 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
 
-export default class Votosnegativos extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      countUpVotes: this.props.usersUpvotes.length,
-      countDownVotes: this.props.usersDownvotes.length,
-      usersUpvotes: this.props.usersUpvotes,
-      usersDownvotes: this.props.usersDownvotes,
-    };
-  }
+export default function Votes(props) {
+  const [countUpVotes, setcountUpVotes] = useState(0);
+  const [countDownVotes, setcountDownVotes] = useState(0);
+  const [usersUpvotes, setusersUpvotes] = useState([]);
+  const [usersDownvotes, setusersDownvotes] = useState([]);
 
-  verify(type) {
-    if (this.props.userIdLoggin !== 0) {
+  useEffect(() => {
+    fetch(`http://localhost:8080/memes/${props.memeId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setcountUpVotes(data[0].upvotes.length);
+        setcountDownVotes(data[0].downvotes.length);
+        setusersUpvotes(data[0].upvotes.user_id);
+        setusersDownvotes(data[0].downvotes.user_id);
+      });
+  }, [countDownVotes, countUpVotes]);
+
+  function verify(type) {
+    if (props.userIdLoggin !== 0) {
       if (type === 'positive') {
-        let esta = this.state.usersUpvotes.filter(
-          (vote) => vote === this.props.userIdLoggin
-        );
-        let arregloDownvotes = this.state.usersDownvotes.filter(
-          (vote) => vote !== this.props.userIdLoggin
+        let esta = usersUpvotes.filter((vote) => vote === props.userIdLoggin);
+        let arregloDownvotes = usersDownvotes.filter(
+          (vote) => vote !== props.userIdLoggin
         );
         if (esta.length === 1) {
           Swal.fire({
@@ -32,25 +37,20 @@ export default class Votosnegativos extends React.Component {
             timer: 2500,
           });
         } else {
-          this.setState({
-            countUpVotes: this.state.countUpVotes + 1,
-            countDownVotes: this.state.countDownVotes - 1,
-            usersUpvotes: this.state.usersUpvotes.push(this.props.userIdLoggin),
-            usersDownvotes: this.props.usersDownvotes
-          });
-          this.props.addVotos(
-            this.state.usersUpvotes,
-            this.props.memeId,
-            arregloDownvotes
-          );
+          setcountUpVotes(countUpVotes + 1);
+          setcountDownVotes(countDownVotes - 1);
+          setusersUpvotes(usersUpvotes.push(props.userIdLoggin));
+          setusersDownvotes(usersDownvotes);
+
+          props.addVotos(usersUpvotes, props.memeId, arregloDownvotes);
         }
       } else {
-        let esta = this.state.usersDownvotes.filter(
-          (vote) => vote === this.props.userIdLoggin
+        let esta = usersDownvotes.filter((vote) => vote === props.userIdLoggin);
+
+        let arregloUpvotes = usersUpvotes.filter(
+          (vote) => vote !== props.userIdLoggin
         );
-        let arregloUpvotes = this.state.usersUpvotes.filter(
-          (vote) => vote !== this.props.userIdLoggin
-        );
+
         if (esta.length === 1) {
           Swal.fire({
             position: 'center',
@@ -60,61 +60,53 @@ export default class Votosnegativos extends React.Component {
             timer: 2500,
           });
         } else {
-          this.setState({
-            countUpVotes: this.state.countUpVotes - 1,
-            countDownVotes: this.state.countDownVotes + 1,
-            usersDownvotes: this.state.usersDownvotes.push(
-              this.props.userIdLoggin
-            ),
-            usersUpvotes: this.props.usersUpvotes
-          });
-          this.props.addVotos(
-            arregloUpvotes,
-            this.props.memeId,
-            this.state.usersDownvotes
-          );
+          setcountUpVotes(countUpVotes - 1);
+          setcountDownVotes(countDownVotes + 1);
+          setusersUpvotes(usersUpvotes);
+          setusersDownvotes(usersDownvotes.push(props.userIdLoggin));
+
+          props.addVotos(arregloUpvotes, props.memeId, usersDownvotes);
         }
       }
     } else {
       Swal.fire({
         position: 'center',
         icon: 'info',
-        title: 'Para votar debes loguearte',
+        title: '¡No estas logueado!',
         showConfirmButton: false,
         timer: 2500,
       });
     }
   }
-  render() {
-    return (
-      <>
-        <button
-          className="btn btn-sm rounded-pill p-lg-2 p-1 mr-1 button_positive"
-          onClick={() => {
-            this.verify('positive');
-          }}
-        >
-          <div className="bd-highlight">
-            <small className="text-white font-weight-bold mr-2">
-              {this.state.countUpVotes}
-            </small>
-            <FontAwesomeIcon icon={faThumbsUp} size="lg" color="#1f5dd9" />
-          </div>
-        </button>
-        <button
-          className="btn btn-sm rounded-pill p-lg-2 p-1 mr-1 button_negative"
-          onClick={() => {
-            this.verify('negative');
-          }}
-        >
-          <div className="bd-highlight">
-            <small className="text-white font-weight-bold mr-2">
-              {this.state.countDownVotes}
-            </small>
-            <FontAwesomeIcon icon={faThumbsDown} size="lg" color="#1f5dd9" />
-          </div>
-        </button>
-      </>
-    );
-  }
+
+  return (
+    <>
+      <button
+        className="btn btn-sm rounded-pill p-lg-2 p-1 mr-1 button_positive"
+        onClick={() => {
+          verify('positive');
+        }}
+      >
+        <div className="bd-highlight">
+          <small className="text-white font-weight-bold mr-2">
+            {usersUpvotes.length}
+          </small>
+          <FontAwesomeIcon icon={faThumbsUp} size="lg" color="#1f5dd9" />
+        </div>
+      </button>
+      <button
+        className="btn btn-sm rounded-pill p-lg-2 p-1 mr-1 button_negative"
+        onClick={() => {
+          verify('negative');
+        }}
+      >
+        <div className="bd-highlight">
+          <small className="text-white font-weight-bold mr-2">
+            {usersDownvotes.length}
+          </small>
+          <FontAwesomeIcon icon={faThumbsDown} size="lg" color="#1f5dd9" />
+        </div>
+      </button>
+    </>
+  );
 }
