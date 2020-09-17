@@ -4,9 +4,8 @@ import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Meme from './component/Meme';
 import MemeList from './component/MemeList';
-import NavLeft from './component/NavLeft';
-import NavTop from './component/NavTop';
-import AddComment from './component/AddComment';
+import NavLeft from './component/Menu/NavLeft';
+import NavTop from './component/Menu/NavTop';
 import UserProfile from './component/UserProfile';
 
 class App extends React.Component {
@@ -16,52 +15,15 @@ class App extends React.Component {
       memeSelected: '',
       memes: 0,
       category: 0,
-      categorySelected: "General",
+      categorySelected: 'General',
       logged_in: true,
-      user_id: 0,
-      name: "",
+      user_id: 5,
+      name: '',
       vistaActual: 'stateLogout',
       comments: [], //nuevo
       votos: [],
-      /* votosPositivos: {
-        //nuevo
-        users: [],
-        countPositivos: 0,
-      },
-      votosNegativos: {
-        //nuevo
-        users: [],
-        countNegativos: 0,
-      }, */
     };
   }
-
-  //Funcion que recibe el objeto commet para actualizar el arreglo comments del meme
-  addComment = (newComment) => {
-    let arrayComment = this.state.comments;
-    arrayComment.push({
-      comment: {
-        description: newComment,
-        user_id: this.state.user_id,
-      },
-    });
-
-    let objectComment = JSON.stringify({ comments: arrayComment });
-    fetch(`http://localhost:8080/memes/${this.state.memeSelected}`, {
-      method: 'PUT',
-      headers: {
-        'Content-type': 'application/json',
-      },
-      body: objectComment,
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((resp) => {
-        console.log(resp);
-        this.setState({ comments: arrayComment });
-      });
-  };
 
   //Funcion encargada de actualizar los votos del meme
   addVotos = (arregloIdVotes, memeId, arregloIdVotesContrary) => {
@@ -80,7 +42,6 @@ class App extends React.Component {
         return response.json();
       })
       .then((resp) => {
-        console.log(resp);
         this.setState({
           votos: {
             upvotes: { user_id: arregloIdVotes },
@@ -91,7 +52,7 @@ class App extends React.Component {
   };
 
   setVistaActual = (vista, name, id) => {
-    const newState = { vistaActual: vista , user_id: id, name};
+    const newState = { vistaActual: vista, user_id: id, name };
     this.setState(newState);
   };
 
@@ -105,7 +66,7 @@ class App extends React.Component {
 
   /* Funcion que hace el fetch con los memes */
   fetchMemes() {
-    fetch("http://localhost:8080/memes")
+    fetch('http://localhost:8080/memes')
       .then((response) => {
         return response.json();
       })
@@ -116,7 +77,7 @@ class App extends React.Component {
 
   /* Funcion que hace el fetch para traer las categorias */
   fetchCategories() {
-    fetch("http://localhost:8080/categoria")
+    fetch('http://localhost:8080/categoria')
       .then((response) => {
         return response.json();
       })
@@ -135,7 +96,7 @@ class App extends React.Component {
     que ruta se pretende apuntar
   */
   changeView = (info, route) => {
-    if (route === "category") {
+    if (route === 'category') {
       fetch(`http://localhost:8080/memes/category/${info}`)
         .then((response) => {
           return response.json();
@@ -143,7 +104,7 @@ class App extends React.Component {
         .then((memesCategory) => {
           this.setState({ memes: memesCategory, categorySelected: info });
         });
-    } else if (route === "meme") {
+    } else if (route === 'meme') {
       fetch(`http://localhost:8080/memes/${info}`)
         .then((response) => {
           return response.json();
@@ -157,7 +118,7 @@ class App extends React.Component {
         });
     } else {
       this.fetchMemes();
-      this.setState({ categorySelected: "General" });
+      this.setState({ categorySelected: 'General' });
     }
   };
 
@@ -197,7 +158,10 @@ class App extends React.Component {
       <div className="App">
         {/*Menú top*/}
         <Router>
-          <NavTop changeView={this.changeView} />
+          <NavTop
+            changeView={this.changeView}
+            setVistaActual={this.setVistaActual}
+          />
           <div className="container main">
             <div className="row rounded-lg main_content">
               <div className="col-lg-2 col-12 d-lg-block d-none navleft rounded-lg position-fixed">
@@ -212,10 +176,6 @@ class App extends React.Component {
                       user={this.state.user_id} //Id del usuario loggeado
                       addVotos={this.addVotos} //Funcion addvotos
                       changeView={this.changeView}
-                    />
-                    <AddComment
-                      addComment={this.addComment}
-                      comments={this.state.comments}
                     />
                   </Route>
                   <Route path="/category/:id" component={MemeList}>

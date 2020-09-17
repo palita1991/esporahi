@@ -1,10 +1,9 @@
-import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
-import { Modal } from "react-bootstrap";
-import Swal from "sweetalert2";
-import logo from "../img/logo_esporahi2.png";
-import Input from "./Input";
+import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { Modal } from 'react-bootstrap';
+import Swal from 'sweetalert2';
+import Input from '../../helpers/Input';
 
 const emailRegex = RegExp(
   /^[_a-z0-9-]+(.[_a-z0-9-]+)@[a-z0-9-]+(.[a-z0-9-]+)(.[a-z]{2,4})$/
@@ -36,11 +35,11 @@ export default class Register extends React.Component {
       password: null,
       dateOfBirth: null,
       formErrors: {
-        firstName: "",
-        lastName: "",
-        email: "",
-        password: "",
-        dateOfBirth: "",
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+        dateOfBirth: '',
       },
       showHide: false,
     };
@@ -58,48 +57,32 @@ export default class Register extends React.Component {
     formData.append('password', this.state.password);
     formData.append('dateOfBirth', this.state.dateOfBirth);
 
-    await fetch("http://localhost:8080/usuario", {
+    await fetch('http://localhost:8080/usuario', {
       method: 'POST', // or 'PUT'
       body: formData, // data can be `string` or {object}!
-    }).then(res => res.json())
-      .catch(error => {
+    })
+      .then((res) => res.json())
+      .catch((error) => {
         Swal.fire({
-          position: "center",
-          icon: "error",
-          title: "Formato incorrecto",
+          position: 'center',
+          icon: 'error',
+          title: 'Formato incorrecto',
           showConfirmButton: false,
           timer: 3500,
         });
       })
-      .then(response => {
+
+      .then((response) => {
         Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "usuario creado correctamente , ahora puedes logearte",
+          position: 'center',
+          icon: 'success',
+          title: 'Registrado exitosamente. ¡Logueate ;)!',
           showConfirmButton: false,
           timer: 3500,
         });
         this.handleModalShowHide();
-    if (formValid(this.state)) {
-      Swal.fire({
-        title: "¡Bienvenido!",
-        imageUrl: logo,
-        imageWidth: 300,
-        imageHeight: 120,
-        imageAlt: "Custom image",
-        timer: 1500,
       });
-      this.handleModalShowHide();
-      this.props.setVistaActual("stateLogin");
-    } else {
-      Swal.fire({
-        position: "center",
-        icon: "error",
-        title: "Completar campos requeridos",
-        showConfirmButton: false,
-        timer: 3500,
-      });
-  }
+  };
 
   handleChange = (e) => {
     e.preventDefault();
@@ -107,26 +90,25 @@ export default class Register extends React.Component {
     let formErrors = { ...this.state.formErrors };
 
     switch (name) {
-      case "firstName":
+      case 'firstName':
         formErrors.firstName =
-          value.length < 3 ? "Minimo 3 caracteres requeridos" : "";
+          value.length < 3 ? 'Minimo 3 caracteres requeridos' : '';
         break;
-      case "lastName":
+      case 'lastName':
         formErrors.lastName =
-          value.length < 3 ? "Minimo 3 caracteres requeridos" : "";
+          value.length < 3 ? 'Minimo 3 caracteres requeridos' : '';
         break;
-      case "email":
-        formErrors.email = emailRegex.test(value) ? "" : "Formato invalido";
+      case 'email':
+        formErrors.email = emailRegex.test(value) ? '' : 'Formato invalido';
         break;
-      case "password":
+      case 'password':
         formErrors.password =
-          value.length < 6 ? "Minimo 6 caracteres requeridos" : "";
+          value.length < 6 ? 'Minimo 6 caracteres requeridos' : '';
         break;
 
       default:
         break;
     }
-
     this.setState({ formErrors, [name]: value });
   };
 
@@ -256,7 +238,8 @@ export default class Register extends React.Component {
                       className="btn btn-secondary float-right mr-1"
                       type="button"
                       onClick={() => this.handleModalShowHide()}
-                    >Close
+                    >
+                      Close
                       <span aria-hidden="true"></span>
                     </button>
 

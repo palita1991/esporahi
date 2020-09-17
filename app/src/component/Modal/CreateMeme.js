@@ -1,17 +1,18 @@
-import React from "react";
-import Swal from "sweetalert2";
-import { Modal } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faAngleDoubleUp } from "@fortawesome/free-solid-svg-icons";
-import Input from "./Input";
+import React from 'react';
+import Swal from 'sweetalert2';
+import { Modal } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faAngleDoubleUp } from '@fortawesome/free-solid-svg-icons';
+import Input from '../../helpers/Input';
+
 export default class CreateMeme extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      title: "",
-      category: "",
-      image: "",
+      title: '',
+      category: '',
+      image: '',
       showHide: false,
     };
     this.handleChange = this.handleChange.bind(this);
@@ -55,31 +56,30 @@ export default class CreateMeme extends React.Component {
 
     if (this.handleValidation()) {
       const formData = new FormData();
-      formData.append("image", this.state.image);
-      formData.append("title", this.state.title);
-      formData.append("category", this.state.category);
+      formData.append('image', this.state.image);
+      formData.append('title', this.state.title);
+      formData.append('category', this.state.category);
 
-      await fetch("http://localhost:8080/memes", {
-        method: "POST", // or 'PUT'
+      await fetch('http://localhost:8080/memes', {
+        method: 'POST', // or 'PUT'
         body: formData, // data can be `string` or {object}!
       })
         .then((res) => res.json())
 
         .catch((error) => {
           Swal.fire({
-            position: "center",
-            icon: "error",
-            title: "Formato incorrecto de la imagen",
+            position: 'center',
+            icon: 'error',
+            title: 'Formato incorrecto de la imagen',
             showConfirmButton: false,
             timer: 3500,
           });
         })
         .then((response) => {
-          console.log("llegue");
           Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Meme creado correctamente",
+            position: 'center',
+            icon: 'success',
+            title: 'Meme creado correctamente',
             showConfirmButton: false,
             timer: 2500,
           });
@@ -88,9 +88,9 @@ export default class CreateMeme extends React.Component {
         });
     } else {
       Swal.fire({
-        position: "center",
-        icon: "error",
-        title: "Completar los campos requeridos",
+        position: 'center',
+        icon: 'error',
+        title: 'Completar los campos requeridos',
         showConfirmButton: false,
         timer: 3500,
       });

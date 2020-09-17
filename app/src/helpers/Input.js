@@ -1,10 +1,10 @@
-import React from "react";
-import fechaActual from "../helpers/fechaActual";
-import CATEGORIAS from "../helpers/categorias";
+import React from 'react';
+import fechaActual from './fechaActual';
+import CATEGORIAS from './categorias';
 
 export default function Input(props) {
-  if (props.origin === "register") {
-    if (props.type === "date") {
+  if (props.origin === 'register') {
+    if (props.type === 'date') {
       return (
         <>
           <label htmlFor={props.htmlFor}>{props.label}</label>
@@ -33,7 +33,7 @@ export default function Input(props) {
         </>
       );
     }
-  } else if (props.origin === "login") {
+  } else if (props.origin === 'login') {
     return (
       <div className="form-group">
         <label htmlFor={props.htmlFor}>{props.label}</label>
@@ -48,7 +48,7 @@ export default function Input(props) {
       </div>
     );
   } else {
-    if (props.type === "file") {
+    if (props.type === 'file') {
       return (
         <>
           <label className={props.classLabel} htmlFor={props.htmlFor}>
@@ -65,7 +65,7 @@ export default function Input(props) {
           />
         </>
       );
-    } else if (props.type === "text") {
+    } else if (props.type === 'text') {
       return (
         <>
           <label htmlFor={props.htmlFor}>{props.label}</label>

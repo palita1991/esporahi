@@ -2,18 +2,18 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOutAlt, faUserAlt } from '@fortawesome/free-solid-svg-icons';
-import logo from '../img/logo_esporahi.png';
+import logo from '../../img/logo_esporahi.png';
 import NavLeft from './NavLeft';
-import Login from './Login';
-import Register from './Register';
-import CreateMeme from './CreateMeme';
+import Login from '../Modal/Login';
+import Register from '../Modal/Register';
+import CreateMeme from '../Modal/CreateMeme';
 
 export default class NavTop extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      vistaActual: "stateLogout",
-      name: "",
+      vistaActual: 'stateLogout',
+      name: '',
       changeView: () => {
         props.changeView('', 'general');
       },
@@ -21,13 +21,13 @@ export default class NavTop extends React.Component {
   }
 
   setVistaActual = (vista, name, id) => {
-    const newState = { vistaActual: vista , name};
+    const newState = { vistaActual: vista, name };
     this.setState(newState);
-    this.props.setVistaActual(vista,name, id);
+    this.props.setVistaActual(vista, name, id);
   };
 
   changeView = () => {
-    this.props.changeView("", "general");
+    this.props.changeView('', 'general');
   };
 
   render() {

@@ -3,7 +3,7 @@ import { app } from './app';
 const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
-const port = 8080;
+const port = 8000;
 
 mongoose
   .connect(
