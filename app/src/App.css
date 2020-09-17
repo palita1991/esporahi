@@ -190,6 +190,7 @@ MODAL LOGIN
   font-family: 'Bangers';
   font-size: 15px;
   letter-spacing: 1px;
+  cursor: url('img/cursor_thanos.png') 0 0, pointer !important;
 }
 
 label {
