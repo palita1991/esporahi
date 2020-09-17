@@ -9,7 +9,7 @@ export default function Meme(props) {
   let { id } = useParams();
   const [meme, setMeme] = useState([]);
   const [comments, setComments] = useState([]);
-  const [user, setUser] = useState(props.user);
+  const [user, setUser] = useState(props.userName);
 
   useEffect(() => {
     fetch(`http://localhost:8080/memes/${id}`)
@@ -22,10 +22,11 @@ export default function Meme(props) {
 
   function addComment(newComment) {
     let arrayComment = comments;
+    console.log(user);
     arrayComment.push({
       comment: {
         description: newComment,
-        user_id: user,
+        user_name: user,
       },
     });
 
@@ -62,13 +63,20 @@ export default function Meme(props) {
           <FooterMeme
             upvotes={meme.upvotes.user_id}
             downvotes={meme.downvotes.user_id}
-            userLoggin={props.user}
+            userNameLoggin={props.userName}
+            userIdLoggin={props.userId}
             addVotos={props.addVotos}
             memeId={meme._id}
             comments={meme.comments}
           />
-          <AddComment addComment={addComment} comments={meme.comments} />
-          <ListComment comments={meme.comments} />
+          {user === '' ? (
+              <ListComment comments={meme.comments} />
+          ) : (
+            <>
+            <AddComment addComment={addComment} comments={meme.comments} />
+            <ListComment comments={meme.comments} />
+            </>
+          )}
         </div>
       ))}
     </div>

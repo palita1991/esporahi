@@ -11,7 +11,8 @@ export default function FooterMeme(props) {
             <Votes
               usersUpvotes={props.upvotes} //Arreglo de id de votos positivos
               usersDownvotes={props.downvotes} //Arreglo de id votos negativos
-              userLoggin={props.userLoggin} //Id del user si es que esta logueado, si no es 0
+              userNameLoggin={props.userNameLoggin}
+              userIdLoggin={props.userIdLoggin}
               addVotos={props.addVotos} //Funcionan para realizar la consulta en app
               memeId={props.memeId}
             />

@@ -62,25 +62,27 @@ export default class Register extends React.Component {
       body: formData, // data can be `string` or {object}!
     })
       .then((res) => res.json())
-      .catch((error) => {
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'Formato incorrecto',
-          showConfirmButton: false,
-          timer: 3500,
-        });
-      })
 
       .then((response) => {
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Registrado exitosamente. ¡Logueate ;)!',
-          showConfirmButton: false,
-          timer: 3500,
-        });
-        this.handleModalShowHide();
+        if (formValid(this.state)) {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Registrado exitosamente. ¡Logueate ;)!',
+            showConfirmButton: false,
+            timer: 3500,
+          });
+
+          this.handleModalShowHide();
+        } else {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Formato incorrecto',
+            showConfirmButton: false,
+            timer: 3500,
+          });
+        }
       });
   };
 

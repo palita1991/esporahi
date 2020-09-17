@@ -27,7 +27,8 @@ export default function MemeList(props) {
           <FooterMeme
             upvotes={meme.upvotes.user_id}
             downvotes={meme.downvotes.user_id}
-            userLoggin={props.user}
+            userNameLoggin={props.userName}
+            userIdLoggin={props.userId}
             addVotos={props.addVotos}
             memeId={meme._id}
             comments={meme.comments}

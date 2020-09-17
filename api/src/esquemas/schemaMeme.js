@@ -9,7 +9,7 @@ const schemaMeme = new Schema({
         {
             comment: {
                 description: String,
-                user_id: Number,
+                user_name: String,
             },
         },
     ],

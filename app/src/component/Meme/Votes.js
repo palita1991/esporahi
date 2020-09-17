@@ -1,7 +1,7 @@
-import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
-import Swal from "sweetalert2";
+import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
+import Swal from 'sweetalert2';
 
 export default class Votosnegativos extends React.Component {
   constructor(props) {
@@ -15,27 +15,28 @@ export default class Votosnegativos extends React.Component {
   }
 
   verify(type) {
-    if (this.props.userLoggin !== 0) {
-      if (type === "positive") {
+    if (this.props.userIdLoggin !== 0) {
+      if (type === 'positive') {
         let esta = this.state.usersUpvotes.filter(
-          (vote) => vote === this.props.userLoggin
+          (vote) => vote === this.props.userIdLoggin
         );
         let arregloDownvotes = this.state.usersDownvotes.filter(
-          (vote) => vote !== this.props.userLoggin
+          (vote) => vote !== this.props.userIdLoggin
         );
         if (esta.length === 1) {
           Swal.fire({
-            position: "center",
-            icon: "Information",
-            title: "Usted ya ha votado aqui",
-            showConfirmButton: true,
+            position: 'center',
+            icon: 'info',
+            title: 'Usted ya ha votado aqui',
+            showConfirmButton: false,
             timer: 2500,
           });
         } else {
           this.setState({
             countUpVotes: this.state.countUpVotes + 1,
             countDownVotes: this.state.countDownVotes - 1,
-            usersUpvotes: this.state.usersUpvotes.push(this.props.userLoggin),
+            usersUpvotes: this.state.usersUpvotes.push(this.props.userIdLoggin),
+            usersDownvotes: this.props.usersDownvotes
           });
           this.props.addVotos(
             this.state.usersUpvotes,
@@ -45,17 +46,17 @@ export default class Votosnegativos extends React.Component {
         }
       } else {
         let esta = this.state.usersDownvotes.filter(
-          (vote) => vote === this.props.userLoggin
+          (vote) => vote === this.props.userIdLoggin
         );
         let arregloUpvotes = this.state.usersUpvotes.filter(
-          (vote) => vote !== this.props.userLoggin
+          (vote) => vote !== this.props.userIdLoggin
         );
         if (esta.length === 1) {
           Swal.fire({
-            position: "center",
-            icon: "Information",
-            title: "Usted ya ha votado aqui",
-            showConfirmButton: true,
+            position: 'center',
+            icon: 'info',
+            title: 'Usted ya ha votado aqui',
+            showConfirmButton: false,
             timer: 2500,
           });
         } else {
@@ -63,8 +64,9 @@ export default class Votosnegativos extends React.Component {
             countUpVotes: this.state.countUpVotes - 1,
             countDownVotes: this.state.countDownVotes + 1,
             usersDownvotes: this.state.usersDownvotes.push(
-              this.props.userLoggin
+              this.props.userIdLoggin
             ),
+            usersUpvotes: this.props.usersUpvotes
           });
           this.props.addVotos(
             arregloUpvotes,
@@ -75,11 +77,11 @@ export default class Votosnegativos extends React.Component {
       }
     } else {
       Swal.fire({
-        position: "center",
-        icon: "Information",
-        title: "Debe loguearse para votar",
-        showConfirmButton: true,
-        timer: 1500,
+        position: 'center',
+        icon: 'info',
+        title: 'Para votar debes loguearte',
+        showConfirmButton: false,
+        timer: 2500,
       });
     }
   }
@@ -89,7 +91,7 @@ export default class Votosnegativos extends React.Component {
         <button
           className="btn btn-sm rounded-pill p-lg-2 p-1 mr-1 button_positive"
           onClick={() => {
-            this.verify("positive");
+            this.verify('positive');
           }}
         >
           <div className="bd-highlight">
@@ -102,7 +104,7 @@ export default class Votosnegativos extends React.Component {
         <button
           className="btn btn-sm rounded-pill p-lg-2 p-1 mr-1 button_negative"
           onClick={() => {
-            this.verify("negative");
+            this.verify('negative');
           }}
         >
           <div className="bd-highlight">

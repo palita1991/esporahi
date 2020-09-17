@@ -17,7 +17,7 @@ class App extends React.Component {
       category: 0,
       categorySelected: 'General',
       logged_in: true,
-      user_id: 5,
+      user_id: 0,
       name: '',
       vistaActual: 'stateLogout',
       comments: [], //nuevo
@@ -148,7 +148,8 @@ class App extends React.Component {
           categorySelected={this.state.categorySelected}
           verifyVoteAndVote={this.verifyVoteAndVote}
           changeView={this.changeView}
-          user={this.state.user_id}
+          userName={this.state.name} //Name del usuario loggeado
+          userId={this.state.user_id} //Id del usuario Loggeado
           addVotos={this.addVotos}
         />
       );
@@ -179,7 +180,8 @@ class App extends React.Component {
                   <Route path="/meme/:id" component={Meme}>
                     <Meme
                       meme={this.state.memes} //Meme seleccionado
-                      user={this.state.user_id} //Id del usuario loggeado
+                      userName={this.state.name} //Name del usuario loggeado
+                      userId={this.state.user_id} //Id del usuario Loggeado
                       addVotos={this.addVotos} //Funcion addvotos
                       changeView={this.changeView}
                     />
@@ -188,7 +190,7 @@ class App extends React.Component {
                     {/* {this.showMemeList()} */}
                   </Route>
                   <Route path="/profile">
-                    <UserProfile />
+                    <UserProfile user_id={this.state.user_id}/>
                   </Route>
                   <Route path="/register">
                     {/*Meme por id con todos sus detalles*/}
