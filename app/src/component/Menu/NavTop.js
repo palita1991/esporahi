@@ -2,32 +2,33 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOutAlt, faUserAlt } from '@fortawesome/free-solid-svg-icons';
-import logo from '../img/logo_esporahi.png';
+import logo from '../../img/logo_esporahi.png';
 import NavLeft from './NavLeft';
-import Login from './Login';
-import Register from './Register';
-import CreateMeme from './CreateMeme';
+import Login from '../Modal/Login';
+import Register from '../Modal/Register';
+import CreateMeme from '../Modal/CreateMeme';
 
 export default class NavTop extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      vistaActual: "stateLogout",
-      name: "",
+      vistaActual: 'stateLogout',
+      name: '',
       changeView: () => {
         props.changeView('', 'general');
       },
+      categories: props.categories,
     };
   }
 
   setVistaActual = (vista, name, id) => {
-    const newState = { vistaActual: vista , name};
+    const newState = { vistaActual: vista, name };
     this.setState(newState);
-    this.props.setVistaActual(vista,name, id);
+    this.props.setVistaActual(vista, name, id);
   };
 
   changeView = () => {
-    this.props.changeView("", "general");
+    this.props.changeView('', 'general');
   };
 
   render() {
@@ -98,28 +99,29 @@ export default class NavTop extends React.Component {
                 </li>
               </>
             )}
-            <Link to="/categoria/:id" className="link">
-              <div className=" d-lg-none d-xs-block " id="navbarToggler">
-                <li className="nav-item dropdown">
-                  <button
-                    className="btn btn-outline-secondary dropdown-toggle py-2 btn-sm text-uppercase font-weight-bold rounded-pill"
-                    type="button"
-                    id="navbarDropdownMenuLink"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    Categorias
-                  </button>
-                  <div
-                    className="dropdown-menu text-center"
-                    aria-labelledby="navbarDropdownMenuLink"
-                  >
-                    <NavLeft />
-                  </div>
-                </li>
-              </div>
-            </Link>
+            <div className=" d-lg-none d-xs-block " id="navbarToggler">
+              <li className="nav-item dropdown">
+                <button
+                  className="btn btn-outline-secondary dropdown-toggle py-2 btn-sm text-uppercase font-weight-bold rounded-pill"
+                  type="button"
+                  id="navbarDropdownMenuLink"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  Categorias
+                </button>
+                <div
+                  className="dropdown-menu text-center"
+                  aria-labelledby="navbarDropdownMenuLink"
+                >
+                  <NavLeft
+                    categories={this.state.categories}
+                    changeView={this.props.changeView}
+                  />
+                </div>
+              </li>
+            </div>
           </ul>
         </div>
       </nav>

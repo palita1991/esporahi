@@ -4,9 +4,13 @@ import avatar from '../img/avatar.png';
 export default function UserProfile() {
   return (
     <div className="container">
-      <div className="card text-dark mb-3 p-4">
+      <div className="card text-dark mb-3 p-4" id="cardProfile">
         <div className="m-auto">
-          <img src={avatar} className="card-img-top profilePhoto" />
+          <img
+            src={avatar}
+            className="card-img-top profilePhoto"
+            alt="perfil"
+          />
         </div>
 
         <div className="card-body">

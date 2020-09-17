@@ -1,12 +1,12 @@
-import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 export default function ListComment(props) {
   const { comments } = props;
   return (
     <>
-      {comments.map((comment) => (
-        <div className="list-group" key={comment._id}>
+      {comments.map((comment, index) => (
+        <div className="list-group" id="comments" key={index}>
           <div className="list-group-item flex-column align-items-start my-1 comment_user rounded-lg">
             <div className="d-flex w-100 justify-content-between border border-top-0">
               <h6 className="mb-1 ml-1">{comment.comment.user_id}</h6>

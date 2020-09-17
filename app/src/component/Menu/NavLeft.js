@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function NavLeft(props) {
   const { categories } = props;
@@ -13,7 +13,7 @@ export default function NavLeft(props) {
               className="link w-100"
               key={category._id}
               onClick={() => {
-                props.changeView(`${category.name}`, "category");
+                props.changeView(`${category.name}`, 'category');
               }}
             >
               <button

@@ -1,34 +1,30 @@
-import React from "react";
-import Swal from "sweetalert2";
-import { Modal } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSignInAlt } from "@fortawesome/free-solid-svg-icons";
-import logo from "../img/logo_esporahi2.png";
-import Input from "./Input";
+import React from 'react';
+import Swal from 'sweetalert2';
+import { Modal } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faSignInAlt,
+  faCheck,
+  faTimes,
+} from '@fortawesome/free-solid-svg-icons';
+import logo from '../../img/logo_esporahi2.png';
+import Input from '../../helpers/Input';
 export default class Login extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      password: "",
-      email: "",
-      name: "",
-      id:"",
+      password: '',
+      email: '',
       showHide: false,
+      name: '',
+      id: '',
     };
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleModalShowHide() {
     this.setState({ showHide: !this.state.showHide });
-  }
-
-  handleChange(event) {
-    if (event.target.name === "email") {
-      this.setState({ email: event.target.value });
-    } else {
-      this.setState({ password: event.target.value });
-    }
   }
 
   handleValidation() {
@@ -59,21 +55,19 @@ export default class Login extends React.Component {
         return response.json();
       })
       .then((usuarios) => {
-        return usuarios.some(
-          (u) =>
-            {
-              const existe = u.email == this.state.email && u.password == this.state.password;
-              if(existe){
-                this.setState({name: u.name, id:u._id});
-              }
-              return existe;
-            }
-        );
+        return usuarios.some((u) => {
+          const existe =
+            u.email === this.state.email && u.password === this.state.password;
+          if (existe) {
+            this.setState({ name: u.name, id: u._id });
+          }
+          return existe;
+        });
       });
 
     if (this.handleValidation() && exiteUsuario) {
       Swal.fire({
-        title: "¡Bienvenidos!",
+        title: '¡Bienvenidos!',
         imageUrl: logo,
         imageWidth: 300,
         imageHeight: 120,
@@ -82,7 +76,7 @@ export default class Login extends React.Component {
         timer: 1500,
       });
       this.handleModalShowHide();
-      this.props.setVistaActual("stateLogin", this.state.name, this.state.id);
+      this.props.setVistaActual('stateLogin', this.state.name, this.state.id);
     } else {
       Swal.fire({
         position: 'center',
@@ -91,6 +85,14 @@ export default class Login extends React.Component {
         showConfirmButton: false,
         timer: 2500,
       });
+    }
+  }
+
+  handleChange(event) {
+    if (event.target.name === 'email') {
+      this.setState({ email: event.target.value });
+    } else {
+      this.setState({ password: event.target.value });
     }
   }
 
@@ -152,15 +154,18 @@ export default class Login extends React.Component {
                   </div>
                   <div className="col-12 d-flex justify-content-center">
                     <button
-                      className="btn btn-secondary float-right mr-1"
+                      className="btn btn-secondary float-right mr-1 rounded-pill"
                       type="button"
                       onClick={() => this.handleModalShowHide()}
                     >
-                      Cerrar
+                      <FontAwesomeIcon icon={faTimes} size="lg" />
                       <span aria-hidden="true"></span>
                     </button>
-                    <button type="submit" className="btn btn-primary">
-                      Login
+                    <button
+                      type="submit"
+                      className="btn btn-primary rounded-pill"
+                    >
+                      <FontAwesomeIcon icon={faCheck} size="lg" />
                     </button>
                   </div>
                 </div>
