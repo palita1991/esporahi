@@ -17,6 +17,7 @@ export default class NavTop extends React.Component {
       changeView: () => {
         props.changeView('', 'general');
       },
+      categories: props.categories,
     };
   }
 
@@ -98,28 +99,29 @@ export default class NavTop extends React.Component {
                 </li>
               </>
             )}
-            <Link to="/categoria/:id" className="link">
-              <div className=" d-lg-none d-xs-block " id="navbarToggler">
-                <li className="nav-item dropdown">
-                  <button
-                    className="btn btn-outline-secondary dropdown-toggle py-2 btn-sm text-uppercase font-weight-bold rounded-pill"
-                    type="button"
-                    id="navbarDropdownMenuLink"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    Categorias
-                  </button>
-                  <div
-                    className="dropdown-menu text-center"
-                    aria-labelledby="navbarDropdownMenuLink"
-                  >
-                    <NavLeft />
-                  </div>
-                </li>
-              </div>
-            </Link>
+            <div className=" d-lg-none d-xs-block " id="navbarToggler">
+              <li className="nav-item dropdown">
+                <button
+                  className="btn btn-outline-secondary dropdown-toggle py-2 btn-sm text-uppercase font-weight-bold rounded-pill"
+                  type="button"
+                  id="navbarDropdownMenuLink"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  Categorias
+                </button>
+                <div
+                  className="dropdown-menu text-center"
+                  aria-labelledby="navbarDropdownMenuLink"
+                >
+                  <NavLeft
+                    categories={this.state.categories}
+                    changeView={this.props.changeView}
+                  />
+                </div>
+              </li>
+            </div>
           </ul>
         </div>
       </nav>

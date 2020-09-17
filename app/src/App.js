@@ -56,14 +56,6 @@ class App extends React.Component {
     this.setState(newState);
   };
 
-  fetchMoreData = () => {
-    /*  setTimeout(() => {
-      this.setState({
-        //items: this.state.items.concat(),
-      });
-    }, 1500); */
-  };
-
   /* Funcion que hace el fetch con los memes */
   fetchMemes() {
     fetch('http://localhost:8080/memes')
@@ -134,13 +126,25 @@ class App extends React.Component {
     }
   };
 
+  /* Funcion abocada a que si el estado con su categoria aun no tiene nada, no muestra nada */
+  showCategoriesList2 = () => {
+    if (this.state.category.length > 0) {
+      return (
+        <NavTop
+          categories={this.state.category}
+          changeView={this.changeView}
+          setVistaActual={this.setVistaActual}
+        />
+      );
+    }
+  };
+
   /* Funcion identica a la anterior, solamente que con los memes */
   showMemeList = () => {
     if (this.state.memes.length > 0) {
       return (
         <MemeList
           memes={this.state.memes}
-          fetchMoreData={this.fetchMoreData}
           categorySelected={this.state.categorySelected}
           verifyVoteAndVote={this.verifyVoteAndVote}
           changeView={this.changeView}
@@ -158,10 +162,12 @@ class App extends React.Component {
       <div className="App">
         {/*Menú top*/}
         <Router>
-          <NavTop
+          {/* <NavTop
+            categories={this.state.category}
             changeView={this.changeView}
             setVistaActual={this.setVistaActual}
-          />
+          /> */}
+          {this.showCategoriesList2()}
           <div className="container main">
             <div className="row rounded-lg main_content">
               <div className="col-lg-2 col-12 d-lg-block d-none navleft rounded-lg position-fixed">
