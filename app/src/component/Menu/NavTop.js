@@ -42,24 +42,34 @@ export default class NavTop extends React.Component {
 
         <button
           className="navbar-toggler navbar-dark bg-dark"
+          id="nav-btn"
           type="button"
           data-toggle="collapse"
-          data-target="#navbarToggler"
-          aria-controls="navbarToggler"
+          data-target="#navbarDiv"
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
           <span className="navbar-toggler-icon "></span>
         </button>
 
-        <div className="collapse navbar-collapse" id="navbarToggler">
+        <div className="collapse navbar-collapse" id="navbarDiv">
           <ul className="navbar-nav ml-auto mt-2 mt-lg-0 text-center">
             {this.state.vistaActual === 'stateLogin' ? (
               <>
-                <li className="nav-item active mx-2 my-1" id="createMeme">
+                <li
+                  className="nav-item active mx-2 my-1"
+                  id="createMeme"
+                  data-toggle="collapse"
+                  data-target=".navbar-collapse.show"
+                >
                   <CreateMeme changeView={this.changeView} />
                 </li>
-                <li className="nav-item active mx-2 my-1" id="nameUser">
+                <li
+                  className="nav-item active mx-2 my-1"
+                  id="nameUser"
+                  data-toggle="collapse"
+                  data-target=".navbar-collapse.show"
+                >
                   <Link to="/profile" className="link">
                     <button className="btn btn-outline-secondary py-2 btn-sm text-uppercase font-weight-bold rounded-pill">
                       <FontAwesomeIcon
@@ -71,7 +81,12 @@ export default class NavTop extends React.Component {
                     </button>
                   </Link>
                 </li>
-                <li className="nav-item active mx-2 my-1" id="logout">
+                <li
+                  className="nav-item active mx-2 my-1"
+                  id="logout"
+                  data-toggle="collapse"
+                  data-target=".navbar-collapse.show"
+                >
                   <Link to="/" className="link">
                     <button
                       className="btn btn-outline-danger py-2 btn-sm text-uppercase font-weight-bold rounded"
@@ -91,10 +106,20 @@ export default class NavTop extends React.Component {
               </>
             ) : (
               <>
-                <li className="nav-item active mx-2 my-1" id="login">
+                <li
+                  className="nav-item active mx-2 my-1"
+                  id="login"
+                  data-toggle="collapse"
+                  data-target=".navbar-collapse.show"
+                >
                   <Login setVistaActual={this.setVistaActual} />
                 </li>
-                <li className="nav-item active mx-2 my-1" id="signUp">
+                <li
+                  className="nav-item active mx-2 my-1"
+                  id="signUp"
+                  data-toggle="collapse"
+                  data-target=".navbar-collapse.show"
+                >
                   <Register setVistaActual={this.setVistaActual} />
                 </li>
               </>
@@ -115,10 +140,16 @@ export default class NavTop extends React.Component {
                   className="dropdown-menu text-center"
                   aria-labelledby="navbarDropdownMenuLink"
                 >
-                  <NavLeft
-                    categories={this.state.categories}
-                    changeView={this.props.changeView}
-                  />
+                  <li
+                    className="nav-link dropdown"
+                    data-toggle="collapse"
+                    data-target=".navbar-collapse.show"
+                  >
+                    <NavLeft
+                      categories={this.state.categories}
+                      changeView={this.props.changeView}
+                    />
+                  </li>
                 </div>
               </li>
             </div>

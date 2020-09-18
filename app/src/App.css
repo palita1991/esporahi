@@ -190,6 +190,7 @@ MODAL LOGIN
   font-family: 'Bangers';
   font-size: 15px;
   letter-spacing: 1px;
+  cursor: url('img/cursor_thanos.png') 0 0, pointer !important;
 }
 
 label {
@@ -218,7 +219,7 @@ USER PROFILE
 }
 
 @media (max-width: 991.98px) {
-  #navbarToggler button {
+  #navbarDiv button {
     width: 50% !important;
   }
 
