@@ -85,6 +85,7 @@ export default class CreateMeme extends React.Component {
           this.handleModalShowHide();
           this.props.changeView();
         });
+      this.setState({ title: '' });
     } else {
       Swal.fire({
         position: 'center',

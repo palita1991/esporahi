@@ -14,7 +14,10 @@ export default class AddComment extends React.Component {
   };
 
   agregar = () => {
-    this.props.addComment(this.state.comment);
+    if (this.state.comment) {
+      this.props.addComment(this.state.comment);
+      this.setState({ comment: '' });
+    }
   };
 
   render() {

@@ -10,8 +10,12 @@ export default function MemeList(props) {
       <h1 className="text-center" id="title_category">
         {categorySelected}
       </h1>
-      {memes.map((meme, index) => (
-        <div className="card shadow rounded-lg my-3" id="cardMeme" key={index}>
+      {memes.map((meme) => (
+        <div
+          className="card shadow rounded-lg my-3"
+          id="cardMeme"
+          key={meme.image}
+        >
           <h5 className="card-title text-dark text-center mb-0 py-1 title_meme">
             {meme.title}
           </h5>

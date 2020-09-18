@@ -31,7 +31,7 @@ export default function Votes(props) {
           Swal.fire({
             position: 'center',
             icon: 'info',
-            title: 'Usted ya ha votado aqui',
+            title: '¡Ya votaste!',
             showConfirmButton: false,
             timer: 2500,
           });
@@ -54,7 +54,7 @@ export default function Votes(props) {
           Swal.fire({
             position: 'center',
             icon: 'info',
-            title: 'Usted ya ha votado aqui',
+            title: '¡Ya votaste!',
             showConfirmButton: false,
             timer: 2500,
           });

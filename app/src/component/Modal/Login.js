@@ -46,7 +46,7 @@ export default class Login extends React.Component {
     return formIsValid;
   }
 
-  loginSubmit = async(e) => {
+  loginSubmit = async (e) => {
     e.preventDefault();
 
     const exiteUsuario = await fetch(`http://localhost:8080/usuario`)
@@ -85,15 +85,15 @@ export default class Login extends React.Component {
         timer: 2500,
       });
     }
-  }
+  };
 
-  handleChange(event) {
+  handleChange = (event) => {
     if (event.target.name === 'email') {
       this.setState({ email: event.target.value });
     } else {
       this.setState({ password: event.target.value });
     }
-  }
+  };
 
   render() {
     return (
