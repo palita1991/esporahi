@@ -13,7 +13,6 @@ export default function Votes(props) {
     fetch(`http://localhost:8080/memes/${props.memeId}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setcountUpVotes(data[0].upvotes.length);
         setcountDownVotes(data[0].downvotes.length);
         setusersUpvotes(data[0].upvotes.user_id);

@@ -15,7 +15,6 @@ export default class CreateMeme extends React.Component {
       image: '',
       showHide: false,
     };
-    this.handleChange = this.handleChange.bind(this);
   }
 
   handleModalShowHide() {

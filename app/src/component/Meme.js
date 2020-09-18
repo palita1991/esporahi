@@ -10,6 +10,7 @@ export default function Meme(props) {
   const [meme, setMeme] = useState([]);
   const [comments, setComments] = useState([]);
   const [user, setUser] = useState(props.userName);
+  const [hayCambio, setCambio] = useState(false);
 
   useEffect(() => {
     fetch(`http://localhost:8080/memes/${id}`)
@@ -21,16 +22,16 @@ export default function Meme(props) {
   }, [id]);
 
   function addComment(newComment) {
-    let arrayComment = comments;
-    console.log(user);
-    arrayComment.push({
+    console.log("Antes de hacer el array push",comments);
+    comments.push({
       comment: {
         description: newComment,
         user_name: user,
       },
     });
+    console.log('Despues de hacer el array push', comments);
 
-    let objectComment = JSON.stringify({ comments: arrayComment });
+    let objectComment = JSON.stringify({ comments: comments });
     fetch(`http://localhost:8080/memes/${id}`, {
       method: 'PUT',
       headers: {
@@ -42,7 +43,10 @@ export default function Meme(props) {
         return response.json();
       })
       .then((resp) => {
-        setComments({ comments: [...comments, arrayComment] });
+        setCambio(true);
+        setComments(comments);
+        setCambio(false);
+        console.log("Ya seteando el comments",comments);
       });
   }
 

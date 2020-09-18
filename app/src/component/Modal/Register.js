@@ -50,21 +50,21 @@ export default class Register extends React.Component {
 
   handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append('firstName', this.state.firstName);
-    formData.append('lastName', this.state.lastName);
-    formData.append('email', this.state.email);
-    formData.append('password', this.state.password);
-    formData.append('dateOfBirth', this.state.dateOfBirth);
+    if (formValid(this.state)) {
+      const formData = new FormData();
+      formData.append('firstName', this.state.firstName);
+      formData.append('lastName', this.state.lastName);
+      formData.append('email', this.state.email);
+      formData.append('password', this.state.password);
+      formData.append('dateOfBirth', this.state.dateOfBirth);
 
-    await fetch('http://localhost:8080/usuario', {
-      method: 'POST', // or 'PUT'
-      body: formData, // data can be `string` or {object}!
-    })
-      .then((res) => res.json())
+      await fetch('http://localhost:8080/usuario', {
+        method: 'POST', // or 'PUT'
+        body: formData, // data can be `string` or {object}!
+      })
+        .then((res) => res.json())
 
-      .then((response) => {
-        if (formValid(this.state)) {
+        .then((response) => {
           Swal.fire({
             position: 'center',
             icon: 'success',
@@ -74,16 +74,16 @@ export default class Register extends React.Component {
           });
 
           this.handleModalShowHide();
-        } else {
-          Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: 'Formato incorrecto',
-            showConfirmButton: false,
-            timer: 3500,
-          });
-        }
+        });
+    } else {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Formato incorrecto',
+        showConfirmButton: false,
+        timer: 3500,
       });
+    }
   };
 
   handleChange = (e) => {

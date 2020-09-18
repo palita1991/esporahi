@@ -20,7 +20,6 @@ export default class Login extends React.Component {
       name: '',
       id: '',
     };
-    this.handleChange = this.handleChange.bind(this);
   }
 
   handleModalShowHide() {
@@ -47,7 +46,7 @@ export default class Login extends React.Component {
     return formIsValid;
   }
 
-  async loginSubmit(e) {
+  loginSubmit = async(e) => {
     e.preventDefault();
 
     const exiteUsuario = await fetch(`http://localhost:8080/usuario`)
@@ -125,7 +124,7 @@ export default class Login extends React.Component {
             </div>
           </Modal.Header>
           <Modal.Body className="modal_body">
-            <form onSubmit={this.loginSubmit.bind(this)}>
+            <form onSubmit={this.loginSubmit}>
               <div className="container">
                 <div className="row">
                   <div className="col-12">
